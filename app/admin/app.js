@@ -1,4 +1,4 @@
-var app = angular.module('adminApp', ['ngRoute', 'ngAnimate', 'toaster','angularFileUpload']);
+var app = angular.module('adminApp', ['ngRoute', 'ngAnimate', 'toaster','angularFileUpload', 'ui.grid', 'ui.grid.selection']);
 
 app.config(['$routeProvider',
   function ($routeProvider) {

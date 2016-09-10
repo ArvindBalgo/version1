@@ -1,11 +1,71 @@
 <header ng-include="'sections/admin/header.html'"></header>
 <style>
-    .cell-title {
-        font-weight: bold;
-    }
-    .cell-effort-driven {
-        text-align: center;
+    .myGrid {
+        width: 100%;
+        height: 400px;
+
     }
 </style>
+        <div style="padding: 10px">
+            <select class="sel_metier" style="width: 50%;"></select>
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" ng-click="metier.fnCrudMetier(0)">Nouveau</button>
+                <button type="button" class="btn btn-primary" ng-click="metier.fnCrudMetier(1)">Modifer</button>
+            </div>
+        </div>
 
-<div id="myGrid" style="width:600px;height:500px;"></div>
+
+<div  ui-grid="metier.gridOptions"  ui-grid-resize-columns ui-grid-selection class="myGrid"></div>
+
+<div id="imgModal" class="modal fade" data-backdrop="static">
+    <div class="modal-dialog" style="width: 75%;height: 500px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"> Image {{metier.description}}</h4>
+            </div>
+            <div class="modal-body" style="height: 400px">
+                <div class="col-md-12"><img src="{{metier.currentImg}}"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger pull-left" ng-click="metier.fnQuitter()">Annuler</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalMetier" class="modal fade" data-backdrop="static">
+    <div class="modal-dialog" style="width: 50%;height: 300px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"> {{metier.libMetier}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-2"><b>Libelle </b></div>
+                        <div class="col-md-8 input-group" style="margin-bottom: 5px;">
+                            <input type="text" class="form-control" style="width: 50%" ng-model="metier.libelle" placeholder="Libelle" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"><b>Sous Libelle </b></div>
+                        <div class="col-md-8 input-group" style="margin-bottom: 5px;">
+                            <input type="text" class="form-control" style="width: 50%" ng-model="metier.sous_libelle" placeholder="Sous Libelle" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"><b>Actif </b></div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" ng-model="metier.active"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger pull-left" ng-click="metier.fnQuitter()">Annuler</button>
+            </div>
+        </div>
+    </div>
+</div>

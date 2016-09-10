@@ -16,10 +16,9 @@
     <link rel="stylesheet" type="text/css" href="css/FancyProductDesigner-all.min.css" />
     <!-- Optional - only when you would like to use custom fonts - optional -->
     <link rel="stylesheet" type="text/css" href="css/jquery.fancyProductDesigner-fonts.css" />
-    <link rel="stylesheet" type="text/css" href="js/slickgrid/css/smoothness/jquery-ui-1.8.16.custom.css" />
+    <link rel="stylesheet" type="text/css" href="css/ui-grid.min.css" />
     <link rel="stylesheet" type="text/css" href="sections/admin/admin.css" />
-    <link rel="stylesheet" type="text/css" href="js/slickgrid/slick-default-theme.css" />
-    <link rel="stylesheet" type="text/css" href="js/slickgrid/slick.grid.css" />
+    <link rel="stylesheet" type="text/css" href="sections/admin/metier/metier.css" />
     <!-- endbuild -->
 </head>
 <body data-ng-app="adminApp" ng-controller="mainController">
@@ -36,8 +35,6 @@
 <script src="js/jquery.ui.mouse.min.js"></script>
 <script src="js/jquery.ui.draggable.min.js"></script>
 <script src="js/jquery.ui.sortable.min.js"></script>
-<script src="js/slickgrid/lib/jquery.event.drag-2.2.js"></script>
-<script src="js/slickgrid/lib/jquery.event.drop-2.2.js"></script>
 <script src="assets/js/endless_scroll_min.js"></script>
 <script src="js/fabric.min.js"></script>
 <script src="js/FancyProductDesigner-all.min.js"></script>
@@ -55,21 +52,11 @@
 <script src="js/angular-file-upload.min.js"></script>
 <script src="js/angular-file-upload.min.js.map"></script>
 <script src="js/toaster.js"></script>
+<script src="js/ui-grid.min.js"></script>
 <script src="app/admin/app.js"></script>
 <script src="app/admin/data.js"></script>
 <script src="app/admin/directives.js"></script>
 <script src="app/admin/authCtrl.js"></script>
-<script src="js/slickgrid/lib/firebugx.js"></script>
-<script src="js/slickgrid/lib/jquery.sparkline.min.js"></script>
-<script src="js/slickgrid/lib/qunit.js"></script>
-<script src="js/slickgrid/slick.core.js"></script>
-<script src="js/slickgrid/slick.dataview.js"></script>
-<script src="js/slickgrid/slick.editors.js"></script>
-<script src="js/slickgrid/slick.formatters.js"></script>
-<script src="js/slickgrid/slick.grid.js"></script>
-<script src="js/slickgrid/slick.groupitemmetadataprovider.js"></script>
-<script src="js/slickgrid/slick.remotemodel.js"></script>
-
 <!-- / -->
 <!-- endbuild -->
 <!-- build:js app.min.js -->

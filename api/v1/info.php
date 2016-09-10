@@ -14,7 +14,7 @@ else if($mode == 1) {
     $metier->setLibelle($_GET["desig"]);
     $metier->setSubLibelle($_GET["sub_desig"]);
     $metier->setActive(1);
-   $re= $metier->save();
+    $re= $metier->save();
     print $re;
     return;
 }
