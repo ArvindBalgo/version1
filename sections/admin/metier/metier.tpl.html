@@ -9,11 +9,11 @@
         <div style="padding: 10px">
             <select class="sel_metier" style="width: 50%;"></select>
             <div class="btn-group">
-                <button type="button" class="btn btn-primary" ng-click="metier.fnCrudMetier(0)">Nouveau</button>
-                <button type="button" class="btn btn-primary" ng-click="metier.fnCrudMetier(1)">Modifer</button>
+                <button type="button" class="btn btn-primary" ng-click="metier.fnCrudMetier(0)"><span class="glyphicon glyphicon-plus"></span></button>
+                <button type="button" class="btn btn-primary" ng-click="metier.fnCrudMetier(1)"><span class="glyphicon glyphicon-pencil"></span></button>
+                <button type="button" class="btn btn-info"  style="margin-bottom: 5px;" ng-click="metier.fnCrudMetier(2)"><span class="glyphicon glyphicon-plus"></span> Sous-Category</button>
             </div>
         </div>
-
 
 <div  ui-grid="metier.gridOptions"  ui-grid-resize-columns ui-grid-selection class="myGrid"></div>
 
@@ -39,12 +39,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title"> {{metier.libMetier}}</h4>
+                <h4 class="modal-title"> {{metier.libelle}} {{metier.sous_libelle}}</h4>
             </div>
             <div class="modal-body">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-2"><b>Libelle </b></div>
+                        <div class="col-md-2 "><b>Libelle </b></div>
                         <div class="col-md-8 input-group" style="margin-bottom: 5px;">
                             <input type="text" class="form-control" style="width: 50%" ng-model="metier.libelle" placeholder="Libelle" aria-describedby="basic-addon1">
                         </div>
@@ -60,11 +60,55 @@
                         <div class="checkbox">
                             <label><input type="checkbox" ng-model="metier.active"></label>
                         </div>
+                        <!--input style="margin-top: 15px" type="file" nv-file-select="" uploader="uploader"-->
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-danger pull-left" ng-click="metier.fnQuitter()">Annuler</button>
+                <button class="btn btn-success pull-right" ng-click="metier.fnValid(0)">Valider</button>
+                <!--button type="button" class="btn btn-success" ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> Valider</button-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalModel" class="modal fade" data-backdrop="static">
+    <div class="modal-dialog" style="width: 50%;height: 300px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"> {{metier.modelLibelle}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-2"><b>Libelle </b></div>
+                        <div class="col-md-8 input-group" style="margin-bottom: 5px;">
+                            <input type="text" class="form-control" style="width: 50%" ng-model="metier.modelLibelle" placeholder="Libelle" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"><b>Quantite </b></div>
+                        <div class="col-md-8">
+                            <select class="selObj" multiple="multiple" style="width: 50%">
+
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"><b>Actif </b></div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" ng-model="metier.active"></label>
+                        </div>
+                        <input style="margin-top: 15px" type="file" nv-file-select="" uploader="uploader">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger pull-left" ng-click="metier.fnQuitter()">Annuler</button>
+                <!--button type="button" class="btn btn-success" ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> Valider</button-->
             </div>
         </div>
     </div>

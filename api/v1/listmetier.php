@@ -81,14 +81,15 @@ class listmetier{
     //***** fonction de modification/cr�ation *****
     public function save() {
         $this->_date_modified = date('Y/m/d H:i:s', time());
-        if ($this->_date_created == null) {
+       // if ($this->_date_created == null) {
             $this->_date_created = date('Y/m/d H:i:s', time());
-        }
+      //  }
+        chromePHP::log($this->_id .  "    :::" );
         if ($this->_id > 0) {
             $requete = "UPDATE LISTMETIER SET LIBELLE='" . ($this->_libelle) . "'";
             $requete .= ",SUB_LIBELLE='" . $this->_sub_libelle . "'";
             $requete .= ",ACTIVE=" . $this->_active;
-            $requete .= ",DATE_CREATED='" . $this->_date_created . "',";
+            $requete .= ",DATE_CREATED='" . $this->_date_created . "'";
             $requete .= ",DATE_MODIFIED='" . $this->_date_modified . "'";
             $requete .= " WHERE ID=" . $this->_id;
 
@@ -107,7 +108,7 @@ class listmetier{
             $requete .= "'" . $this->_date_modified . "')";
 
         }
-
+chromePHP::log($requete);
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
         return $r;
     }
@@ -116,12 +117,12 @@ class listmetier{
     //***** Fonction de passege sql->objet *****
     private function mapSqlToObject($rs) {
         $metier = new listmetier();
-        $metier->_id = $rs->fields["ID"];
-        $metier->_libelle = $rs->fields["LIBELLE"];
-        $metier->_sub_libelle = $rs->fields["SUB_LIBELLE"];
-        $metier->_active = $rs->fields["ACTIVE"];
-        $metier->_date_modified = $rs->fields["DATE_MODIFIED"];
-        $metier->_date_created = $rs->fields["DATE_CREATED"];
+        $metier->setId($rs["id"]);
+        $metier->_libelle = $rs["libelle"];
+        $metier->_sub_libelle = $rs["sub_libelle"];
+        $metier->_active = $rs["active"];
+        $metier->_date_modified = $rs["date_modified"];
+        $metier->_date_created = $rs["date_created"];
         return $metier;
     }
 
@@ -141,9 +142,7 @@ class listmetier{
     public function findByPrimaryKey($key) { // Recherche d'une adresse par id
         $requete = self::$SELECT . " WHERE ID=" . $key;
         $rs = $this->conn->query($requete);
-        if ($rs->EOF) {
-            return null;
-        }
-        return $this->mapSqlToObject($rs);
+        chromePHP::log($requete);
+        return $this->mapSqlToObject(mysqli_fetch_array($rs));
     }
 }

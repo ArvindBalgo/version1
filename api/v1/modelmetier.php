@@ -6,6 +6,7 @@ class modelmetier{
     private $_description   = null;
     private $_category      = null;
     private $_src           = null;
+    private $_qte           = null;
 
     private static $SELECT = "SELECT * FROM MODELMETIER";
 
@@ -36,6 +37,10 @@ class modelmetier{
         $this->_src = $src;
     }
 
+    public function setQte($qte){
+        $this->_qte = $qte;
+    }
+
 
     //**** D�claration des getters ****
     public function getId() {
@@ -53,6 +58,11 @@ class modelmetier{
     public function getSrc() {
         return $this->_src;
     }
+
+    public function getQte() {
+        return $this->_qte;
+    }
+
     //**** Fonction de suppression ****
     public function delete($id) {
         $requete = "DELETE FROM MODELMETIER WHERE ID=" . $id;
@@ -93,6 +103,7 @@ class modelmetier{
         $metier->_id = $rs->fields["ID"];
         $metier->_description = $rs->fields["DESCRIPTION"];
         $metier->_category = $rs->fields["CATEGORY"];
+        $metier->_qte = $rs->fields["QTE"];
         $metier->_src = $rs->fields["SRC"];
         return $metier;
     }

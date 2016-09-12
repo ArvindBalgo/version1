@@ -51,3 +51,24 @@ else if($mode == 3) {
 print json_encode($row);
     return;
 }
+else if($mode == 4) {
+    $listmetier = new listmetier();
+    $listmetier->setLibelle(trim($_GET["libelle"]));
+    $listmetier->setSubLibelle(trim($_GET["sub_libelle"]));
+    $listmetier->setActive($_GET["actif"]);
+
+    $listmetier->save();
+}
+
+else if($mode == 5){
+    $listmetier  = new listmetier();
+    $listmetier = $listmetier->findByPrimaryKey(trim($_GET["id"]));
+    chromePHP::log($listmetier->getId() . " ::");
+    $listmetier->setId($listmetier->getId());
+    $listmetier->setLibelle(trim($_GET["libelle"]));
+    $listmetier->setSubLibelle(trim($_GET["sub_libelle"]));
+    $listmetier->setActive($_GET["actif"]);
+    chromePHP::log($_GET["actif"]);
+
+    $listmetier->save();
+}
