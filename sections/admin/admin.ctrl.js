@@ -2,6 +2,17 @@ angular
     .module('myApp')
     .controller('adminController', function($scope,$rootScope, $location, $timeout, Data) {
         console.log("admin controller");
+
+        Data.get('session').then(function (results) {
+            if (results.uid) {
+
+            } else {
+                $location.path("/login");
+            }
+
+            //$location();
+        });
+
         var vm = this;
         vm.isDisplay = 1;
         $scope.showMenu = true;

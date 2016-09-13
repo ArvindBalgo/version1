@@ -334,3 +334,13 @@ console.log("row data", vm.selRowCategory);
         vm.fnModelMetier();
 
     });
+
+Data.get('session').then(function (results) {
+    if (results.uid) {
+
+    } else {
+        $location.path("/login");
+    }
+
+    //$location();
+});

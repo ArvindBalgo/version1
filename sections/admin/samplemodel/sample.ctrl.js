@@ -2,6 +2,17 @@ angular
     .module('adminApp')
     .controller('sampleModelController', function($scope, $rootScope, $routeParams, $location, $http, Data, $timeout, FileUploader) {
         console.log("Admin sample controller");
+
+        Data.get('session').then(function (results) {
+            if (results.uid) {
+
+            } else {
+                $location.path("/login");
+            }
+
+            //$location();
+        });
+
         var vm = this;
         vm.uploadme = "";
         vm.arrData = [];

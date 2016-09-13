@@ -16,6 +16,18 @@ angular
         vm.arrOrigImg   = [];
 
 
+        Data.get('session').then(function (results) {
+            if (results.uid) {
+
+            } else {
+                $location.path("/login");
+            }
+
+            //$location();
+        });
+
+
+
         //uploader start
 
         var uploader = $scope.uploader = new FileUploader({
