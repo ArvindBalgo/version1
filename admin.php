@@ -75,7 +75,7 @@
 <script src="sections/admin/sample/sample.ctrl.js"></script>
 <script src="sections/admin/compte/compte.ctrl.js"></script>
 <script src="sections/admin/metier/metier.ctrl.js"></script>
-<script src="sections/admin/guide/guide.ctrl.js"></script>
+<script src="sections/admin/gallery/gallery.ctrl.js"></script>
 <script src="sections/admin/samplemodel/sample.ctrl.js"></script>
 <script src="sections/admin/model/model.ctrl.js"></script>
 <!--script src="sections/premieres/premieres.ctrl.js"></script>

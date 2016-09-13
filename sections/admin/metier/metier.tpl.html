@@ -2,20 +2,20 @@
 <style>
     .myGrid {
         width: 100%;
-        height: 400px;
+        height: 100%;
 
     }
 </style>
-        <div style="padding: 10px">
-            <select class="sel_metier" style="width: 50%;"></select>
-            <div class="btn-group">
+        <div style="padding: 10px" class="row">
+            <div id="selMetier" class="col-md-5"><select class="sel_metier" style="width: 100%;"></select></div>
+            <div class="col-md-4 btn-group">
                 <button type="button" class="btn btn-primary" ng-click="metier.fnCrudMetier(0)"><span class="glyphicon glyphicon-plus"></span></button>
                 <button type="button" class="btn btn-primary" ng-click="metier.fnCrudMetier(1)"><span class="glyphicon glyphicon-pencil"></span></button>
                 <button type="button" class="btn btn-info"  style="margin-bottom: 5px;" ng-click="metier.fnCrudMetier(2)"><span class="glyphicon glyphicon-plus"></span> Sous-Category</button>
             </div>
         </div>
 
-<div  ui-grid="metier.gridOptions"  ui-grid-resize-columns ui-grid-selection class="myGrid"></div>
+<div  ui-grid="gridOptions"  ui-grid-resize-columns ui-grid-selection class="myGrid"></div>
 
 <div id="imgModal" class="modal fade" data-backdrop="static">
     <div class="modal-dialog" style="width: 75%;height: 500px;">
@@ -91,24 +91,24 @@
                     <div class="row">
                         <div class="col-md-2"><b>Quantite </b></div>
                         <div class="col-md-8">
-                            <select class="selObj" multiple="multiple" style="width: 50%">
-
-                            </select>
+                            <select class="selObj" multiple="multiple" style="width: 50%"></select>
                         </div>
-
                     </div>
                     <div class="row">
                         <div class="col-md-2"><b>Actif </b></div>
                         <div class="checkbox">
                             <label><input type="checkbox" ng-model="metier.active"></label>
                         </div>
-                        <input style="margin-top: 15px" type="file" nv-file-select="" uploader="uploader">
+                        <input ng-show="metier.isModified" class="col-md-5 col-md-offset-2" style="margin-top: 15px" type="file" nv-file-select="" uploader="uploader">
+                        <img ng-show="!metier.isModified" class="col-md-5 col-md-offset-2" src="{{metier.srcModel}}" style="width: 100px; height: 100px;">
+                        <button ng-show="!metier.isModified" class="col-md-1 btn btn-warning" ng-click="metier.fnModifImg()">Editer</button>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-danger pull-left" ng-click="metier.fnQuitter()">Annuler</button>
-                <!--button type="button" class="btn btn-success" ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> Valider</button-->
+                <button ng-show="metier.isModified" type="button" class="btn btn-success" ng-click="uploader.uploadAll()"><span class="glyphicon glyphicon-upload"></span> Valider</button>
+                <button ng-show="!metier.isModified" type="button" class="btn btn-success" ng-click="metier.fnValidModel()"><span class="glyphicon glyphicon-upload"></span> Valider132</button>
             </div>
         </div>
     </div>

@@ -7,6 +7,7 @@ class modelmetier{
     private $_category      = null;
     private $_src           = null;
     private $_qte           = null;
+    private $_active        = null;
 
     private static $SELECT = "SELECT * FROM MODELMETIER";
 
@@ -40,7 +41,9 @@ class modelmetier{
     public function setQte($qte){
         $this->_qte = $qte;
     }
-
+    public function setActive($active){
+        $this->_active = $active;
+    }
 
     //**** D�claration des getters ****
     public function getId() {
@@ -63,6 +66,9 @@ class modelmetier{
         return $this->_qte;
     }
 
+    public function getActive() {
+        return $this->_active;
+    }
     //**** Fonction de suppression ****
     public function delete($id) {
         $requete = "DELETE FROM MODELMETIER WHERE ID=" . $id;
@@ -78,20 +84,26 @@ class modelmetier{
         if ($this->_id > 0) {
             $requete = "UPDATE MODELMETIER SET DESCRIPTION='" . ($this->_description) . "'";
             $requete .= ",CATEGORY='" . $this->_category . "'";
-            $requete .= ",SRC=" . $this->_src;
+            $requete .= ",SRC='" . $this->_src."'";
+            $requete .= ",QTE='" . $this->_qte."'";
+            $requete .= ",ACTIVE=" . $this->_active;
             $requete .= " WHERE ID=" . $this->_id;
 
         } else {
             $requete = "INSERT INTO MODELMETIER (";
             $requete .= "DESCRIPTION,";
             $requete .= "CATEGORY,";
-            $requete .= "SRC";
+            $requete .= "SRC,";
+            $requete .= "QTE,";
+            $requete .= "ACTIVE";
             $requete .= ") VALUES (";
             $requete .= "'" . $this->_description . "',";
             $requete .= "'" . $this->_category . "',";
-            $requete .= "'" . $this->_src . "')";
+            $requete .= "'" . $this->_src . "',";
+            $requete .= "'" . $this->_qte . "',";
+            $requete .= "'" . $this->_active . "')";
         }
-
+chromePHP::log($requete);
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
         return $r;
     }
@@ -100,11 +112,12 @@ class modelmetier{
     //***** Fonction de passege sql->objet *****
     private function mapSqlToObject($rs) {
         $metier = new modelmetier();
-        $metier->_id = $rs->fields["ID"];
-        $metier->_description = $rs->fields["DESCRIPTION"];
-        $metier->_category = $rs->fields["CATEGORY"];
-        $metier->_qte = $rs->fields["QTE"];
-        $metier->_src = $rs->fields["SRC"];
+        $metier->_id = $rs["id"];
+        $metier->_description = $rs["description"];
+        $metier->_category = $rs["category"];
+        $metier->_qte = $rs["qte"];
+        $metier->_src = $rs["src"];
+        $metier->_active = $rs["active"];
         return $metier;
     }
 
@@ -127,6 +140,6 @@ class modelmetier{
         if ($rs->EOF) {
             return null;
         }
-        return $this->mapSqlToObject($rs);
+        return $this->mapSqlToObject(mysqli_fetch_array($rs));
     }
 }

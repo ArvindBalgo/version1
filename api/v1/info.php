@@ -63,12 +63,23 @@ else if($mode == 4) {
 else if($mode == 5){
     $listmetier  = new listmetier();
     $listmetier = $listmetier->findByPrimaryKey(trim($_GET["id"]));
-    chromePHP::log($listmetier->getId() . " ::");
+
     $listmetier->setId($listmetier->getId());
     $listmetier->setLibelle(trim($_GET["libelle"]));
     $listmetier->setSubLibelle(trim($_GET["sub_libelle"]));
     $listmetier->setActive($_GET["actif"]);
-    chromePHP::log($_GET["actif"]);
 
     $listmetier->save();
+}
+
+else if($mode == 6){
+    $model = new modelmetier();
+    $model = $model->findByPrimaryKey(trim($_GET["id"]));
+    $model->setDescription(trim($_GET["name"]));
+    $model->setQte($_GET["qte"]);
+    chromePHP::log($_GET["qte"] . "   ===  ");
+    $model->setActive($_GET["active"]);
+
+    $model->save();
+    print "done";
 }

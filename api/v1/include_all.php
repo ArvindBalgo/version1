@@ -14,4 +14,6 @@ include_once 'cata.php';
 include_once 'cata_ligne.php';
 include_once 'cata_ligne_params.php';
 include_once 'cata_metier.php';
+include_once 'cata_image.php';
+include_once 'cata_category.php';
 include_once '../chromePHP.php';

@@ -64,10 +64,10 @@ app.config(['$routeProvider',
                 templateUrl:'sections/admin/metier/metier.tpl.html',
                 controller: 'metierController as metier'
             })
-        .when('/guide', {
-                title:      'Guide',
-                templateUrl:'sections/admin/Guide/guide.tpl.html',
-                controller: 'GuideController as guide'
+        .when('/gallery', {
+                title:      'Gallery',
+                templateUrl:'sections/admin/gallery/gallery.tpl.html',
+                controller: 'galleryController as gallery'
             })
         .when('/', {
             title: 'Login',

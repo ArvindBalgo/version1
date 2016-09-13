@@ -1,0 +1,30 @@
+<?php
+include_once 'chromePHP.php';
+include_once 'v1/cata_image.php';
+    if ( !empty( $_FILES ) ) {
+        $pathCategory = preg_replace('/\s+/', '', trim($_POST["category_name"]));
+        $filename = dirname( __DIR__ ) . DIRECTORY_SEPARATOR ."images/gallery/$pathCategory";
+        if (file_exists($filename)) {
+
+        } else {
+            mkdir($filename, 0700);
+        }
+        $tempPath = $_FILES[ 'file' ][ 'tmp_name' ];
+        $uploadPath = dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'images/gallery/'.$pathCategory . DIRECTORY_SEPARATOR . $_FILES[ 'file' ][ 'name' ];
+        move_uploaded_file( $tempPath, $uploadPath );
+
+        if($_POST["id"] == 0){
+            $cata_image = new cata_image();
+            $cata_image->setReference($_POST["reference"]);
+            $cata_image->setLibelle($_POST["libelle"]);
+            $cata_image->setActive($_POST["active"]);
+            $cata_image->setIdCategory($_POST["id_category"]);
+            $cata_image->setSrc("images/gallery/".$pathCategory."/".$_FILES['file']['name']);
+
+            $cata_image->save();
+            echo json_encode("DONE");
+        }
+    } else {
+        echo 'No files';
+    }
+
