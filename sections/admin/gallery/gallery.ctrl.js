@@ -9,6 +9,7 @@ angular
         vm.isRowModif   =  false;
         vm.isImgModif   =  false;
         vm.optCategory  = 0;
+        vm.id           = 0;
         vm.objCategory  = {};
         vm.objSel       = {};
         vm.arrCategory  = [];
@@ -41,13 +42,18 @@ angular
         uploader.onBeforeUploadItem = function(item) {
 
             var act = 0;
+            var id = 0;
             if(vm.active) {
                 act = 1;
             }
-            item.formData = [{id:0,libelle:vm.libelle, reference:vm.reference, active:act, id_category:vm.objSel.id, category_name:vm.objSel.libelle}];
+            if(vm.isImgModif){
+                id = vm.id;
+            }
+            item.formData = [{id:id,libelle:vm.libelle, reference:vm.reference, active:act, id_category:vm.objSel.id, category_name:vm.objSel.libelle}];
         };
         uploader.onSuccessItem = function(fileItem, response, status, headers) {
             console.info('onSuccessItem', fileItem, response, status, headers);
+            vm.fnGetAllImages();
             $('#modalImage').modal('hide');
 
 
@@ -56,11 +62,61 @@ angular
         $scope.editImage  = function (grid, row, opt){
             vm.isModified = true;
            // console.log("+++++");
-           // console.log(row, opt);
+            console.log(row, opt);
            // console.log(opt, "option");
-            if(opt == 2) {
+            if(opt == 1) {
+                bootbox.dialog({
+                    message: "Confirmez-vous la suppresion de cette ligne?",
+                    title: "Suppresion",
+                    buttons: {
+                        annuler: {
+                            label: "Non",
+                            className: "btn-secondary",
+                            callback: function() {
+
+                            }
+                        },
+                        valider: {
+                            label: "Oui",
+                            className: "btn-success",
+                            callback: function() {
+                                $http({
+                                    method: 'GET',
+                                    params: {mode:5, id:row.id},
+                                    url: 'api/v1/imageInfo.php'
+                                }).then(function successCallback(response) {
+                                        vm.fnGetAllImages();
+
+                                    }, function errorCallback(error) {
+                                        console.log(error);
+                                    });
+                            }
+                        }
+                    }
+                });
+
+                /*bootbox.confirm("Confirmez-vous la suppresion de cette ligne?", function(result) {
+                    console.log("Confirm result: "+result);
+                    console.log(row.id);
+                    if(result){
+
+                    }
+                });*/
+            }
+            else if(opt == 2) {
                 vm.isRowModif   =  true;
                 vm.imgsrc = row.src;
+                vm.reference    = row.reference;
+                vm.libelle      = row.libelle;
+                vm.id = row.id;
+                if(row.active == 1){
+                    vm.active = true;
+                }
+                else {
+                    vm.active = false;
+                }
+
+
                 $("#modalImage").modal();
             }
             else if(opt == 3) {
@@ -160,11 +216,15 @@ angular
                 $('#modalCategory').modal();
             }
             else if(opt == 2){
+
                 angular.forEach(vm.arrCategory, function(value){
                     if(value.id == $(".sel_category").select2().val()){
                         vm.objSel = value;
                     }
                 });
+                vm.reference    = "";
+                vm.libelle      = "";
+                vm.active       = false;
                 vm.isRowModif   =  false;
                 vm.isImgModif   =  false;
                 $('#modalImage').modal();
@@ -178,7 +238,7 @@ angular
         }
 
         vm.fnModifImg = function(){
-            vm.isRowModif   =  true;
+            vm.isRowModif   =  false;
             vm.isImgModif   =  true;
         }
 
@@ -231,6 +291,26 @@ angular
             $timeout(function(){
                 $scope.gridOptions.data = arrFiltered
             }, 0);
+        }
+
+        vm.fnValidRow =  function(){
+            var flag = 0;
+
+            if(vm.active){
+                flag = 1;
+            }
+            $http({
+                method: 'GET',
+                params: {mode:4, id:vm.id, libelle:vm.libelle, reference:vm.reference,active:flag },
+                url: 'api/v1/imageInfo.php'
+            }).then(function successCallback(response) {
+                    console.log(response.data);
+                    vm.fnGetAllImages();
+                    vm.fnQuitter();
+
+                }, function errorCallback(error) {
+                    console.log(error);
+                });
         }
 
         $( document ).ready(function() {

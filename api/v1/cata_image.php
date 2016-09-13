@@ -89,7 +89,7 @@ class cata_image {
             $requete .= ",SRC='" . $this->_src . "'";
             $requete .= ",REFERENCE='" . $this->_reference . "'";
             $requete .= ",ACTIVE=" . $this->_active;
-            $requete .= " WHERE ID=" . $this->_id_cata;
+            $requete .= " WHERE ID=" . $this->_id;
 
         } else {
             $requete = "INSERT INTO CATA_IMAGE (";
@@ -105,6 +105,7 @@ class cata_image {
             $requete .= "'" . $this->_id_category . "',";
             $requete .= "'" . $this->_active . "')";
         }
+        chromePHP::log($requete);
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
         return $r;
     }

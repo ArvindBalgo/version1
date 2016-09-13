@@ -22,9 +22,28 @@ else if($mode == 2) {
     $category->setLibelle($_GET["libelle"]);
     $category->setActive($_GET["active"]);
     $category->save();
+    print "done";
 }
 else if($mode == 3) {
     $cata_image = new cata_image();
     $cata_image = $cata_image->rechercher();
     print json_encode($cata_image);
 }
+else if($mode == 4) {
+    $cata_image = new cata_image();
+    $cata_image = $cata_image->findByPrimaryKey($_GET["id"]);
+
+    $cata_image->setLibelle($_GET["libelle"]);
+    $cata_image->setReference($_GET["reference"]);
+    $cata_image->setActive($_GET["active"]);
+
+    $cata_image->save();
+    print "done";
+}
+else if($mode == 5){
+    $cata_image = new cata_image();
+    $cata_image->delete($_GET["id"]);
+    print "done";
+}
+
+

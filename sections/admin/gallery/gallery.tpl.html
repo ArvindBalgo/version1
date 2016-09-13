@@ -71,14 +71,14 @@
                       </div>
                       <div class="col-md-12">
                           <div class="col-md-2" style="padding-top: 7px"><b>Actif </b></div>
-                          <div class="checkbox">
+                          <div class="checkbox col-md-1">
                               <label><input type="checkbox" ng-model="gallery.active"></label>
                           </div>
                       </div>
-                      <div class="col-md-12" ng-show="gallery.modalImage">
+                      <div class="col-md-12" ng-show="!gallery.isRowModif">
                           <input class="col-md-5 col-md-offset-2" style="margin-top: 15px" type="file" nv-file-select="" uploader="uploader">
                       </div>
-                      <div class="col-md-12" ng-show="!gallery.modalImage">
+                      <div class="col-md-12" ng-show="gallery.isRowModif">
                           <img class="col-md-5 col-md-offset-2" src="{{gallery.imgsrc}}" style="width: 100px; height: 100px;">
                           <button class="btn btn-warning btn-sm" ng-click="gallery.fnModifImg()"><i class='glyphicon glyphicon-pencil'></i></button>
                       </div>
@@ -86,7 +86,8 @@
               </div>
               <div class="modal-footer">
                   <button class="btn btn-danger pull-left" ng-click="gallery.fnQuitter()">Annuler</button>
-                  <button class="btn btn-success pull-right" ng-click="uploader.uploadAll()">Valider</button>
+                  <button ng-show="!gallery.isRowModif" class="btn btn-success pull-right" ng-click="uploader.uploadAll()">Valider UP</button>
+                  <button ng-show="gallery.isRowModif" class="btn btn-success pull-right" ng-click="gallery.fnValidRow()">Valider</button>
               </div>
           </div>
       </div>
