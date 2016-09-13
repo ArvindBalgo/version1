@@ -1,6 +1,17 @@
 angular
     .module('adminApp')
     .controller('metierController', function($scope, $rootScope, $routeParams, $location, $http, Data, $timeout, FileUploader, $compile) {
+
+        Data.get('session').then(function (results) {
+            if (results.uid) {
+
+            } else {
+                $location.path("/login");
+            }
+
+            //$location();
+        });
+
         var vm = this;
         $scope.header = "Listes des metiers";
         vm.description = "";
@@ -335,12 +346,3 @@ console.log("row data", vm.selRowCategory);
 
     });
 
-Data.get('session').then(function (results) {
-    if (results.uid) {
-
-    } else {
-        $location.path("/login");
-    }
-
-    //$location();
-});
