@@ -23,4 +23,8 @@ else if($mode == 2) {
     $category->setActive($_GET["active"]);
     $category->save();
 }
-
+else if($mode == 3) {
+    $cata_image = new cata_image();
+    $cata_image = $cata_image->rechercher();
+    print json_encode($cata_image);
+}

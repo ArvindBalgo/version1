@@ -3,13 +3,17 @@ angular
     .controller('galleryController', function($scope, $rootScope, $routeParams, $location, $http, Data, $timeout, FileUploader) {
         $scope.header = "Gallery des images";
 
-        var vm = this;
-        vm.mode = "";
-        vm.active =  false;
-        vm.optCategory = 0;
-        vm.objCategory = {};
-        vm.arrCategory = [];
-        vm.objSel = {};
+        var vm          = this;
+        vm.mode         = "";
+        vm.active       =  false;
+        vm.isRowModif   =  false;
+        vm.isImgModif   =  false;
+        vm.optCategory  = 0;
+        vm.objCategory  = {};
+        vm.objSel       = {};
+        vm.arrCategory  = [];
+        vm.arrOrigImg   = [];
+
 
         //uploader start
 
@@ -44,24 +48,33 @@ angular
         };
         uploader.onSuccessItem = function(fileItem, response, status, headers) {
             console.info('onSuccessItem', fileItem, response, status, headers);
+            $('#modalImage').modal('hide');
+
 
         };
         //uploader end
         $scope.editImage  = function (grid, row, opt){
             vm.isModified = true;
-            console.log("+++++");
-            console.log(row, opt);
+           // console.log("+++++");
+           // console.log(row, opt);
+           // console.log(opt, "option");
             if(opt == 2) {
+                vm.isRowModif   =  true;
+                vm.imgsrc = row.src;
+                $("#modalImage").modal();
             }
             else if(opt == 3) {
+                console.log(opt, "option");
+                vm.imgsrc = row.src;
+                $("#modalSrcImg").modal();
             }
 
         };
 
         vm.formatCell = function(){
-            var trash = "<button type='button' class='btn btn-default btn-circle' style='margin-left: 5px;margin-top: 5px;' ng-click='grid.appScope.editImage(grid, row.entity, 1)'><i class='glyphicon glyphicon-trash'></i></button>";
-            var edit = "<button type='button' class='btn btn-info btn-circle' style='margin-left: 5px;margin-top: 5px;' ng-click='grid.appScope.editImage(grid, row.entity, 2)'><i class='glyphicon glyphicon-pencil'></i></button>";
-            var image = "<button type='button' class='btn btn-success btn-circle' style='margin-left: 5px;margin-top: 5px;' ng-click='grid.appScope.editImage(grid, row.entity, 3)'><i class='glyphicon glyphicon-picture'></i></button>";
+            var trash = "<button type='button' class='btn btn-default btn-circle'   style='margin-left: 5px;margin-top: 5px;' ng-click='grid.appScope.editImage(grid, row.entity, 1)'><i class='glyphicon glyphicon-trash'></i></button>";
+            var edit  = "<button type='button' class='btn btn-info btn-circle'      style='margin-left: 5px;margin-top: 5px;' ng-click='grid.appScope.editImage(grid, row.entity, 2)'><i class='glyphicon glyphicon-pencil'></i></button>";
+            var image = "<button type='button' class='btn btn-success btn-circle'   style='margin-left: 5px;margin-top: 5px;' ng-click='grid.appScope.editImage(grid, row.entity, 3)'><i class='glyphicon glyphicon-picture'></i></button>";
             return image+edit+trash;
         }
 
@@ -95,14 +108,33 @@ angular
                     $(".sel_category").select2({
                         theme:"classic",
                         data: response.data
-                    })
+                    });
+                    $(".sel_category").on("select2:select", function (e) {
+                        vm.fnFilterGrid();
+                    });
+                    vm.fnGetAllImages();
+                }, function errorCallback(error) {
+                    console.log(error);
+                });
+        }
+
+        vm.fnGetAllImages  = function(){
+            $http({
+                method: 'GET',
+                params: {mode:3},
+                url: 'api/v1/imageInfo.php'
+            }).then(function successCallback(response) {
+                    console.log(response.data);
+                    vm.arrOrigImg = angular.copy(response.data);
+                    vm.fnFilterGrid();
+
                 }, function errorCallback(error) {
                     console.log(error);
                 });
         }
 
         vm.fnCrudCategory = function(opt){
-            console.log("clciked buttonb");
+            console.log("clicked button");
             vm.optCategory = opt;
             if(opt ==0){
                 vm.mode = "Nouvelle";
@@ -132,16 +164,22 @@ angular
                     if(value.id == $(".sel_category").select2().val()){
                         vm.objSel = value;
                     }
-
                 });
+                vm.isRowModif   =  false;
+                vm.isImgModif   =  false;
                 $('#modalImage').modal();
             }
         };
 
         vm.fnQuitter = function(){
-            console.log("quitter ");
             $('#modalCategory').modal('hide');
             $('#modalImage').modal('hide');
+            $('#modalSrcImg').modal('hide');
+        }
+
+        vm.fnModifImg = function(){
+            vm.isRowModif   =  true;
+            vm.isImgModif   =  true;
         }
 
         //valider category
@@ -172,8 +210,32 @@ angular
                 });
         }
 
+        vm.fnFilterGrid = function() {
+            angular.forEach(vm.arrCategory, function(value){
+                if(value.id == $(".sel_category").select2().val()){
+                    vm.objSel = value;
+                }
+
+            });
+            console.log(vm.objSel, " selected object");
+            console.log(vm.arrOrigImg, "  array of images");
+            var arrData = angular.copy(vm.arrOrigImg);
+            var arrFiltered =  [];
+            angular.forEach(arrData, function(value){
+                if(value.id_category == $(".sel_category").select2().val()) {
+                    arrFiltered.push(value);
+                }
+            });
+
+            $scope.gridOptions.data = [];
+            $timeout(function(){
+                $scope.gridOptions.data = arrFiltered
+            }, 0);
+        }
+
         $( document ).ready(function() {
             vm.fnGetAllCategory();
+
         });
 
     });
