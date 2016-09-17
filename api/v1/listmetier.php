@@ -9,7 +9,7 @@ class listmetier{
     private $_date_created  = null;
     private $_date_modified = null;
 
-    private static $SELECT = "SELECT * FROM LISTMETIER";
+    private static $SELECT = "SELECT * FROM listmetier";
 
     //**** Constructeur ****
     private $conn;
@@ -74,7 +74,7 @@ class listmetier{
 
     //**** Fonction de suppression ****
     public function delete($id) {
-        $requete = "DELETE FROM LISTMETIER WHERE ID=" . $id;
+        $requete = "DELETE FROM listmetier WHERE ID=" . $id;
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
     }
 
@@ -84,23 +84,22 @@ class listmetier{
        // if ($this->_date_created == null) {
             $this->_date_created = date('Y/m/d H:i:s', time());
       //  }
-        chromePHP::log($this->_id .  "    :::" );
         if ($this->_id > 0) {
-            $requete = "UPDATE LISTMETIER SET LIBELLE='" . ($this->_libelle) . "'";
-            $requete .= ",SUB_LIBELLE='" . $this->_sub_libelle . "'";
-            $requete .= ",ACTIVE=" . $this->_active;
-            $requete .= ",DATE_CREATED='" . $this->_date_created . "'";
-            $requete .= ",DATE_MODIFIED='" . $this->_date_modified . "'";
-            $requete .= " WHERE ID=" . $this->_id;
+            $requete = "UPDATE listmetier SET libelle='" . ($this->_libelle) . "'";
+            $requete .= ",sub_libelle='" . $this->_sub_libelle . "'";
+            $requete .= ",active=" . $this->_active;
+            $requete .= ",date_created='" . $this->_date_created . "'";
+            $requete .= ",date_modified='" . $this->_date_modified . "'";
+            $requete .= " WHERE id=" . $this->_id;
 
         } else {
-            $requete = "INSERT INTO LISTMETIER (";
-            $requete .= "LIBELLE,";
-            $requete .= "SUB_LIBELLE,";
-            $requete .= "ACTIVE,";
-            $requete .= "DATE_CREATED,";
-            $requete .= "DATE_MODIFIED";
-            $requete .= ") VALUES (";
+            $requete = "INSERT INTO listmetier (";
+            $requete .= "libelle,";
+            $requete .= "sub_libelle,";
+            $requete .= "active,";
+            $requete .= "date_created,";
+            $requete .= "date_modified";
+            $requete .= ") values (";
             $requete .= "'" . $this->_libelle . "',";
             $requete .= "'" . $this->_sub_libelle . "',";
             $requete .= $this->_active . ",";
@@ -108,7 +107,7 @@ class listmetier{
             $requete .= "'" . $this->_date_modified . "')";
 
         }
-chromePHP::log($requete);
+
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
         return $r;
     }
@@ -140,9 +139,8 @@ chromePHP::log($requete);
     }
 
     public function findByPrimaryKey($key) { // Recherche d'une adresse par id
-        $requete = self::$SELECT . " WHERE ID=" . $key;
+        $requete = self::$SELECT . " WHERE id=" . $key;
         $rs = $this->conn->query($requete);
-        chromePHP::log($requete);
         return $this->mapSqlToObject(mysqli_fetch_array($rs));
     }
 }

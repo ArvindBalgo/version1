@@ -104,7 +104,7 @@ angular
 
                         var $yourDesigner = $('#model'),
                             pluginOpts = {
-                                stageWidth: 1200,
+                                stageWidth: 2000,
                                 editorMode: true,
                                 improvedResizeQuality:true,
                                 loadFirstProductInStage:false,
