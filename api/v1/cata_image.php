@@ -15,7 +15,7 @@ class cata_image {
     private $_reference = null;
     private $_active = null;
 
-   private static $SELECT="SELECT * FROM CATA_IMAGE";
+   private static $SELECT="SELECT * FROM cata_image";
     //**** Constructeur ****
     public function __construct() {
         require_once 'dbConnect.php';
@@ -75,7 +75,7 @@ class cata_image {
     }
 
     public function delete($id) {
-        $requete = "DELETE FROM CATA_IMAGE WHERE id=" . $id ;
+        $requete = "DELETE FROM cata_image WHERE id=" . $id ;
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
     }
 
@@ -84,20 +84,20 @@ class cata_image {
     public function save() {
 
         if ($this->_id > 0) {
-            $requete = "UPDATE CATA_IMAGE SET LIBELLE='" . ($this->_libelle) . "'";
-            $requete .= ",ID_CATEGORY='" . $this->_id_category . "'";
-            $requete .= ",SRC='" . $this->_src . "'";
-            $requete .= ",REFERENCE='" . $this->_reference . "'";
-            $requete .= ",ACTIVE=" . $this->_active;
-            $requete .= " WHERE ID=" . $this->_id;
+            $requete = "UPDATE cata_image SET libelle='" . ($this->_libelle) . "'";
+            $requete .= ",id_category='" . $this->_id_category . "'";
+            $requete .= ",src='" . $this->_src . "'";
+            $requete .= ",reference='" . $this->_reference . "'";
+            $requete .= ",active=" . $this->_active;
+            $requete .= " WHERE id=" . $this->_id;
 
         } else {
-            $requete = "INSERT INTO CATA_IMAGE (";
-            $requete .= "LIBELLE,";
-            $requete .= "SRC,";
-            $requete .= "REFERENCE,";
-            $requete .= "ID_CATEGORY,";
-            $requete .= "ACTIVE";
+            $requete = "INSERT INTO cata_image (";
+            $requete .= "libelle,";
+            $requete .= "src,";
+            $requete .= "reference,";
+            $requete .= "id_category,";
+            $requete .= "active";
             $requete .= ") VALUES (";
             $requete .= "'" . $this->_libelle . "',";
             $requete .= "'" . $this->_src . "',";
@@ -105,7 +105,6 @@ class cata_image {
             $requete .= "'" . $this->_id_category . "',";
             $requete .= "'" . $this->_active . "')";
         }
-        chromePHP::log($requete);
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
         return $r;
     }
@@ -137,7 +136,7 @@ class cata_image {
     }
 
     public function findByPrimaryKey($key) { // Recherche d'une adresse par id
-        $requete = self::$SELECT . " WHERE ID=" . $key;
+        $requete = self::$SELECT . " WHERE id=" . $key;
         $rs = $this->conn->query($requete);
 
         return $this->mapSqlToObject(mysqli_fetch_array($rs));

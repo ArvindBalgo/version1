@@ -5,7 +5,6 @@
  * Date: 13/07/2016
  * Time: 22:43
  */
-include_once '../chromePHP.php';
 
 class cata {
     //**** Variables declarations ****
@@ -21,7 +20,7 @@ class cata {
     private $_created_by = null;
     private $_modified_by = null;
 
-   private static $SELECT="SELECT * FROM CATA";
+   private static $SELECT="SELECT * FROM cata";
     //**** Constructeur ****
     public function __construct() {
         require_once 'dbConnect.php';
@@ -112,7 +111,7 @@ class cata {
     }
 
     public function delete($id) {
-        $requete = "DELETE FROM CATA WHERE id=" . $id ;
+        $requete = "DELETE FROM cata WHERE id=" . $id ;
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
     }
 
@@ -128,30 +127,30 @@ class cata {
         }
 
         if ($this->_id_cata > 0) {
-            $requete = "UPDATE CATA SET LIBELLE='" . ($this->_libelle) . "'";
-            $requete .= ",DESCRIPTION='" . $this->_description . "'";
-            $requete .= ",SRC='" . $this->_src . "'";
-            $requete .= ",ID_FRONT='" . $this->_id_front . "'";
-            $requete .= ",ID_BACK='" . $this->_id_back . "'";
-            $requete .= ",REFERENCE='" . $this->_reference . "'";
-            $requete .= ",DATE_CREATED='" . $this->_date_created . "'";
-            $requete .= ",DATE_MODIFIED='" . $this->_date_modified . "'";
-            $requete .= ",CREATED_BY='" . $this->_created_by . "'";
-            $requete .= ",MODIFIED_BY='" . $this->_modified_by . "'";
-            $requete .= " WHERE ID=" . $this->_id_cata;
+            $requete = "UPDATE cata SET libelle='" . ($this->_libelle) . "'";
+            $requete .= ",description='" . $this->_description . "'";
+            $requete .= ",src='" . $this->_src . "'";
+            $requete .= ",id_front='" . $this->_id_front . "'";
+            $requete .= ",id_back='" . $this->_id_back . "'";
+            $requete .= ",reference='" . $this->_reference . "'";
+            $requete .= ",date_created='" . $this->_date_created . "'";
+            $requete .= ",date_modified='" . $this->_date_modified . "'";
+            $requete .= ",created_by='" . $this->_created_by . "'";
+            $requete .= ",modified_by='" . $this->_modified_by . "'";
+            $requete .= " WHERE id=" . $this->_id_cata;
 
         } else {
-            $requete = "INSERT INTO CATA (";
-            $requete .= "LIBELLE,";
-            $requete .= "DESCRIPTION,";
-            $requete .= "SRC,";
-            $requete .= "ID_FRONT,";
-            $requete .= "ID_BACK,";
-            $requete .= "REFERENCE,";
-            $requete .= "DATE_CREATED,";
-            $requete .= "DATE_MODIFIED,";
-            $requete .= "CREATED_BY,";
-            $requete .= "MODIFIED_BY";
+            $requete = "INSERT INTO cata (";
+            $requete .= "libelle,";
+            $requete .= "description,";
+            $requete .= "src,";
+            $requete .= "id_front,";
+            $requete .= "id_back,";
+            $requete .= "reference,";
+            $requete .= "date_created,";
+            $requete .= "date_modified,";
+            $requete .= "created_by,";
+            $requete .= "modified_by";
             $requete .= ") VALUES (";
             $requete .= "'" . $this->_libelle . "',";
             $requete .= "'" . $this->_description . "',";
@@ -200,7 +199,7 @@ class cata {
     }
 
     public function findByPrimaryKey($key) { // Recherche d'une adresse par id
-        $requete = self::$SELECT . " WHERE ID=" . $key;
+        $requete = self::$SELECT . " WHERE id=" . $key;
         $rs = $this->conn->query($requete);
 
         return $this->mapSqlToObject(mysqli_fetch_array($rs));
@@ -214,7 +213,7 @@ class cata {
     }
 
     public function findAllByMetier($id){
-        $requete = "SELECT * FROM CATA C INNER JOIN CATA_METIER CM ON C.ID = CM.ID_CATA WHERE CM.ID_METIER=".$id;
+        $requete = "select * from cata c inner join cata_metier cm on c.id = cm.id_cata where cm.id_metier=".$id;
         $rs = $this->conn->query($requete);
 
         $rows = [];

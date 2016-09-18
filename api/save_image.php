@@ -1,7 +1,6 @@
 <?php
 require_once 'v1/dbHandler.php';
 include_once 'v1/include_all.php';
-include_once 'chromePHP.php';
 /*
 *
 * An example php that gets the 64 bit encoded PNG URL and creates an image of it

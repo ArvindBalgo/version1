@@ -74,7 +74,7 @@ class listmetier{
 
     //**** Fonction de suppression ****
     public function delete($id) {
-        $requete = "DELETE FROM listmetier WHERE ID=" . $id;
+        $requete = "DELETE FROM listmetier WHERE id=" . $id;
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
     }
 

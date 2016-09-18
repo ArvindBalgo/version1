@@ -42,15 +42,15 @@ ALTER TABLE `commande`
 class commande {
 
     //**** Variables declarations ****
-    private $_Id = null;
-    private $_Date_comm = null;
-    private $_User_id = null;
-    private $_Id_model = null;
-    private $_Quantite = null;
-    private $_Date_created = null;
-    private $_Date_modified = null;
-    private $_Unit_price = null;
-    private $_Total = null;
+    private $_id = null;
+    private $_date_comm = null;
+    private $_user_id = null;
+    private $_id_model = null;
+    private $_quantite = null;
+    private $_date_created = null;
+    private $_date_modified = null;
+    private $_unit_price = null;
+    private $_total = null;
 
 
     //**** Constructeur ****
@@ -61,84 +61,84 @@ class commande {
         $this->conn = $db->connect();
     }
 
-    private static $SELECT="SELECT * FROM COMMANDE";
+    private static $SELECT="SELECT * FROM commande";
 
     //**** Setters *****
     public function setId($Id) {
-        $this->_Id= $Id;
+        $this->_id= $Id;
     }
 
     public function setDate_comm($Date_comm) {
-        $this->_Date_comm= $Date_comm;
+        $this->_date_comm= $Date_comm;
     }
 
     public function setUser_id($User_id) {
-        $this->_User_id= $User_id;
+        $this->_user_id= $User_id;
     }
 
     public function setId_model($Id_model) {
-        $this->_Id_model= $Id_model;
+        $this->_id_model= $Id_model;
     }
 
     public function setQuantite($qte) {
-        $this->_Quantite= $qte;
+        $this->_quantite= $qte;
     }
 
     public function setDate_created($Date_created) {
-        $this->_Date_created= $Date_created;
+        $this->_date_created= $Date_created;
     }
 
     public function setDate_modified($Date_modified) {
-        $this->_Date_modified= $Date_modified;
+        $this->_date_modified= $Date_modified;
     }
 
     public function setUnit_price($Unit_price) {
-        $this->_Unit_price= $Unit_price;
+        $this->_unit_price= $Unit_price;
     }
 
     public function setTotal($Total) {
-        $this->_Total= $Total;
+        $this->_total= $Total;
     }
 
     //**** Getters *****
     public function getId($Id) {
-        return $this->_Id;
+        return $this->_id;
     }
 
     public function getDate_comm($Date_comm) {
-        return $this->_Date_comm;
+        return $this->_date_comm;
     }
 
     public function getUser_id($User_id) {
-        return $this->_User_id;
+        return $this->_user_id;
     }
 
     public function getId_model($Id_model) {
-        return $this->_Id_model;
+        return $this->_id_model;
     }
 
     public function getQuantite($qte) {
-        return $this->_Quantite;
+        return $this->_quantite;
     }
 
     public function getDate_created($Date_created) {
-        return $this->_Date_created;
+        return $this->_date_created;
     }
 
     public function getDate_modified($Date_modified) {
-        return $this->_Date_modified;
+        return $this->_date_modified;
     }
 
     public function getUnit_price($Unit_price) {
-        return $this->_Unit_price;
+        return $this->_unit_price;
     }
 
     public function getTotal($Total) {
-        return $this->_Total;
+        return $this->_total;
     }
 
     public function delete($Id) {
-        $requete = "DELETE FROM COMMANDE WHERE Id=" . $Id ;
+        $requete = "DELETE FROM commande WHERE id=" . $Id ;
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
     }
 
@@ -150,27 +150,27 @@ class commande {
             $this->_Date_created= date('Y/m/d H:i:s', time());
         }
         if ($this->_id > 0) {
-            $requete = "UPDATE COMMANDE SET Date_comm='" . ($this->_Date_comm) . "'";
-            $requete .= ",User_id='" . $this->_User_id . "',";
-            $requete .= ",Id_model='" . $this->_Id_model . "',";
-            $requete .= ",Quantite='" . $this->_Quantite . "',";
-            $requete .= ",Date_created='" . $this->_Date_created . "',";
-            $requete .= ",Date_modified='" . $this->_Date_modified . "',";
-            $requete .= ",Unit_price='" . $this->_Unit_price . "',";
-            $requete .= ",Total='" . $this->_Total . "'";
-            $requete .= " WHERE ID=" . $this->_Id;
+            $requete = "UPDATE commande SET date_comm='" . ($this->_Date_comm) . "'";
+            $requete .= ",user_id='" . $this->_User_id . "',";
+            $requete .= ",id_model='" . $this->_Id_model . "',";
+            $requete .= ",quantite='" . $this->_Quantite . "',";
+            $requete .= ",date_created='" . $this->_Date_created . "',";
+            $requete .= ",date_modified='" . $this->_Date_modified . "',";
+            $requete .= ",unit_price='" . $this->_Unit_price . "',";
+            $requete .= ",total='" . $this->_Total . "'";
+            $requete .= " WHERE id=" . $this->_Id;
 
         } else {
-            $requete = "INSERT INTO COMMANDE (";
-            $requete .= "ID,";
-            $requete .= "Date_comm,";
-            $requete .= "User_id,";
-            $requete .= "Id_model,";
-            $requete .= "Quantite,";
-            $requete .= "Date_created,";
-            $requete .= "Date_modified,";
-            $requete .= "Unit_price,";
-            $requete .= "Total";
+            $requete = "INSERT INTO commande (";
+            $requete .= "id,";
+            $requete .= "date_comm,";
+            $requete .= "user_id,";
+            $requete .= "id_model,";
+            $requete .= "quantite,";
+            $requete .= "date_created,";
+            $requete .= "date_modified,";
+            $requete .= "unit_price,";
+            $requete .= "total";
             $requete .= ") VALUES (";
             $requete .= "'" . $this->_id . "',";
             $requete .= "'" . $this->_Date_comm . "',";
@@ -192,15 +192,15 @@ class commande {
     //***** Fonction de passege sql->objet *****
     private function mapSqlToObject($rs) {
         $comm = new commande();
-        $comm->_id = $rs->fields["Id"];
-        $comm->_Date_comm = $rs->fields["Date_comm"];
-        $comm->_User_id = $rs->fields["User_id"];
-        $comm->_Id_model = $rs->fields["Id_model"];
-        $comm->_Quantite = $rs->fields["Quantite"];
-        $comm->_Date_created = $rs->fields["Date_created"];
-        $comm->_Date_modified = $rs->fields["Date_modified"];
-        $comm->_Unit_price = $rs->fields["Unit_price"];
-        $comm->_Total = $rs->fields["Total"];
+        $comm->_id = $rs->fields["id"];
+        $comm->_date_comm = $rs->fields["date_comm"];
+        $comm->_user_id = $rs->fields["user_id"];
+        $comm->_id_model = $rs->fields["id_model"];
+        $comm->_quantite = $rs->fields["quantite"];
+        $comm->_date_created = $rs->fields["date_created"];
+        $comm->_date_modified = $rs->fields["date_modified"];
+        $comm->_unit_price = $rs->fields["unit_price"];
+        $comm->_total = $rs->fields["total"];
         return $comm;
     }
 
@@ -217,7 +217,7 @@ class commande {
     }
 
     public function findByPrimaryKey($key) { // Recherche d'une adresse par id
-        $requete = self::$SELECT . " WHERE ID=" . $key;
+        $requete = self::$SELECT . " WHERE id=" . $key;
         $rs = $this->conn->query($requete);
         if ($rs->EOF) {
             return null;

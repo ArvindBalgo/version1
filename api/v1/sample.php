@@ -8,7 +8,7 @@ class sample{
     private $_src           = null;
     private $_content       = null;
 
-    private static $SELECT = "SELECT * FROM SAMPLE";
+    private static $SELECT = "SELECT * FROM sample";
 
     //**** Constructeur ****
     private $conn;
@@ -65,25 +65,25 @@ class sample{
 
     //**** Fonction de suppression ****
     public function delete($id) {
-        $requete = "DELETE FROM SAMPLE WHERE ID=" . $id;
+        $requete = "DELETE FROM sample WHERE id=" . $id;
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
     }
 
     //***** fonction de modification/cr�ation *****
     public function save() {
         if ($this->_id > 0) {
-            $requete = "UPDATE SAMPLE SET DESCRIPTION='" . ($this->_description) . "'";
-            $requete .= ",ID_MODELMETIER='" . $this->_id_modelmetier . "'";
-            $requete .= ",SRC=" . $this->_src;
-            $requete .= ",CONTENT=" . $this->_content;
-            $requete .= " WHERE ID=" . $this->_id;
+            $requete = "UPDATE sample SET description='" . ($this->_description) . "'";
+            $requete .= ",id_modelmetier='" . $this->_id_modelmetier . "'";
+            $requete .= ",src=" . $this->_src;
+            $requete .= ",content=" . $this->_content;
+            $requete .= " where id=" . $this->_id;
 
         } else {
-            $requete = "INSERT INTO SAMPLE (";
-            $requete .= "DESCRIPTION,";
-            $requete .= "ID_MODELMETIER,";
-            $requete .= "SRC,";
-            $requete .= "CONTENT";
+            $requete = "INSERT INTO sample (";
+            $requete .= "description,";
+            $requete .= "id_modelmetier,";
+            $requete .= "src,";
+            $requete .= "content";
             $requete .= ") VALUES (";
             $requete .= "'" . $this->_description . "',";
             $requete .= "'" . $this->_id_modelmetier . "',";
@@ -99,11 +99,11 @@ class sample{
     //***** Fonction de passege sql->objet *****
     private function mapSqlToObject($rs) {
         $metier = new sample();
-        $metier->_id = $rs->fields["ID"];
-        $metier->_description = $rs->fields["DESCRIPTION"];
-        $metier->_id_modelmetier = $rs->fields["ID_MODELMETIER"];
-        $metier->_src = $rs->fields["SRC"];
-        $metier->_content = $rs->fields["CONTENT"];
+        $metier->_id = $rs->fields["id"];
+        $metier->_description = $rs->fields["description"];
+        $metier->_id_modelmetier = $rs->fields["id_modelmetier"];
+        $metier->_src = $rs->fields["src"];
+        $metier->_content = $rs->fields["content"];
         return $metier;
     }
 
@@ -121,7 +121,7 @@ class sample{
     }
 
     public function findByPrimaryKey($key) { // Recherche d'une adresse par id
-        $requete = self::$SELECT . " WHERE ID=" . $key;
+        $requete = self::$SELECT . " WHERE id=" . $key;
         $rs = $this->conn->query($requete);
         if ($rs->EOF) {
             return null;

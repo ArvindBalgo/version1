@@ -40,7 +40,7 @@ class info_marketers {
         parent::__construct();
     }
 
-    private static $SELECT="SELECT * FROM INFO_MARKETERS";
+    private static $SELECT="SELECT * FROM info_marketers";
     //**** Setters *****
     public function setId_marketers($id_marketers) {
         $this->_id_marketers= $id_marketers;
@@ -93,7 +93,7 @@ class info_marketers {
     }
 
     public function delete($id_marketers) {
-        $requete = "DELETE FROM INFO_MARKETERS WHERE id_marketers=" . $id_marketers ;
+        $requete = "delete from info_marketers where id_marketers=" . $id_marketers ;
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
     }
 
@@ -105,21 +105,21 @@ class info_marketers {
              $this->_created = date('Y/m/d H:i:s', time());
          }*/
         if ($this->_id_marketers > 0) {
-            $requete = "UPDATE INFO_MARKETERS SET SURNAME='" . ($this->_surname) . "'";
-            $requete .= ",NAME='" . $this->_name . "',";
-            $requete .= ",ADDRESS1='" . $this->_address1 . "',";
-            $requete .= ",ADDRESS2='" . $this->_address2 . "',";
-            $requete .= ",ASSIGNED_DEPT='" . $this->_assigned_dept . "'";
-            $requete .= " WHERE ID_MARKETERS=" . $this->_id_marketers;
+            $requete = "update info_marketers set surname='" . ($this->_surname) . "'";
+            $requete .= ",name='" . $this->_name . "',";
+            $requete .= ",address1='" . $this->_address1 . "',";
+            $requete .= ",address2='" . $this->_address2 . "',";
+            $requete .= ",assigned_dept='" . $this->_assigned_dept . "'";
+            $requete .= " where id_marketers=" . $this->_id_marketers;
 
         } else {
-            $requete = "INSERT INTO INFO_MARKETERS (";
-            $requete .= "ID_MARKETERS,";
-            $requete .= "SURNAME,";
-            $requete .= "NAME,";
-            $requete .= "ADDRESS1,";
-            $requete .= "ADDRESS2,";
-            $requete .= "ASSIGNED_DEPT";
+            $requete = "insert into info_marketers (";
+            $requete .= "id_marketers,";
+            $requete .= "surname,";
+            $requete .= "name,";
+            $requete .= "address1,";
+            $requete .= "address2,";
+            $requete .= "assigned_dept";
             $requete .= ") VALUES (";
             $requete .= "'" . $this->_id_marketers . "',";
             $requete .= "'" . $this->_surname . "',";
@@ -138,12 +138,12 @@ class info_marketers {
     //***** Fonction de passege sql->objet *****
     private function mapSqlToObject($rs) {
         $info_market = new info_marketers();
-        $info_market->_id_marketers = $rs->fields["ID_MARKETERS"];
-        $info_market->_surname = $rs->fields["SURNAME"];
-        $info_market->_name = $rs->fields["NAME"];
-        $info_market->_address1 = $rs->fields["ADDRESS1"];
-        $info_market->_address2 = $rs->fields["ADDRESS2"];
-        $info_market->_assigned_dept = $rs->fields["ASSIGNED_DEPT"];
+        $info_market->_id_marketers = $rs->fields["id_marketers"];
+        $info_market->_surname = $rs->fields["surname"];
+        $info_market->_name = $rs->fields["name"];
+        $info_market->_address1 = $rs->fields["address1"];
+        $info_market->_address2 = $rs->fields["address2"];
+        $info_market->_assigned_dept = $rs->fields["assigned_dept"];
         return $info_market;
     }
 
@@ -160,7 +160,7 @@ class info_marketers {
     }
 
     public function findByPrimaryKey($key) { // Recherche d'une adresse par id
-        $requete = self::$SELECT . " WHERE ID_MARKETERS=" . $key;
+        $requete = self::$SELECT . " WHERE id_marketers=" . $key;
         $rs = $this->conn->query($requete);
         if ($rs->EOF) {
             return null;

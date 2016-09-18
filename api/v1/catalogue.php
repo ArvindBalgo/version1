@@ -38,7 +38,7 @@ class catalogue {
     private $_created_by = null;
     private $_modified_by = null;
 
-    private static $SELECT = "SELECT * FROM CATALOGUE";
+    private static $SELECT = "SELECT * FROM catalogue";
 
     //**** Constructeur ****
     public function __construct() {
@@ -125,7 +125,7 @@ class catalogue {
     }
 
     public function delete($id_catalogue) {
-        $requete = "DELETE FROM CATALOGUE WHERE id_catalogue=" . $id_catalogue;
+        $requete = "DELETE FROM catalogue WHERE id_catalogue=" . $id_catalogue;
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
     }
 
@@ -137,27 +137,27 @@ class catalogue {
             $this->_date_created = date('Y/m/d H:i:s', time());
         }
         if ($this->_id_catalogue > 0) {
-            $requete = "UPDATE CATALOGUE SET ID_CLIENT='" . ($this->_id_client) . "'";
-            $requete .= ",ID_MARKETER='" . $this->_id_marketer . "',";
-            $requete .= ",LINK='" . $this->_link . "',";
-            $requete .= ",DESCRIPTION='" . $this->_description . "',";
-            $requete .= ",DATE_CREATED='" . $this->_date_created . "',";
-            $requete .= ",DATE_MODIFIED='" . $this->_date_modified . "',";
-            $requete .= ",CREATED_BY='" . $this->_created_by . "',";
-            $requete .= ",MODIFIED_BY='" . $this->_modified_by . "'";
-            $requete .= " WHERE ID_CATALOGUE=" . $this->_id_catalogue;
+            $requete = "UPDATE CATALOGUE SET id_client='" . ($this->_id_client) . "'";
+            $requete .= ",id_marketer='" . $this->_id_marketer . "',";
+            $requete .= ",link='" . $this->_link . "',";
+            $requete .= ",description='" . $this->_description . "',";
+            $requete .= ",date_created='" . $this->_date_created . "',";
+            $requete .= ",date_modified='" . $this->_date_modified . "',";
+            $requete .= ",created_by='" . $this->_created_by . "',";
+            $requete .= ",modified_by='" . $this->_modified_by . "'";
+            $requete .= " WHERE id_catalogue=" . $this->_id_catalogue;
 
         } else {
-            $requete = "INSERT INTO CATALOGUE (";
-            $requete .= "ID_CATALOGUE,";
-            $requete .= "ID_CLIENT,";
-            $requete .= "ID_MARKETER,";
-            $requete .= "LINK,";
-            $requete .= "DESCRIPTION,";
-            $requete .= "DATE_CREATED,";
-            $requete .= "DATE_MODIFIED,";
-            $requete .= "CREATED_BY,";
-            $requete .= "MODIFIED_BY";
+            $requete = "INSERT INTO catalogue (";
+            $requete .= "id_catalogue,";
+            $requete .= "id_client,";
+            $requete .= "id_marketer,";
+            $requete .= "link,";
+            $requete .= "description,";
+            $requete .= "date_created,";
+            $requete .= "date_modified,";
+            $requete .= "created_by,";
+            $requete .= "modified_by";
             $requete .= ") VALUES (";
             $requete .= "'" . $this->_id_catalogue . "',";
             $requete .= "'" . $this->_id_client . "',";
@@ -179,8 +179,8 @@ class catalogue {
     //***** Fonction de passege sql->objet *****
     private function mapSqlToObject($rs) {
         $catalogue = new catalogue();
-        $catalogue->_id_catalogue = $rs->fields["ID_CATALOGUE"];
-        $catalogue->_id_client = $rs->fields["ID_CLIENT"];
+        $catalogue->_id_catalogue = $rs->fields["id_catalogue"];
+        $catalogue->_id_client = $rs->fields["id_client"];
         $catalogue->_id_marketer = $rs->fields["ID_MARKETER"];
         $catalogue->_link = $rs->fields["LINK"];
         $catalogue->_description = $rs->fields["DESCRIPTION"];

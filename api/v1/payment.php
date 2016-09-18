@@ -124,7 +124,7 @@ class payment {
     }
 
     public function delete($id_payment) {
-        $requete = "DELETE FROM PAYMENT WHERE id_payment=" . $id_payment ;
+        $requete = "delete from payment where id_payment=" . $id_payment ;
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
     }
 
@@ -136,25 +136,25 @@ class payment {
             $this->_date_created = date('Y/m/d H:i:s', time());
         }
         if ($this->_id_order > 0) {
-            $requete = "UPDATE PAYMENT SET DATE_CREATED='" . ($this->_date_created) . "'";
-            $requete .= ",DATE_MODIFIED='" . $this->_date_modified . "',";
-            $requete .= ",ID_ORDER='" . $this->_id_order . "',";
-            $requete .= ",AMOUNT_TOTAL='" . $this->_amount_total . "',";
-            $requete .= ",AMOUNT_PAID='" . $this->_amount_paid . "',";
-            $requete .= ",AMOUNT_REMAINING='" . $this->_amount_remaining . "',";
-            $requete .= ",PAYMENT_METHOD='" . $this->_payment_method . "'";
-            $requete .= " WHERE ID_PAYMENT=" . $this->_id_payment;
+            $requete = "update payment set date_created='" . ($this->_date_created) . "'";
+            $requete .= ",date_modified='" . $this->_date_modified . "',";
+            $requete .= ",id_order='" . $this->_id_order . "',";
+            $requete .= ",amount_total='" . $this->_amount_total . "',";
+            $requete .= ",amount_paid='" . $this->_amount_paid . "',";
+            $requete .= ",amount_remaining='" . $this->_amount_remaining . "',";
+            $requete .= ",payment_method='" . $this->_payment_method . "'";
+            $requete .= " where id_payment=" . $this->_id_payment;
 
         } else {
             $requete = "INSERT INTO PAYMENT (";
-            $requete .= "ID_PAYMENT,";
-            $requete .= "DATE_CREATED,";
-            $requete .= "DATE_MODIFIED,";
-            $requete .= "ID_ORDER,";
-            $requete .= "AMOUNT_TOTAL,";
-            $requete .= "AMOUNT_PAID,";
-            $requete .= "AMOUNT_REMAINING,";
-            $requete .= "PAYMENT_METHOD";
+            $requete .= "id_payment,";
+            $requete .= "date_created,";
+            $requete .= "date_modified,";
+            $requete .= "id_order,";
+            $requete .= "amount_total,";
+            $requete .= "amount_paid,";
+            $requete .= "amount_remaining,";
+            $requete .= "payment_method";
             $requete .= ") VALUES (";
             $requete .= "'" . $this->_id_payment . "',";
             $requete .= "'" . $this->_date_created . "',";
@@ -175,14 +175,14 @@ class payment {
     //***** Fonction de passege sql->objet *****
     private function mapSqlToObject($rs) {
         $PAYMENT = new payment();
-        $PAYMENT->_id_payment = $rs->fields["ID_PAYMENT"];
-        $PAYMENT->_date_created = $rs->fields["DATE_CREATED"];
-        $PAYMENT->_date_modified = $rs->fields["DATE_MODIFIED"];
-        $PAYMENT->_id_order = $rs->fields["ID_ORDER"];
-        $PAYMENT->_amount_total = $rs->fields["AMOUNT_TOTAL"];
-        $PAYMENT->_amount_paid = $rs->fields["AMOUNT_PAID"];
-        $PAYMENT->_amount_remaining = $rs->fields["AMOUNT_REMAINING"];
-        $PAYMENT->_payment_method = $rs->fields["PAYMENT_METHOD"];
+        $payment->_id_payment = $rs->fields["id_payment"];
+        $payment->_date_created = $rs->fields["date_created"];
+        $payment->_date_modified = $rs->fields["date_modified"];
+        $payment->_id_order = $rs->fields["id_order"];
+        $payment->_amount_total = $rs->fields["amount_total"];
+        $payment->_amount_paid = $rs->fields["amount_paid"];
+        $payment->_amount_remaining = $rs->fields["amount_remaining"];
+        $payment->_payment_method = $rs->fields["payment_method"];
         return $PAYMENT;
     }
 
@@ -199,7 +199,7 @@ class payment {
     }
 
     public function findByPrimaryKey($key) { // Recherche d'une adresse par id
-        $requete = self::$SELECT . " WHERE ID_PAYMENT=" . $key;
+        $requete = self::$SELECT . " WHERE id_payment=" . $key;
         $rs = $this->conn->query($requete);
         if ($rs->EOF) {
             return null;

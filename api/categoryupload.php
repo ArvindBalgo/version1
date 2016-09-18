@@ -1,5 +1,4 @@
 <?php
-include_once 'chromePHP.php';
 include_once 'v1/modelmetier.php';
 if($_POST["id_model"] > 0 && $_POST["img_modified"] == 0){
     $modelmetier = new modelmetier();
@@ -26,7 +25,6 @@ else{
         $modelmetier->setQte($_POST["qte"]);
         $modelmetier->setSrc('assets/img/'.$_FILES['file']['name']);
         $modelmetier->save();
-        chromePHP::log(json_encode($_POST) . "  DATA");
         echo json_encode("DONE");
 
     } else {

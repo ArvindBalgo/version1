@@ -77,7 +77,6 @@ else if($mode == 6){
     $model = $model->findByPrimaryKey(trim($_GET["id"]));
     $model->setDescription(trim($_GET["name"]));
     $model->setQte($_GET["qte"]);
-    chromePHP::log($_GET["qte"] . "   ===  ");
     $model->setActive($_GET["active"]);
 
     $model->save();

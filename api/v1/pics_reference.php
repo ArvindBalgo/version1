@@ -49,7 +49,7 @@ class pics_reference {
         $this->conn = $db->connect();
     }
 
-    private static $SELECT="SELECT * FROM PICS_REFERENCE";
+    private static $SELECT="SELECT * FROM pics_reference";
     //**** Setters *****
     public function setId_ref($id_ref) {
         $this->_id_ref = $id_ref;
@@ -95,7 +95,7 @@ class pics_reference {
     }
 
     public function delete($id_ref) {
-        $requete = "DELETE FROM PICS_REFERENCE WHERE id_ref=" . $id_ref ;
+        $requete = "delete from pics_reference where id_ref=" . $id_ref ;
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
     }
 
@@ -107,19 +107,19 @@ class pics_reference {
              $this->_date_created = date('Y/m/d H:i:s', time());
          }*/
         if ($this->_id_ref > 0) {
-            $requete = "UPDATE PICS_REFERENCE SET NAME='" . ($this->_name) . "'";
-            $requete .= ",CATEGORY='" . $this->_category . "',";
-            $requete .= ",URL='" . $this->_url . "',";
-            $requete .= ",DESCRIPTION='" . $this->_description . "',";
-            $requete .= " WHERE ID_REF=" . $this->_id_ref;
+            $requete = "update pics_reference set name='" . ($this->_name) . "'";
+            $requete .= ",category='" . $this->_category . "',";
+            $requete .= ",url='" . $this->_url . "',";
+            $requete .= ",description='" . $this->_description . "',";
+            $requete .= " where id_ref=" . $this->_id_ref;
 
         } else {
-            $requete = "INSERT INTO PICS_REFERENCE (";
-            $requete .= "ID_REF,";
-            $requete .= "NAME,";
-            $requete .= "CATEGORY,";
-            $requete .= "URL,";
-            $requete .= "DESCRIPTION";
+            $requete = "INSERT INTO pics_reference (";
+            $requete .= "id_ref,";
+            $requete .= "name,";
+            $requete .= "category,";
+            $requete .= "url,";
+            $requete .= "description";
             $requete .= ") VALUES (";
             $requete .= "'" . $this->_id_ref . "',";
             $requete .= "'" . $this->_name . "',";
@@ -137,11 +137,11 @@ class pics_reference {
     //***** Fonction de passege sql->objet *****
     private function mapSqlToObject($rs) {
         $ref  = new id_ref();
-        $ref->_id_ref = $rs->fields["ID_REF"];
-        $ref->_name = $rs->fields["NAME"];
-        $ref->_category = $rs->fields["CATEGORY"];
-        $ref->_url = $rs->fields["URL"];
-        $ref->_description = $rs->fields["DESCRIPTION"];
+        $ref->_id_ref = $rs->fields["id_ref"];
+        $ref->_name = $rs->fields["name"];
+        $ref->_category = $rs->fields["category"];
+        $ref->_url = $rs->fields["url"];
+        $ref->_description = $rs->fields["description"];
         return $ref;
     }
 
@@ -158,7 +158,7 @@ class pics_reference {
     }
 
     public function findByPrimaryKey($key) { // Recherche d'une adresse par id
-        $requete = self::$SELECT . " WHERE ID_REF=" . $key;
+        $requete = self::$SELECT . " WHERE id_ref=" . $key;
         $rs = $this->conn->query($requete);
         if ($rs->EOF) {
             return null;

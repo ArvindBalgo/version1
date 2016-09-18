@@ -32,7 +32,7 @@ class department {
         $this->conn = $db->connect();
     }
 
-    private static $SELECT="SELECT * FROM DEPARTMENT";
+    private static $SELECT="SELECT * FROM department";
     //**** Setters *****
     public function setId_dept($id_dept) {
         $this->_id_dept= $id_dept;
@@ -62,7 +62,7 @@ class department {
     }
 
     public function delete($id_dept) {
-        $requete = "DELETE FROM DEPARTMENT WHERE id_dept=" . $id_dept ;
+        $requete = "DELETE FROM department WHERE id_dept=" . $id_dept ;
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
     }
 
@@ -74,15 +74,15 @@ class department {
              $this->_created = date('Y/m/d H:i:s', time());
          }*/
         if ($this->_id_dept > 0) {
-            $requete = "UPDATE DEPARTMENT SET NAME='" . ($this->_name) . "'";
-            $requete .= ",DESCRIPTION='" . $this->_description . "'";
-            $requete .= " WHERE ID_DEPT=" . $this->_id_dept;
+            $requete = "UPDATE department SET name='" . ($this->_name) . "'";
+            $requete .= ",description='" . $this->_description . "'";
+            $requete .= " WHERE id_dept=" . $this->_id_dept;
 
         } else {
-            $requete = "INSERT INTO DEPARTMENT (";
-            $requete .= "ID_DEPT,";
-            $requete .= "NAME,";
-            $requete .= "DESCRIPTION,";
+            $requete = "INSERT INTO department (";
+            $requete .= "id_dept,";
+            $requete .= "name,";
+            $requete .= "description,";
             $requete .= ") VALUES (";
             $requete .= "'" . $this->_id_dept . "',";
             $requete .= "'" . $this->_name . "',";
@@ -98,9 +98,9 @@ class department {
     //***** Fonction de passege sql->objet *****
     private function mapSqlToObject($rs) {
         $dept = new department();
-        $dept->_id_dept= $rs->fields["ID_DEPT"];
-        $dept->_name = $rs->fields["NAME"];
-        $dept->_description = $rs->fields["DESCRIPTION"];
+        $dept->_id_dept= $rs->fields["id_dept"];
+        $dept->_name = $rs->fields["name"];
+        $dept->_description = $rs->fields["description"];
         return $dept;
     }
 
@@ -117,7 +117,7 @@ class department {
     }
 
     public function findByPrimaryKey($key) { // Recherche d'une adresse par id
-        $requete = self::$SELECT . " WHERE ID_DEPT=" . $key;
+        $requete = self::$SELECT . " WHERE id_dept=" . $key;
         $rs = $this->conn->query($requete);
         if ($rs->EOF) {
             return null;

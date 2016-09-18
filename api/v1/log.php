@@ -38,7 +38,7 @@ class log {
     private $_module = null;
     private $_created_by = null;
 
-   private static $SELECT="SELECT * FROM LOG";
+   private static $SELECT="SELECT * FROM log";
     //**** Constructeur ****
     public function __construct() {
         require_once 'dbConnect.php';
@@ -91,7 +91,7 @@ class log {
     }
 
     public function delete($id_log) {
-        $requete = "DELETE FROM LOG WHERE id_log=" . $id_log ;
+        $requete = "DELETE FROM log WHERE id_log=" . $id_log ;
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
     }
 
@@ -103,20 +103,20 @@ class log {
             $this->_date_created = date('Y/m/d H:i:s', time());
         }
         if ($this->_id_log > 0) {
-            $requete = "UPDATE LOG SET DATE_CREATED='" . ($this->_date_created) . "'";
-            $requete .= ",DESCRIPTION='" . $this->_description . "',";
-            $requete .= ",MODULE='" . $this->_module . "',";
-            $requete .= ",CREATED_BY='" . $this->_created_by . "',";
-            $requete .= " WHERE ID_LOG=" . $this->_id_log;
+            $requete = "update log set date_created='" . ($this->_date_created) . "'";
+            $requete .= ",description='" . $this->_description . "',";
+            $requete .= ",module='" . $this->_module . "',";
+            $requete .= ",created_by='" . $this->_created_by . "',";
+            $requete .= " where id_log=" . $this->_id_log;
 
         } else {
-            $requete = "INSERT INTO LOG (";
-            $requete .= "ID_LOG,";
-            $requete .= "DATE_CREATED,";
-            $requete .= "DESCRIPTION,";
-            $requete .= "MODULE,";
-            $requete .= "CREATED_BY";
-            $requete .= ") VALUES (";
+            $requete = "insert into log (";
+            $requete .= "id_log,";
+            $requete .= "date_created,";
+            $requete .= "description,";
+            $requete .= "module,";
+            $requete .= "created_by";
+            $requete .= ") values (";
             $requete .= "'" . $this->_id_log . "',";
             $requete .= "'" . $this->_date_created . "',";
             $requete .= "'" . $this->_description . "',";
@@ -133,11 +133,11 @@ class log {
     //***** Fonction de passege sql->objet *****
     private function mapSqlToObject($rs) {
         $log = new log();
-        $log->_id_log = $rs->fields["ID_LOG"];
-        $log->_date_created = $rs->fields["DATE_CREATED"];
-        $log->_description = $rs->fields["DESCRIPTION"];
-        $log->_module = $rs->fields["MODULE"];
-        $log->_created_by = $rs->fields["CREATED_BY"];
+        $log->_id_log = $rs->fields["id_log"];
+        $log->_date_created = $rs->fields["date_created"];
+        $log->_description = $rs->fields["description"];
+        $log->_module = $rs->fields["module"];
+        $log->_created_by = $rs->fields["created_by"];
         return $log;
     }
 
@@ -154,7 +154,7 @@ class log {
     }
 
     public function findByPrimaryKey($key) { // Recherche d'une adresse par id
-        $requete = self::$SELECT . " WHERE ID_LOG=" . $key;
+        $requete = self::$SELECT . " WHERE id_log=" . $key;
         $rs = $this->conn->query($requete);
         if ($rs->EOF) {
             return null;

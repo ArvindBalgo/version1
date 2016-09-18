@@ -6,8 +6,7 @@ angular
         var vm = this;
 
         vm.login = function(){
-            console.log("login function");
-            console.log(vm.username , "  ::  ", vm.password);
+
             var customer = {};
             customer.email=vm.username;
             customer.password=vm.password;

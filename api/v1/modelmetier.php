@@ -9,7 +9,7 @@ class modelmetier{
     private $_qte           = null;
     private $_active        = null;
 
-    private static $SELECT = "SELECT * FROM MODELMETIER";
+    private static $SELECT = "SELECT * FROM modelmetier";
 
     //**** Constructeur ****
     private $conn;
@@ -71,7 +71,7 @@ class modelmetier{
     }
     //**** Fonction de suppression ****
     public function delete($id) {
-        $requete = "DELETE FROM MODELMETIER WHERE ID=" . $id;
+        $requete = "DELETE FROM modelmetier WHERE id=" . $id;
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
     }
 
@@ -82,20 +82,20 @@ class modelmetier{
             $this->_date_created = date('Y/m/d H:i:s', time());
         }
         if ($this->_id > 0) {
-            $requete = "UPDATE MODELMETIER SET DESCRIPTION='" . ($this->_description) . "'";
-            $requete .= ",CATEGORY='" . $this->_category . "'";
-            $requete .= ",SRC='" . $this->_src."'";
-            $requete .= ",QTE='" . $this->_qte."'";
-            $requete .= ",ACTIVE=" . $this->_active;
-            $requete .= " WHERE ID=" . $this->_id;
+            $requete = "update modelmetier set description='" . ($this->_description) . "'";
+            $requete .= ",category='" . $this->_category . "'";
+            $requete .= ",src='" . $this->_src."'";
+            $requete .= ",qte='" . $this->_qte."'";
+            $requete .= ",active=" . $this->_active;
+            $requete .= " where id=" . $this->_id;
 
         } else {
-            $requete = "INSERT INTO MODELMETIER (";
-            $requete .= "DESCRIPTION,";
-            $requete .= "CATEGORY,";
-            $requete .= "SRC,";
-            $requete .= "QTE,";
-            $requete .= "ACTIVE";
+            $requete = "INSERT INTO modelmetier (";
+            $requete .= "description,";
+            $requete .= "category,";
+            $requete .= "src,";
+            $requete .= "qte,";
+            $requete .= "active";
             $requete .= ") VALUES (";
             $requete .= "'" . $this->_description . "',";
             $requete .= "'" . $this->_category . "',";
@@ -103,7 +103,6 @@ class modelmetier{
             $requete .= "'" . $this->_qte . "',";
             $requete .= "'" . $this->_active . "')";
         }
-chromePHP::log($requete);
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
         return $r;
     }
@@ -135,7 +134,7 @@ chromePHP::log($requete);
     }
 
     public function findByPrimaryKey($key) { // Recherche d'une adresse par id
-        $requete = self::$SELECT . " WHERE ID=" . $key;
+        $requete = self::$SELECT . " WHERE id=" . $key;
         $rs = $this->conn->query($requete);
         if ($rs->EOF) {
             return null;

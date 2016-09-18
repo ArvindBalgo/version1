@@ -65,15 +65,12 @@ else if($mode == 2){
     print json_decode($data);
 }
 else if($mode == 3){
-    chromePHP::log("TEST:: " . $_GET["metier"]);
     $cata_metier = new cata_metier();
     $cata_metier = $cata_metier->findByMetier($_GET["metier"]);
-    chromePHP::log($cata_metier);
     $arrIdCata = [];
     foreach($cata_metier as $ligne){
         $arrIdCata[] = $ligne["id_cata"];
     }
-    chromePHP::log($arrIdCata);
     $strCata = implode(",", $arrIdCata);
     $cata  = new cata();
     $cata = $cata->findAllByIdCataRange($strCata);

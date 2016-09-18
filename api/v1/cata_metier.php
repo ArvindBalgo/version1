@@ -5,7 +5,7 @@
  * Date: 13/07/2016
  * Time: 22:43
  */
-include_once '../chromePHP.php';
+
 
 class cata_metier {
     //**** Variables declarations ****
@@ -13,7 +13,7 @@ class cata_metier {
     private $_id_metier = null;
     private $_active = null;
 
-   private static $SELECT="SELECT * FROM CATA_METIER";
+   private static $SELECT="SELECT * FROM cata_metier";
     //**** Constructeur ****
     public function __construct() {
         require_once 'dbConnect.php';
@@ -49,22 +49,22 @@ class cata_metier {
     }
 
     public function deleteIdCata($id) {
-        $requete = "DELETE FROM CATA_METIER WHERE id_cata=" . $id ;
+        $requete = "DELETE FROM cata_metier WHERE id_cata=" . $id ;
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
     }
 
 
     //***** fonction de modification/cr�ation *****
     public function save() {
-            $requete = "INSERT INTO CATA_METIER (";
-            $requete .= "ID_CATA,";
-            $requete .= "ID_METIER,";
-            $requete .= "ACTIVE";
+            $requete = "INSERT INTO cata_metier (";
+            $requete .= "id_cata,";
+            $requete .= "id_metier,";
+            $requete .= "active";
             $requete .= ") VALUES (";
             $requete .= "'" . $this->_id_cata . "',";
             $requete .= "'" . $this->_id_metier . "',";
             $requete .= "'" . $this->_active . "')";
-chromePHP::log($requete);
+
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
         return $r;
     }
@@ -93,7 +93,7 @@ chromePHP::log($requete);
     }
 
     public function findByPrimaryKey($key) { // Recherche d'une adresse par id
-        $requete = self::$SELECT . " WHERE ID_CATA=" . $key;
+        $requete = self::$SELECT . " WHERE id_cata=" . $key;
         $rs = $this->conn->query($requete);
         if ($rs->EOF) {
             return null;
@@ -102,7 +102,7 @@ chromePHP::log($requete);
     }
 
     public function findByMetier($key){
-        $requete = self::$SELECT . " WHERE ID_METIER=".$key;
+        $requete = self::$SELECT . " WHERE id_metier=".$key;
         $rs = $this->conn->query($requete);
 
         $rows = [];

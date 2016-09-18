@@ -95,7 +95,7 @@ class jira {
 
 
     public function delete($id_jira) {
-        $requete = "DELETE FROM JIRA WHERE id_jira=" . $id_jira ;
+        $requete = "DELETE FROM jira WHERE id_jira=" . $id_jira ;
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
     }
 
@@ -107,19 +107,19 @@ class jira {
             $this->_date_created= date('Y/m/d H:i:s', time());
         }
         if ($this->_id_jira > 0) {
-            $requete = "UPDATE JIRA SET DATE_CREATED='" . ($this->_date_created) . "'";
-            $requete .= ",DATE_FILLED='" . $this->_date_filled . "',";
-            $requete .= ",DESCRIPTION='" . $this->_description . "',";
-            $requete .= ",STATUS='" . $this->_status . "'";
-            $requete .= " WHERE ID_JIRA=" . $this->_id_jira;
+            $requete = "update jira set date_created='" . ($this->_date_created) . "'";
+            $requete .= ",date_filled='" . $this->_date_filled . "',";
+            $requete .= ",description='" . $this->_description . "',";
+            $requete .= ",status='" . $this->_status . "'";
+            $requete .= " where id_jira=" . $this->_id_jira;
 
         } else {
             $requete = "INSERT INTO JIRA (";
-            $requete .= "ID_JIRA,";
-            $requete .= "DATE_CREATED,";
-            $requete .= "DATE_FILLED,";
-            $requete .= "DESCRIPTION,";
-            $requete .= "STATUS";
+            $requete .= "id_jira,";
+            $requete .= "date_created,";
+            $requete .= "date_filled,";
+            $requete .= "description,";
+            $requete .= "status";
             $requete .= ") VALUES (";
             $requete .= "'" . $this->_id_jira . "',";
             $requete .= "'" . $this->_date_created . "',";
@@ -137,11 +137,11 @@ class jira {
     //***** Fonction de passege sql->objet *****
     private function mapSqlToObject($rs) {
         $jir = new jira();
-        $jir->_id_jira = $rs->fields["ID_JIRA"];
-        $jir->_date_created = $rs->fields["DATE_CREATED"];
-        $jir->_date_filled = $rs->fields["DATE_FILLED"];
-        $jir->_description = $rs->fields["DESCRIPTION"];
-        $jir->_status = $rs->fields["STATUS"];
+        $jir->_id_jira = $rs->fields["id_jira"];
+        $jir->_date_created = $rs->fields["date_created"];
+        $jir->_date_filled = $rs->fields["date_filled"];
+        $jir->_description = $rs->fields["description"];
+        $jir->_status = $rs->fields["status"];
         return $jir;
     }
 
@@ -158,7 +158,7 @@ class jira {
     }
 
     public function findByPrimaryKey($key) { // Recherche d'une adresse par id
-        $requete = self::$SELECT . " WHERE ID_JIRA=" . $key;
+        $requete = self::$SELECT . " WHERE id_jira=" . $key;
         $rs = $this->conn->query($requete);
         if ($rs->EOF) {
             return null;

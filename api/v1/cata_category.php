@@ -5,7 +5,6 @@
  * Date: 13/07/2016
  * Time: 22:43
  */
-include_once '../chromePHP.php';
 
 class cata_category {
     //**** Variables declarations ****
@@ -13,7 +12,7 @@ class cata_category {
     private $_libelle = null;
     private $_active = null;
 
-   private static $SELECT="SELECT * FROM CATA_CATEGORY";
+   private static $SELECT="SELECT * FROM cata_category";
     //**** Constructeur ****
     public function __construct() {
         require_once 'dbConnect.php';
@@ -50,7 +49,7 @@ class cata_category {
     }
 
     public function delete($id) {
-        $requete = "DELETE FROM CATA_CATEGORY WHERE id=" . $id ;
+        $requete = "DELETE FROM cata_category WHERE id=" . $id ;
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
     }
 
@@ -59,14 +58,14 @@ class cata_category {
     public function save() {
 
         if ($this->_id > 0) {
-            $requete = "UPDATE CATA_CATEGORY SET LIBELLE='" . ($this->_libelle) . "'";
-            $requete .= ",ACTIVE=". ($this->_active);
-            $requete .= " WHERE ID=" . $this->_id;
+            $requete = "UPDATE cata_category SET libelle='" . ($this->_libelle) . "'";
+            $requete .= ",active=". ($this->_active);
+            $requete .= " WHERE id=" . $this->_id;
 
         } else {
-            $requete = "INSERT INTO CATA_CATEGORY (";
-            $requete .= "LIBELLE";
-            $requete .= ",ACTIVE";
+            $requete = "INSERT INTO cata_category (";
+            $requete .= "libelle";
+            $requete .= ",active";
             $requete .= ") VALUES (";
             $requete .= "'" . $this->_libelle . "',";
             $requete .= "" . $this->_active . ")";
@@ -99,7 +98,7 @@ class cata_category {
     }
 
     public function findByPrimaryKey($key) { // Recherche d'une adresse par id
-        $requete = self::$SELECT . " WHERE ID=" . $key;
+        $requete = self::$SELECT . " WHERE id=" . $key;
         $rs = $this->conn->query($requete);
 
         return $this->mapSqlToObject(mysqli_fetch_array($rs));

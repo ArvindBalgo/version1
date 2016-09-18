@@ -135,7 +135,7 @@ class info_client {
 
     //**** Fonction de suppression ****
     public function delete($id_client) {
-        $requete = "DELETE FROM INFO_CLIENT WHERE id_client=" . $id_client;
+        $requete = "delete from info_client where id_client=" . $id_client;
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
     }
 
@@ -146,26 +146,26 @@ class info_client {
             $this->_date_created = date('Y/m/d H:i:s', time());
         }
         if ($this->_id_client > 0) {
-            $requete = "UPDATE INFO_CLIENT SET SURNAME='" . ($this->_surname) . "'";
-            $requete .= ",NAME='" . $this->_name . "',";
-            $requete .= ",ID_USER=" . $this->_id_user . "',";
-            $requete .= ",ADDRESS1='" . $this->_address1 . "',";
-            $requete .= ",ADDRESS2='" . $this->_address2 . "',";
-            $requete .= ",DEPT='" . $this->_dept . "',";
-            $requete .= ",DATE_CREATED='" . $this->_date_created . "',";
-            $requete .= ",DATE_MODIFIED='" . $this->_date_modified . "',";
-            $requete .= " WHERE ID_CLIENT=" . $this->_id_client;
+            $requete = "update info_client set surname='" . ($this->_surname) . "'";
+            $requete .= ",name='" . $this->_name . "',";
+            $requete .= ",id_user=" . $this->_id_user . "',";
+            $requete .= ",address1='" . $this->_address1 . "',";
+            $requete .= ",address2='" . $this->_address2 . "',";
+            $requete .= ",dept='" . $this->_dept . "',";
+            $requete .= ",date_created='" . $this->_date_created . "',";
+            $requete .= ",date_modified='" . $this->_date_modified . "',";
+            $requete .= " where id_client=" . $this->_id_client;
 
         } else {
-            $requete = "INSERT INTO INFO_CLIENT (";
-            $requete .= "SURNAME,";
-            $requete .= "NAME,";
-            $requete .= "ID_USER,";
-            $requete .= "ADDRESS1,";
-            $requete .= "ADDRESS2,";
-            $requete .= "DEPT,";
-            $requete .= "DATE_CREATED,";
-            $requete .= "DATE_MODIFIED";
+            $requete = "insert into info_client (";
+            $requete .= "surname,";
+            $requete .= "name,";
+            $requete .= "id_user,";
+            $requete .= "address1,";
+            $requete .= "address2,";
+            $requete .= "dept,";
+            $requete .= "date_created,";
+            $requete .= "date_modified";
             $requete .= ") VALUES (";
             $requete .= "'" . $this->_surname . "',";
             $requete .= "'" . $this->_name . "',";
@@ -185,14 +185,14 @@ class info_client {
     //***** Fonction de passege sql->objet *****
     private function mapSqlToObject($rs) {
         $info = new info_client();
-        $info->_id_user = $rs->fields["ID_USER"];
-        $info->_surname = $rs->fields["SURNAME"];
-        $info->_name = $rs->fields["NAME"];
-        $info->_address1 = $rs->fields["ADDRESS1"];
-        $info->_address2 = $rs->fields["ADDRESS2"];
-        $info->_dept = $rs->fields["DEPT"];
-        $info->_date_modified = $rs->fields["DATE_MODIFIED"];
-        $info->_date_created = $rs->fields["DATE_CREATED"];
+        $info->_id_user = $rs->fields["id_user"];
+        $info->_surname = $rs->fields["surname"];
+        $info->_name = $rs->fields["name"];
+        $info->_address1 = $rs->fields["address1"];
+        $info->_address2 = $rs->fields["address2"];
+        $info->_dept = $rs->fields["dept"];
+        $info->_date_modified = $rs->fields["date_modified"];
+        $info->_date_created = $rs->fields["date_created"];
         return $info;
     }
 

@@ -5,7 +5,6 @@
  * Date: 13/07/2016
  * Time: 22:43
  */
-include_once '../chromePHP.php';
 
 class cata_ligne_params {
     //**** Variables declarations ****
@@ -16,7 +15,7 @@ class cata_ligne_params {
     private $_type = null;
     private $_params = null;
 
-   private static $SELECT="SELECT * FROM CATA_LIGNE_PARAMS";
+   private static $SELECT="SELECT * FROM cata_ligne_params";
     //**** Constructeur ****
     public function __construct() {
         require_once 'dbConnect.php';
@@ -76,7 +75,7 @@ class cata_ligne_params {
     }
 
     public function delete($id) {
-        $requete = "DELETE FROM CATA_LIGNE_PARAMS WHERE id=" . $id ;
+        $requete = "DELETE FROM cata_ligne_params WHERE id=" . $id ;
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
     }
 
@@ -85,20 +84,20 @@ class cata_ligne_params {
     public function save() {
 
         if ($this->_id > 0) {
-            $requete = "UPDATE CATA_LIGNE_PARAMS SET TITLE='" . ($this->_title) . "'";
-            $requete .= ",SRC='" . $this->_src . "'";
-            $requete .= ",ID_CATA_LIGNE='" . $this->_id_cata_ligne . "'";
-            $requete .= ",TYPE='" . $this->_type . "'";
-            $requete .= ",PARAMS='" . $this->_params . "'";
-            $requete .= " WHERE ID=" . $this->_id;
+            $requete = "UPDATE cata_ligne_params SET title='" . ($this->_title) . "'";
+            $requete .= ",src='" . $this->_src . "'";
+            $requete .= ",id_cata_ligne='" . $this->_id_cata_ligne . "'";
+            $requete .= ",type='" . $this->_type . "'";
+            $requete .= ",params='" . $this->_params . "'";
+            $requete .= " WHERE id=" . $this->_id;
 
         } else {
-            $requete = "INSERT INTO CATA_LIGNE_PARAMS (";
-            $requete .= "TITLE,";
-            $requete .= "SRC,";
-            $requete .= "ID_CATA_LIGNE,";
-            $requete .= "TYPE,";
-            $requete .= "PARAMS";
+            $requete = "INSERT INTO cata_ligne_params (";
+            $requete .= "title,";
+            $requete .= "src,";
+            $requete .= "id_cata_ligne,";
+            $requete .= "type,";
+            $requete .= "params";
             $requete .= ") VALUES (";
             $requete .= "'" . $this->_title . "',";
             $requete .= "'" . $this->_src . "',";
@@ -138,7 +137,7 @@ class cata_ligne_params {
     }
 
     public function findByPrimaryKey($key) { // Recherche d'une adresse par id
-        $requete = self::$SELECT . " WHERE ID=" . $key;
+        $requete = self::$SELECT . " WHERE id=" . $key;
         $rs = $this->conn->query($requete);
         if ($rs->EOF) {
             return null;
@@ -154,7 +153,7 @@ class cata_ligne_params {
     }
 
     public function findByIdCata($id){
-        $requete = "SELECT * FROM CATA_LIGNE_PARAMS WHERE ID_CATA_LIGNE=".$id;
+        $requete = "select * from cata_ligne_params where id_cata_ligne=".$id;
         $rs = $this->conn->query($requete);
         $rows = [];
         while($row = mysqli_fetch_array($rs))

@@ -10,7 +10,7 @@ class gabarits{
     private $_id_sample     = 0;
     private $_reference     = "";
 
-    private static $SELECT = "SELECT * FROM GABARITS";
+    private static $SELECT = "SELECT * FROM gabarits";
 
     //**** Constructeur ****
     private $conn;
@@ -83,29 +83,29 @@ class gabarits{
 
     //**** Fonction de suppression ****
     public function delete($id) {
-        $requete = "DELETE FROM GABARITS WHERE ID=" . $id;
+        $requete = "DELETE FROM gabarits WHERE id=" . $id;
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
     }
 
     //***** fonction de modification/cr�ation *****
     public function save() {
         if ($this->_id > 0) {
-            $requete = "UPDATE GABARITS SET DESCRIPTION='" . ($this->_description) . "'";
-            $requete .= ",ID_MODELMETIER='" . $this->_id_modelmetier . "'";
-            $requete .= ",SRC='" . $this->_src . "'";
-            $requete .= ",TYPE='" . $this->_type . "'";
-            $requete .= ",ID_SAMPLE='" . $this->_id_sample . "'";
-            $requete .= ",REFERENCE='" . $this->_reference . "'";
-            $requete .= " WHERE ID=" . $this->_id;
+            $requete = "update gabarits set description='" . ($this->_description) . "'";
+            $requete .= ",id_modelmetier='" . $this->_id_modelmetier . "'";
+            $requete .= ",src='" . $this->_src . "'";
+            $requete .= ",type='" . $this->_type . "'";
+            $requete .= ",id_sample='" . $this->_id_sample . "'";
+            $requete .= ",reference='" . $this->_reference . "'";
+            $requete .= " where id=" . $this->_id;
 
         } else {
-            $requete = "INSERT INTO GABARITS (";
-            $requete .= "DESCRIPTION,";
-            $requete .= "ID_MODELMETIER,";
-            $requete .= "SRC,";
-            $requete .= "TYPE,";
-            $requete .= "ID_SAMPLE,";
-            $requete .= "REFERENCE";
+            $requete = "insert into gabarits (";
+            $requete .= "description,";
+            $requete .= "id_modelmetier,";
+            $requete .= "src,";
+            $requete .= "type,";
+            $requete .= "id_sample,";
+            $requete .= "reference";
             $requete .= ") VALUES (";
             $requete .= "'" . $this->_description . "',";
             $requete .= "'" . $this->_id_modelmetier . "',";
@@ -123,13 +123,13 @@ class gabarits{
     //***** Fonction de passege sql->objet *****
     private function mapSqlToObject($rs) {
         $metier = new gabarits();
-        $metier->_id = $rs->fields["ID"];
-        $metier->_description = $rs->fields["DESCRIPTION"];
-        $metier->_id_modelmetier = $rs->fields["ID_MODELMETIER"];
-        $metier->_src = $rs->fields["SRC"];
-        $metier->_type = $rs->fields["TYPE"];
-        $metier->_id_sample = $rs->fields["ID_SAMPLE"];
-        $metier->_reference = $rs->fields["REFERENCE"];
+        $metier->_id = $rs->fields["id"];
+        $metier->_description = $rs->fields["description"];
+        $metier->_id_modelmetier = $rs->fields["id_modelmetier"];
+        $metier->_src = $rs->fields["src"];
+        $metier->_type = $rs->fields["type"];
+        $metier->_id_sample = $rs->fields["id_sample"];
+        $metier->_reference = $rs->fields["reference"];
         return $metier;
     }
 
@@ -147,7 +147,7 @@ class gabarits{
     }
 
     public function findByPrimaryKey($key) { // Recherche d'une adresse par id
-        $requete = self::$SELECT . " WHERE ID=" . $key;
+        $requete = self::$SELECT . " WHERE id=" . $key;
         $rs = $this->conn->query($requete);
         if ($rs->EOF) {
             return null;
@@ -156,7 +156,7 @@ class gabarits{
     }
 
     public function findByIdModel($id){
-        $requete = self::$SELECT . " WHERE ID_MODELMETIER = ".$id . " ORDER BY TYPE";
+        $requete = self::$SELECT . " WHERE id_modelmetier = ".$id . " ORDER BY type";
         $resultat = $this->conn->query($requete);
         $rows = [];
         while($row = mysqli_fetch_array($resultat))
@@ -167,7 +167,7 @@ class gabarits{
     }
 
     public function findByType($type) {
-        $requete = self::$SELECT . " WHERE TYPE = ".$type ." ORDER BY TYPE";
+        $requete = self::$SELECT . " WHERE type = ".$type ." ORDER BY type";
         $resultat = $this->conn->query($requete);
         $rows = [];
         while($row = mysqli_fetch_array($resultat))
@@ -178,7 +178,7 @@ class gabarits{
     }
 
     public function findEmptyGabarits(){
-        $requete = self::$SELECT . " WHERE ID_SAMPLE = 0";
+        $requete = self::$SELECT . " WHERE id_sample = 0";
         $resultat = $this->conn->query($requete);
         $rows = [];
         while($row = mysqli_fetch_array($resultat)){

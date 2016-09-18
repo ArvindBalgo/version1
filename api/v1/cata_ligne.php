@@ -5,7 +5,6 @@
  * Date: 13/07/2016
  * Time: 22:43
  */
-include_once '../chromePHP.php';
 
 class cata_ligne {
     //**** Variables declarations ****
@@ -13,7 +12,7 @@ class cata_ligne {
     private $_title = null;
     private $_src = null;
 
-   private static $SELECT="SELECT * FROM CATA_LIGNE";
+   private static $SELECT="SELECT * FROM cata_ligne";
     //**** Constructeur ****
     public function __construct() {
         require_once 'dbConnect.php';
@@ -51,7 +50,7 @@ class cata_ligne {
     }
 
     public function delete($id) {
-        $requete = "DELETE FROM CATA_LIGNE WHERE id=" . $id ;
+        $requete = "DELETE FROM cata_ligne WHERE id=" . $id ;
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
     }
 
@@ -60,14 +59,14 @@ class cata_ligne {
     public function save() {
 
         if ($this->_id > 0) {
-            $requete = "UPDATE CATA_LIGNE SET TITLE='" . ($this->_title) . "'";
-            $requete .= ",SRC='" . $this->_src . "'";
-            $requete .= " WHERE ID=" . $this->_id;
+            $requete = "UPDATE cata_ligne SET title='" . ($this->_title) . "'";
+            $requete .= ",src='" . $this->_src . "'";
+            $requete .= " WHERE id=" . $this->_id;
 
         } else {
-            $requete = "INSERT INTO CATA_LIGNE (";
-            $requete .= "TITLE,";
-            $requete .= "SRC";
+            $requete = "INSERT INTO cata_ligne (";
+            $requete .= "title,";
+            $requete .= "src";
             $requete .= ") VALUES (";
             $requete .= "'" . $this->_title . "',";
             $requete .= "'" . $this->_src . "')";
@@ -101,7 +100,7 @@ class cata_ligne {
     }
 
     public function findByPrimaryKey($key) { // Recherche d'une adresse par id
-        $requete = self::$SELECT . " WHERE ID=" . $key;
+        $requete = self::$SELECT . " WHERE id=" . $key;
         $rs = $this->conn->query($requete);
 
         /*if ($rs->EOF) {
@@ -118,6 +117,6 @@ class cata_ligne {
     }
 
     public function getInfo($id){
-        $requete = "SELECT * FROM CATA_LIGNE CL INNER JOIN CATA_LIGNE_PARAMS CLP ON CL.ID = CLP.ID_CATA_LIGNE WHERE CL.ID=".$id;
+        $requete = "select * from cata_ligne cl inner join cata_ligne_params clp on cl.id = clp.id_cata_ligne where cl.id=".$id;
     }
 } 
