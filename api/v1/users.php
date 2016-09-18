@@ -45,7 +45,7 @@ class users {
     private $_city = null;
     private $_created = null;
 
-    private static $SELECT = "SELECT uid,name,email,phone,password,address,city,TO_CHAR(DATE_CREATION,'DD/MM/RRRR HH24:MI:SS') as created FROM USERS ";
+    private static $SELECT = "SELECT uid,name,email,phone,password,address,city,TO_CHAR(date_creation,'DD/MM/RRRR HH24:MI:SS') as created FROM USERS ";
 
 
     //**** Constructeur ****
@@ -124,7 +124,7 @@ class users {
     }
 
     public function delete($uid) {
-        $requete = "DELETE FROM USERS WHERE uid=" . $uid ;
+        $requete = "delete from users where uid=" . $uid ;
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
     }
 
@@ -136,25 +136,25 @@ class users {
             $this->_created = date('Y/m/d H:i:s', time());
         }
         if ($this->_uid > 0) {
-            $requete = "UPDATE USERS SET NAME='" . ($this->_name) . "'";
-            $requete .= ",EMAIL='" . $this->_email . "',";
-            $requete .= ",PHONE='" . $this->_phone . "',";
-            $requete .= ",PASSWORD='" . $this->_password . "',";
-            $requete .= ",ADDRESS='" . $this->_address . "',";
-            $requete .= ",CITY='" . $this->_city . "',";
-            $requete .= ",CREATED='" . $this->_created . "',";
-            $requete .= " WHERE UID=" . $this->_uid;
+            $requete = "update users set name='" . ($this->_name) . "'";
+            $requete .= ",email='" . $this->_email . "',";
+            $requete .= ",phone='" . $this->_phone . "',";
+            $requete .= ",password='" . $this->_password . "',";
+            $requete .= ",address='" . $this->_address . "',";
+            $requete .= ",city='" . $this->_city . "',";
+            $requete .= ",created='" . $this->_created . "',";
+            $requete .= " where uid=" . $this->_uid;
 
         } else {
-            $requete = "INSERT INTO USERS (";
-            $requete .= "UID,";
-            $requete .= "NAME,";
-            $requete .= "EMAIL,";
-            $requete .= "PHONE,";
-            $requete .= "PASSWORD,";
-            $requete .= "ADDRESS,";
-            $requete .= "CITY,";
-            $requete .= "CREATED";
+            $requete = "insert into users (";
+            $requete .= "uid,";
+            $requete .= "name,";
+            $requete .= "email,";
+            $requete .= "phone,";
+            $requete .= "password,";
+            $requete .= "address,";
+            $requete .= "city,";
+            $requete .= "created";
             $requete .= ") VALUES (";
             $requete .= "'" . $this->_uid . "',";
             $requete .= "'" . $this->_name . "',";
@@ -175,14 +175,14 @@ class users {
     //***** Fonction de passege sql->objet *****
     private function mapSqlToObject($rs) {
         $user = new users();
-        $user->_uid = $rs->fields["UID"];
-        $user->_name = $rs->fields["NAME"];
-        $user->_email = $rs->fields["EMAIL"];
-        $user->_phone = $rs->fields["PHONE"];
-        $user->_password = $rs->fields["PASSWORD"];
-        $user->_address = $rs->fields["ADDRESS"];
-        $user->_city = $rs->fields["CITY"];
-        $user->_created = $rs->fields["CREATED"];
+        $user->_uid = $rs->fields["uid"];
+        $user->_name = $rs->fields["name"];
+        $user->_email = $rs->fields["email"];
+        $user->_phone = $rs->fields["phone"];
+        $user->_password = $rs->fields["password"];
+        $user->_address = $rs->fields["address"];
+        $user->_city = $rs->fields["city"];
+        $user->_created = $rs->fields["created"];
         return $user;
     }
 
@@ -199,7 +199,7 @@ class users {
     }
 
     public function findByPrimaryKey($key) { // Recherche d'une adresse par id
-        $requete = self::$SELECT . " WHERE UID=" . $key;
+        $requete = self::$SELECT . " WHERE uid=" . $key;
         $rs = $this->conn->query($requete);
         if ($rs->EOF) {
             return null;
