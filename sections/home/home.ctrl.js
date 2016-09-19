@@ -108,7 +108,12 @@ angular
             $('#myModel').modal('hide');
             messages.add($id, $id_metier);
             $location.path('fichetech');
-        }
+        };
+
+        vm.fnSignUp = function(){
+            $('#myModal').modal('hide');
+            $('#signup').modal();
+        };
         vm.fnRecupMetier();
         vm.fnModelMetierAll();
     });

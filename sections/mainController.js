@@ -20,6 +20,18 @@ angular
                 });
         };
 
+        $scope.signUp = function (customer) {
+            console.log("customer" , customer);
+            Data.post('signUp', {
+                customer: customer
+            }).then(function (results) {
+                Data.toast(results);
+                if (results.status == "success") {
+                    $location.path('home');
+                }
+            });
+        };
+
         $scope.logout = function () {
             console.log("main js logout");
             Data.get('logout').then(function (results) {

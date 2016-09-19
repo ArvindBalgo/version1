@@ -83,7 +83,7 @@ app.config(['$routeProvider',
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             console.log('edafefe');
             $rootScope.authenticated = false;
-            Data.get('session').then(function (results) {
+            Data.get('authentication.php').then(function (results) {
                console.log("SESSION CHECKED: ", results);
             });
         });

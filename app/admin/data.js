@@ -8,6 +8,7 @@ console.log('toaster');
             toaster.pop(data.status, "", data.message, 10000, 'trustedHtml');
         }
         obj.get = function (q) {
+            console.log(serviceBase + q);
             return $http.get(serviceBase + q).then(function (results) {
                 return results.data;
             });

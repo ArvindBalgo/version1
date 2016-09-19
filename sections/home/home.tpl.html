@@ -1,143 +1,26 @@
-<div class="container">
-    <div class="row" style="margin-right: 0px">
-        <div class="col-md-6 col-sm-6">
-            <div class='block-image'><img src="assets/img/logo%20exakom.png"></div>
-        </div>
-        <div class="col-md-6 col-sm-6">
-            <div class='block-tel'>
-                <div class="col-md-12">Nous contacter par email</div>
-                <div class="col-md-12">Tél : 00 00 00 00 00</div>
-                <div class="col-md-12"><img  src="assets/img/numero_verte.png"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container">
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li><a style="color: white" href="#/home">ACCEUIL <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#" style="color: white">CONTACT</a></li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" style="color: white" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ESPACE CLIENT <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" style="color: white" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ESPACE REVENDEUR <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right  ">
-                    <li><a href="#myModal" data-toggle="modal" style="color: white">
-
-                        <span class="glyphicon glyphicon-user"></span>
-                        <!-- /.navbar-collapse <button class="btn-primary btn-sm">Identifiez-vous</button>--></a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" style="color: white" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">FR <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <form class="navbar-form navbar-right visible-lg" role="search">
-                    <div class="form-group ">
-                        <input type="text" class="form-control" placeholder="Recherche">
-                    </div>
-                    <span class="glyphicon glyphicon-search"  aria-hidden="true"></span>
-                </form>
-
-                <form class="navbar-form navbar-center text-center visible-sm visible-md" role="search">
-                    <div class="form-group ">
-                        <input type="text" class="form-control" placeholder="Recherche">
-                    </div>
-                    <span class="glyphicon glyphicon-search"  aria-hidden="true"></span>
-                </form>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
-</div>
-<div class="row">
-    <div class="row">
-        <div class="col-md-12" style=" height: 150px; width:100%;background-color: #E5E3E3;">Bande PUB</div>
-    </div>
-    <div class="row no-gutter panel">
-
-    <div class="col-md-4 col-sm-4">
-       <div class="btn1">
-            <span class="icon"><span class="glyphicon glyphicon-time"></span></span>
-            <span class="txt">Lundi au Vendredi <br>7h30 à 17h00 Non-Stop</span>
-      </div>
-    </div>
-
-     <div class="col-md-4 col-sm-4">
-
-          <div class="btn2">
-            <span class="icon"><span class="glyphicon glyphicon-phone"></span></span>
-            <span class="txt">Besoin d'aide? <br>Vous voulez être rappelé ?</span>
-          </div>
-    </div>
-         <div class="col-md-4 col-sm-4">
-            <div class="btn3">
-             <span class="icon"><span class="glyphicon glyphicon-gift"></span></span>
-            <span class="txt">Recevoir des <br>promotions et cadeaux</span>
-          </div>
-     </div>
-     </div>
+<header ng-include="'sections/header.html'"></header>
 
 <div class="row container">
 
-  <div class='cat-button'>
+    <div class='cat-button'>
 
-    <ul class="">
-      <li>Tous les produits</li>
-       <li>Soins et beaute</li>
-        <li>Fleur et vegetal</li>
-         <li>Metiers de bouche</li>
-         <li>Metiers parfumier</li>
+        <ul class="">
+            <li>Tous les produits</li>
+            <li>Soins et beaute</li>
+            <li>Fleur et vegetal</li>
+            <li>Metiers de bouche</li>
+            <li>Metiers parfumier</li>
 
-    </ul>
-     <ul class="">
-      <li>Boulangerie et patisserie</li>
-       <li>Prestation et hotellerie</li>
-        <li>Pret a porter</li>
-         <li>Bijoux et montres</li>
-         <li>Autres metiers</li>
+        </ul>
+        <ul class="">
+            <li>Boulangerie et patisserie</li>
+            <li>Prestation et hotellerie</li>
+            <li>Pret a porter</li>
+            <li>Bijoux et montres</li>
+            <li>Autres metiers</li>
 
-    </ul>
-</div>
-  </div>
+        </ul>
+    </div>
 </div>
     <!--div class="row">
         <div class="col-md-12">
@@ -212,7 +95,7 @@
                         </div>
                     </div>
                     <div class="space-4"></div>
-                    <span class="lbl col-sm-3"> </span><div class="col-sm-7">Don't have an account? <a href="#/signup">Signup</a></div>
+                    <span class="lbl col-sm-3"> </span><div class="col-sm-7">Don't have an account? <a href="" ng-click="home.fnSignUp()">Signup</a></div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -242,5 +125,97 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<!--SIGN UP FORM-->
+<div id="signup" class="modal fade" data-backdrop="static">
+    <div class="modal-dialog" style="width: 75%;height: 500px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">SignUp</h4>
+            </div>
+            <div class="modal-body">
+                <div class="page-content">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-offset-1">
+                            <div id="login-box">
+                                <div>
+                                    <div >
+                                        <form name="signupForm" class="form-horizontal" role="form">
+                                            <div class="form-group">
+                                                <label class="col-sm-5 control-label no-padding-right" for="email">Adresse Mail</label>
+                                                <div class="col-sm-7">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="text" class="form-control" placeholder="Email" name="email" ng-model="signup.email" focus/>
+                                        <span ng-show="signupForm.email.$error.email" class="help-inline">L'adresse mail n'est pas valide</span>
+                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-5 control-label no-padding-right" for="password">Mot de Passe</label>
+                                                <div class="col-sm-7">
+                                    <span class="block input-icon input-icon-right">
+                                <input type="password" class="form-control" name = "password" placeholder="Mot de Passe" ng-model="signup.password" required/>
+                                <small class="errorMessage" data-ng-show="signupForm.password.$dirty && signupForm.password.$invalid"> Entrer le mot de passe.</small>
+                            </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-5 control-label no-padding-right" for="password2">Confirmer Mot de passe</label>
+                                                <div class="col-sm-7">
+                                    <span class="block input-icon input-icon-right">
+                                <input type="password" class="form-control" name="password2" placeholder="Mot de Passe" ng-model="signup.password2" password-match="signup.password" required/>
+                                <small class="errorMessage" data-ng-show="signupForm.password2.$dirty && signupForm.password2.$error.required"> Entrer le Mot de Passe.</small>
+
+                               <small class="errorMessage" data-ng-show="signupForm.password2.$dirty && signupForm.password2.$error.passwordNoMatch && !signupForm.password2.$error.required"> Les mots de passe ne correspond pas</small>
+
+                            </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-5 control-label no-padding-right" for="name">Nom</label>
+                                                <div class="col-sm-7">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="text" class="form-control" placeholder="Nom" ng-model="signup.name" />
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-5 control-label no-padding-right" for="phone">No Téléphone</label>
+                                                <div class="col-sm-7">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="text" class="form-control" placeholder="Phone" name="phone" ng-model="signup.phone"/>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-5 control-label no-padding-right" for="address">Adresse</label>
+                                                <div class="col-sm-7">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="text" class="form-control" placeholder="Adresse" ng-model="signup.address" />
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <span class="lbl col-sm-5"> </span>
+                                                <div class="col-sm-7">
+                                                    <button type="submit" class="width-35 pull-right btn btn-sm btn-primary" ng-click="signUp(signup)" data-ng-disabled="signupForm.$invalid">
+                                                        Enregistrement
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
