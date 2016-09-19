@@ -48,7 +48,7 @@ app.config(['$routeProvider',
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             console.log('edafefe');
             $rootScope.authenticated = false;
-            Data.get('session').then(function (results) {
+            Data.get('session.php').then(function (results) {
                 if (results.uid) {
                     $rootScope.authenticated = true;
                     $rootScope.uid = results.uid;

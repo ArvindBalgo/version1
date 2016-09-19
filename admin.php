@@ -16,6 +16,8 @@
     <link rel="stylesheet" type="text/css" href="css/FancyProductDesigner-all.min.css" />
     <!-- Optional - only when you would like to use custom fonts - optional -->
     <link rel="stylesheet" type="text/css" href="css/jquery.fancyProductDesigner-fonts.css" />
+    <link rel="stylesheet" type="text/css" href="css/plugins.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/static.min.css" />
     <link rel="stylesheet" type="text/css" href="css/ui-grid.min.css" />
     <link rel="stylesheet" type="text/css" href="sections/admin/admin.css" />
     <link rel="stylesheet" type="text/css" href="sections/admin/metier/metier.css" />
@@ -37,7 +39,9 @@
 <script src="js/jquery.ui.sortable.min.js"></script>
 <script src="assets/js/endless_scroll_min.js"></script>
 <script src="js/fabric.min.js"></script>
+<script src="js/FancyProductDesigner.js"></script>
 <script src="js/FancyProductDesigner-all.min.js"></script>
+<script src="js/plugins.min.js"></script>
 <script src="assets/js/angular-1.5.7/angular.js"></script>
 <script src="assets/js/angular-1.5.7/angular-animate.js"></script>
 <script src="assets/js/angular-1.5.7/angular-route.js"></script>

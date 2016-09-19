@@ -81,9 +81,8 @@ app.config(['$routeProvider',
     .run(function ($rootScope, $location, Data) {
         console.log('error checkgin');
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
-            console.log('edafefe');
             $rootScope.authenticated = false;
-            Data.get('authentication.php').then(function (results) {
+            Data.get('session.php').then(function (results) {
                console.log("SESSION CHECKED: ", results);
             });
         });
