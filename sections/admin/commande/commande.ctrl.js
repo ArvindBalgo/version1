@@ -3,7 +3,7 @@ angular
     .controller('commandeController', function($scope, $rootScope, $routeParams, $location, $http, Data, $timeout) {
         console.log("Admin commande controller");
 
-        Data.get('session').then(function (results) {
+        Data.get('session.php').then(function (results) {
             if (results.uid) {
 
             } else {
