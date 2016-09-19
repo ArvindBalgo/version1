@@ -14,6 +14,9 @@ CREATE TABLE IF NOT EXISTS `customers_auth` (
   `password` varchar(200) NOT NULL,
   `address` varchar(50) NOT NULL,
   `city` varchar(50) NOT NULL,
+  `ville` varchar(50) NOT NULL,
+  `codepostal` varchar(10) NOT NULL,
+  `nosiret` varchar(10) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=187 ;
