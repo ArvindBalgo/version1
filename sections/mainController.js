@@ -3,7 +3,7 @@ angular
     .controller('mainController', function($scope, $rootScope, $routeParams, $location, $http, Data) {
         //Setup view model object
         console.log('main CONTROLLER');
-        Data.get('session').then(function (results) {
+        Data.get('session.php').then(function (results) {
             $scope.sessionInfo = results;
                 $location.path('home');
         });

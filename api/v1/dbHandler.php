@@ -75,6 +75,7 @@ public function destroySession(){
         unset($_SESSION['uid']);
         unset($_SESSION['name']);
         unset($_SESSION['email']);
+        unset($_SESSION['admin']);
         $info='info';
         if(isSet($_COOKIE[$info]))
         {
