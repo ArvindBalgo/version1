@@ -1486,10 +1486,9 @@ angular
                                         }})
                                     }
                                 })
-                                arrProducts.push({title:value.title, thumbnail:value.thumbnail_src, elements:arrFront});
-                                arrProducts.push({title:value.title, thumbnail:value.thumbnail_src, elements:arrBack});
-                                yourDesigner.clear();
-                                yourDesigner.addProduct(arrProducts);
+                                arrProducts.push({id:value.id, title:value.title, thumbnail:value.thumbnail_src, elements:arrFront});
+                                arrProducts.push({id:value.id, title:value.title, thumbnail:value.thumbnail_src, elements:arrBack});
+                                yourDesigner.loadProduct(arrProducts);
                                 $('#gallery').modal('hide');
                             });
 
