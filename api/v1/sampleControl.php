@@ -1,5 +1,6 @@
 <?php
 include_once 'include_all.php';
+include_once '../chromePHP.php';
 $mode = $_GET['mode'];
 if($mode == 0) {
     $id = $_GET["id"];
@@ -103,5 +104,57 @@ else if($mode == 3){
         $arrData[] = array('id'=>$ligne["id"], 'title'=>$ligne["libelle"], 'thumbnail_src'=>$ligne["src"], 'elemfront'=>$arrFront, 'elemback'=>$arrBack);
     }
     print json_encode($arrData);
+    return;
+}
+else if($mode == 4){
+    $cata = new cata();
+    $results = $cata->rechercher();
+    /*$sample = new gabarits();
+    $sample = $sample->findByIdModel($id);*/
+    print json_encode($results);
+    return;
+}
+else if($mode == 5) {
+    $cata  = new cata();
+    $cata = $cata->findByPrimaryKey($_GET["id"]);
+    if(count($cata) == 0) {
+        print "null";
+        return;
+    }
+
+
+    $arrData = [];
+    /*    foreach($sample as $ligne) {
+            $img_src = [];
+            $img_src[] =array('id'=>$ligne["id"], "src"=>$ligne["src"]);
+            $arrData[] = array('id'=>$ligne["id"], 'title'=>$ligne["description"], 'thumbnail_src'=>$ligne["src"], 'img_src'=>$img_src);
+        }
+    */
+
+    //foreach($cata as $ligne) {
+    $ligne = $cata;
+        $img_src = [];
+        $arrFront = [];
+        $arrBack = [];
+        $arrElem = [];
+
+        $cata_ligne = new cata_ligne();
+        $cata_ligne = $cata_ligne->findByPrimaryKey( $cata->getIdFront());
+        $cata_ligne_params = new cata_ligne_params();
+        $cata_ligne_params = $cata_ligne_params->findByIdCata($cata_ligne->getId());
+        $arrFront = array('id'=>$cata_ligne->getId(), 'src'=>$cata_ligne->getSrc(), 'title'=>$cata_ligne->getTitle(), 'params' =>$cata_ligne_params);
+
+        $cata_back = $cata_ligne->findByPrimaryKey($cata->getIdBack());
+        $cata_ligne_params1 = new cata_ligne_params();
+        $cata_ligne_params1 =  $cata_ligne_params1->findByIdCata($cata_back->getId());
+
+        $arrBack = array('id'=>$cata_back->getId(), 'src'=>$cata_back->getSrc(), 'title'=>$cata_back->getTitle(), 'params'=>$cata_ligne_params1);
+
+        //$img_src[] =array('id'=>$cata_ligne->getId(), "src"=>$cata_ligne->getSrc());
+        //$arrData[] = array('id'=>$ligne["id"], 'title'=>$ligne["libelle"], 'thumbnail_src'=>$ligne["src"], 'img_src'=>$img_src);
+        $arrData[] = array('id'=>$cata->getId_Cata(), 'title'=>$cata->getLibelle(), 'thumbnail_src'=>$cata->getSrc(), 'elemfront'=>$arrFront, 'elemback'=>$arrBack);
+    //}
+    print json_encode($arrData);
+    //print json_encode($sample);
     return;
 }

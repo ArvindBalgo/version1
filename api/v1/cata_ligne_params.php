@@ -139,9 +139,7 @@ class cata_ligne_params {
     public function findByPrimaryKey($key) { // Recherche d'une adresse par id
         $requete = self::$SELECT . " WHERE id=" . $key;
         $rs = $this->conn->query($requete);
-        if ($rs->EOF) {
-            return null;
-        }
+
         return $this->mapSqlToObject(mysqli_fetch_array($rs));
     }
 

@@ -1,6 +1,7 @@
 <?php
 require_once 'v1/dbHandler.php';
 include_once 'v1/include_all.php';
+include_once 'chromePHP.php';
 /*
 *
 * An example php that gets the 64 bit encoded PNG URL and creates an image of it
@@ -68,7 +69,7 @@ foreach($contents as $ligne){
             $cata_ligne_params->save();
         }
     }
-    else{
+    else if(sizeof($contents) > 1){
         $cata->setIdBack($last_id);
         foreach($ligne['elements'] as $sub_ligne){
             $cata_ligne_params = new cata_ligne_params();
@@ -86,7 +87,6 @@ foreach($contents as $ligne){
 $cata->save();
 
 $cata_ligne_params = new cata_ligne_params();
-$test = $cata_ligne_params->findByPrimaryKey(1);
 
 //send result - the url of the png or 0
 header('Content-Type: application/json');
