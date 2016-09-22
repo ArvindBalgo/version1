@@ -8,6 +8,20 @@
                 <button type="button" class="btn btn-warning" ng-click="model.fnGallery()">Gallery</button>
             </div>
             <div id="model" class="fpd-container fpd-shadow-2 fpd-topbar fpd-tabs fpd-tabs-side fpd-top-actions-centered fpd-bottom-actions-centered fpd-views-inside-left">
+                <!--div data-ng-repeat="product in model.productList" class="fpd-product" title="{{product.title}}" data-thumbnail="{{product.thumbnail_src}}">
+                    <div class="fpd-product" title="{{product.elemback.title}}" data-thumbnail="{{product.elemback.src}}">
+                        <img ng-repeat="content in  product.elemback.params" ng-if="content.type=='image'" src="{{content.source}}"   title="{{content.title}}" data-parameters='{"left": {{content.parameters.left}}, "top": {{content.parameters.top}},"height":{{content.parameters.height}}, "width":{{content.parameters.width}}, "scaleX":{{content.parameters.scaleX}},"scaleY":{{content.parameters.scaleY}}, "price": 20}'/>
+                    </div>
+                    <img ng-repeat="content in  product.elemfront.params" src="{{content.source}}" ng-if="content.type=='image'"  title="{{content.title}}" data-parameters='{"left": {{content.parameters.left}}, "top": {{content.parameters.top}}, "height":{{content.parameters.height}}, "width":{{content.parameters.width}}, "scaleX":{{content.parameters.scaleX}},"scaleY":{{content.parameters.scaleY}}, "price": 20}'/>
+                </div-->
+                <!--div data-ng-repeat="product in model.productList" class="fpd-product" title="{{product.title}}" data-thumbnail="{{product.thumbnail_src}}">
+                    <div class="fpd-product" title="Arrière Plan" data-thumbnail="images/gabarits/maquette_complet1.png">
+                        <img ng-repeat="source in  product.img_src" src="{{source.src}}"   title="Base" data-parameters='{"left": 325, "top": 329, "colors": "#d59211", "price": 20}'/>
+                    </div>
+                    <img ng-repeat="source in  product.img_src" src="{{source.src}}"   title="Base" data-parameters='{"left": 325, "top": 329, "colors": "#d59211", "price": 20}'/>
+                </div-->
+
+
                 <div class="fpd-design">
                     <div ng-repeat="design in model.productsDesign" class="fpd-category" title="{{design.title}}">
                         <img ng-repeat="image in design.imgsrc" src="{{image.src}}"  title="{{image.title}}" data-parameters='{"zChangeable": true, "left": 215, "top": 200, "colors": "#000000", "removable": true, "draggable": true, "rotatable": true, "resizable": true, "price": 10, "boundingBox": "Base", "autoCenter": true}' />

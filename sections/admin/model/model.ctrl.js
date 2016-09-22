@@ -1488,11 +1488,8 @@ angular
                                 })
                                 arrProducts.push({title:value.title, thumbnail:value.thumbnail_src, elements:arrFront});
                                 arrProducts.push({title:value.title, thumbnail:value.thumbnail_src, elements:arrBack});
-                                $timeout(function() {
-                                    yourDesigner.clear();
-                                    yourDesigner.addProduct(arrProducts);
-                                }, 0);
-                                console.log(arrProducts, "  final");
+                                yourDesigner.clear();
+                                yourDesigner.addProduct(arrProducts);
                                 $('#gallery').modal('hide');
                             });
 
