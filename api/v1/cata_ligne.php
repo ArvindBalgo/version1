@@ -103,17 +103,18 @@ class cata_ligne {
         $requete = self::$SELECT . " WHERE id=" . $key;
         $rs = $this->conn->query($requete);
 
-        /*if ($rs->EOF) {
+        if($rs->num_rows === 0)
+        {
             return null;
-        }*/
+        }
         return $this->mapSqlToObject(mysqli_fetch_array($rs));
     }
 
     public function getLastId(){
-        $requete = "SELECT MAX(ID) AS ID FROM CATA_LIGNE";
+        $requete = "SELECT MAX(id) AS id FROM cata_ligne";
         $rs = $this->conn->query($requete);
         $result = mysqli_fetch_array($rs);
-        return $result["ID"];
+        return $result["id"];
     }
 
     public function getInfo($id){

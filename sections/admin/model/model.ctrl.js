@@ -106,7 +106,7 @@ angular
                         stageWidth: 2000,
                         editorMode: true,
                         improvedResizeQuality:true,
-                        loadFirstProductInStage:false,
+                        loadFirstProductInStage:true,
                         fonts: ['Arial', 'Fearless', 'Helvetica', 'Times New Roman', 'Verdana', 'Geneva', 'Gorditas','Amerika Sans'],
                         customTextParameters: {
                             colors: true,
@@ -766,8 +766,8 @@ angular
 
                  });*/
 
-                yourDesigner.addProduct([{title:'Simple', thumbnail:'',elements:[]}]);
-                yourDesigner.addProduct([{title:'Double Face', thumbnail:'',elements:[]}, {title:'Verso', thumbnail:'',elements:[]}]);
+                yourDesigner.addProduct([{title:'Simple', thumbnail:'images/gallery/simple.png',elements:[]}]);
+                yourDesigner.addProduct([{title:'Double Face', thumbnail:'images/gallery/recto.jpg',elements:[]}, {title:'Verso', thumbnail:'',elements:[]}]);
 
 
                 //print button
@@ -1486,8 +1486,14 @@ angular
                                         }})
                                     }
                                 })
-                                arrProducts.push({id:value.id, title:value.title, thumbnail:value.thumbnail_src, elements:arrFront});
-                                arrProducts.push({id:value.id, title:value.title, thumbnail:value.thumbnail_src, elements:arrBack});
+
+                                if(arrFront.length > 0) {
+                                    arrProducts.push({id:value.id, title:value.title, thumbnail:value.thumbnail_src, elements:arrFront});
+                                }
+                                if(arrBack.length > 0) {
+                                    arrProducts.push({id:value.id, title:value.title, thumbnail:value.thumbnail_src, elements:arrBack});
+                                }
+
                                 yourDesigner.loadProduct(arrProducts);
                                 $('#gallery').modal('hide');
                             });

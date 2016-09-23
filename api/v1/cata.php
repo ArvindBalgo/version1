@@ -206,10 +206,10 @@ class cata {
     }
 
     public function getLastId(){
-        $requete = "SELECT MAX(ID) AS ID FROM CATA";
+        $requete = "SELECT MAX(id) AS id FROM cata";
         $rs = $this->conn->query($requete);
         $result = mysqli_fetch_array($rs);
-        return $result["ID"];
+        return $result["id"];
     }
 
     public function findAllByMetier($id){
@@ -225,7 +225,7 @@ class cata {
     }
 
     public function findAllByIdCataRange($str){
-        $requete = "SELECT * FROM CATA C WHERE C.id IN ($str)";
+        $requete = "SELECT * FROM cata C WHERE C.id IN ($str)";
         $rs = $this->conn->query($requete);
 
         $rows = [];

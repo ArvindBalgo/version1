@@ -1,25 +1,17 @@
 <?php
 require_once 'v1/dbHandler.php';
 include_once 'v1/include_all.php';
-include_once 'chromePHP.php';
 /*
 *
 * An example php that gets the 64 bit encoded PNG URL and creates an image of it
 *
 */
-chromePHP::log("TESTING 1 2 3");
 $db = new DbHandler();
 $session = $db->getSession();
-chromePHP::log("SESSION VALUES HOPEFULLY ".$session['uid'] . "  ---  " . $session['email'] . "  ::  " . $session['name'] . "  --  " . $session['admin']);
-chromePHP::log(json_encode($session));
-chromePHP::log(($session));
-chromePHP::log("------------------------");
 //get the base-64 from data
 $base64_str = substr($_POST['base64_image'], strpos($_POST['base64_image'], ",")+1);
 
 //decode base64 string
-
-chromePHP::log(json_encode($_POST["metiers"]));
 
 $decoded = base64_decode($base64_str);
 $strTime = strtotime('now').".png";
@@ -42,7 +34,6 @@ $lastID = $cata->getLastId();
 $cata = $cata->findByPrimaryKey($lastID);
 
 foreach($_POST["metiers"] as $ligne){
-    chromePHP::log($ligne);
     $cata_metier = new cata_metier();
     $cata_metier->setId_Cata($lastID);
     $cata_metier->setId_Metier($ligne);

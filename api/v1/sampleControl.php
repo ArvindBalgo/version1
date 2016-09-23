@@ -1,6 +1,6 @@
 <?php
 include_once 'include_all.php';
-include_once '../chromePHP.php';
+
 $mode = $_GET['mode'];
 if($mode == 0) {
     $id = $_GET["id"];
@@ -140,15 +140,27 @@ else if($mode == 5) {
 
         $cata_ligne = new cata_ligne();
         $cata_ligne = $cata_ligne->findByPrimaryKey( $cata->getIdFront());
+    if($cata_ligne != null){
         $cata_ligne_params = new cata_ligne_params();
         $cata_ligne_params = $cata_ligne_params->findByIdCata($cata_ligne->getId());
         $arrFront = array('id'=>$cata_ligne->getId(), 'src'=>$cata_ligne->getSrc(), 'title'=>$cata_ligne->getTitle(), 'params' =>$cata_ligne_params);
+    }
+    else{
+        $arrFront = array();
+    }
 
+    $cata_ligne = new cata_ligne();
         $cata_back = $cata_ligne->findByPrimaryKey($cata->getIdBack());
+    if($cata_back != null) {
         $cata_ligne_params1 = new cata_ligne_params();
         $cata_ligne_params1 =  $cata_ligne_params1->findByIdCata($cata_back->getId());
 
         $arrBack = array('id'=>$cata_back->getId(), 'src'=>$cata_back->getSrc(), 'title'=>$cata_back->getTitle(), 'params'=>$cata_ligne_params1);
+
+    }
+    else {
+        $arrBack = array();
+    }
 
         //$img_src[] =array('id'=>$cata_ligne->getId(), "src"=>$cata_ligne->getSrc());
         //$arrData[] = array('id'=>$ligne["id"], 'title'=>$ligne["libelle"], 'thumbnail_src'=>$ligne["src"], 'img_src'=>$img_src);
