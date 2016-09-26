@@ -90,18 +90,22 @@ else if($mode == 3){
         $arrElem = [];
 
         $cata_ligne = new cata_ligne();
-        $cata_ligne = $cata_ligne->findByPrimaryKey($ligne["id_front"]);
-        $cata_ligne_params = new cata_ligne_params();
-        $cata_ligne_params = $cata_ligne_params->findByIdCata($cata_ligne->getId());
-        $arrFront = array('id'=>$cata_ligne->getId(), 'src'=>$cata_ligne->getSrc(), 'title'=>$cata_ligne->getTitle(), 'params' =>$cata_ligne_params);
+        if($ligne["id_front"] > 0){
+            $cata_ligne = $cata_ligne->findByPrimaryKey($ligne["id_front"]);
+            $cata_ligne_params = new cata_ligne_params();
+            $cata_ligne_params = $cata_ligne_params->findByIdCata($cata_ligne->getId());
+            $arrFront = array('id'=>$cata_ligne->getId(), 'src'=>$cata_ligne->getSrc(), 'title'=>$cata_ligne->getTitle(), 'params' =>$cata_ligne_params);
+        }
+        if($ligne["id_back"] > 0) {
+            $cata_back = $cata_ligne->findByPrimaryKey($ligne["id_back"]);
+            $cata_ligne_params1 = new cata_ligne_params();
+            $cata_ligne_params1 =  $cata_ligne_params1->findByIdCata($cata_back->getId());
 
-        $cata_back = $cata_ligne->findByPrimaryKey($ligne["id_back"]);
-        $cata_ligne_params1 = new cata_ligne_params();
-        $cata_ligne_params1 =  $cata_ligne_params1->findByIdCata($cata_back->getId());
+            $arrBack = array('id'=>$cata_back->getId(), 'src'=>$cata_back->getSrc(), 'title'=>$cata_back->getTitle(), 'params'=>$cata_ligne_params1);
 
-        $arrBack = array('id'=>$cata_back->getId(), 'src'=>$cata_back->getSrc(), 'title'=>$cata_back->getTitle(), 'params'=>$cata_ligne_params1);
-
+        }
         $arrData[] = array('id'=>$ligne["id"], 'title'=>$ligne["libelle"], 'thumbnail_src'=>$ligne["src"], 'elemfront'=>$arrFront, 'elemback'=>$arrBack);
+
     }
     print json_encode($arrData);
     return;
@@ -169,4 +173,31 @@ else if($mode == 5) {
     print json_encode($arrData);
     //print json_encode($sample);
     return;
+}
+else if($mode == 6) {
+    $cata_metier = new cata_metier();
+    $cata_metier->deleteIdCata($_GET["id"]);
+
+
+    $cata_ligne_params = new cata_ligne_params();
+    $cata_ligne_params->delByIdCataLigne($_GET["id_back"]);
+    $cata_ligne_params->delByIdCataLigne($_GET["id_front"]);
+
+    $cata_ligne = new cata_ligne();
+    $cata_ligne->delete($_GET["id_back"]);
+    $cata_ligne->delete($_GET["id_front"]);
+
+    $cata = new cata();
+    $cata->delete($_GET["id"]);
+
+    print "done";
+}
+else if($mode == 7) {
+    $id = $_GET["id"];
+    $cata = new cata();
+    $cata = $cata->findByPrimaryKey($id);
+    $arrCata = array('id'=>$cata->getId_Cata(), 'libelle'=>$cata->getLibelle(), 'reference'=>$cata->getReference(), 'description'=>$cata->getDescription());
+
+    print json_encode($arrCata);
+
 }

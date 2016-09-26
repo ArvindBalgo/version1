@@ -16,7 +16,7 @@ angular
         vm.arrOrigImg   = [];
 
 
-        Data.get('session').then(function (results) {
+        Data.get('session.php').then(function (results) {
             if (results.uid) {
 
             } else {

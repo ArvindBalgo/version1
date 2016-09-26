@@ -141,4 +141,31 @@ class cata_image {
 
         return $this->mapSqlToObject(mysqli_fetch_array($rs));
     }
+
+    public function findInfoImage() {
+        //Requete pour recuperer tous les category pour images
+        $requete = "select * from cata_category where active = 1";
+        $rs = $this->conn->query($requete) or die($this->conn->error.__LINE__);
+        $rows = [];
+        while($row = mysqli_fetch_array($rs))
+        {
+            $data = $row;
+            //$rows[] = $row;
+            $data = [];
+
+            $requete = "select * from cata_image where id_category=".$row["id"];
+            $query = $this->conn->query($requete) or die($this->conn->error.__LINE__);
+
+            while($ligne = mysqli_fetch_array($query)){
+                $data[] = $ligne;
+            }
+
+            $row["data"] = $data;
+
+            $rows[] = $row;
+        }
+
+        return $rows;
+
+    }
 } 

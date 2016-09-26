@@ -7,7 +7,7 @@ angular
         vm.btnMetier = [];
         vm.sampleMetier = [];
         vm.globalVal = '';
-        Data.get('session').then(function (results) {
+        Data.get('session.php').then(function (results) {
             $scope.sessionInfo = results;
             console.log(results, 'results from admin');
 
@@ -106,7 +106,9 @@ angular
         vm.fnModelClick  = function($id, $id_metier) {
            console.log($id);
             $('#myModel').modal('hide');
-            messages.add($id, $id_metier);
+
+            localStorage.setItem("id_model", $id);
+            localStorage.setItem("id_metier", $id_metier);
             $location.path('fichetech');
         };
 

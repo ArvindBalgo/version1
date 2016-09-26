@@ -45,5 +45,10 @@ else if($mode == 5){
     $cata_image->delete($_GET["id"]);
     print "done";
 }
+else if($mode == 6) {
+    $cata_image = new cata_image();
+    $cata_image = $cata_image->findInfoImage();
+    print json_encode($cata_image);
+}
 
 

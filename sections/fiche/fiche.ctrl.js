@@ -64,10 +64,9 @@ angular
 
         vm.fnInit = function() {
             console.log('initialising protocol info.php');
-            console.log(messages.list[0]);
             $http({
                 method: 'GET',
-                params: {mode:3,metier: messages.list[0].id_metier},
+                params: {mode:3,metier: localStorage.id_metier},
                 url: 'api/v1/sampleControl.php'
             }).then(function successCallback(response) {
                     console.log("MODEL METIER");

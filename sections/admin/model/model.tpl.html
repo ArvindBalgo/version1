@@ -22,9 +22,14 @@
                 </div-->
 
 
-                <div class="fpd-design">
+                <!--div class="fpd-design">
                     <div ng-repeat="design in model.productsDesign" class="fpd-category" title="{{design.title}}">
                         <img ng-repeat="image in design.imgsrc" src="{{image.src}}"  title="{{image.title}}" data-parameters='{"zChangeable": true, "left": 215, "top": 200, "colors": "#000000", "removable": true, "draggable": true, "rotatable": true, "resizable": true, "price": 10, "boundingBox": "Base", "autoCenter": true}' />
+                    </div>
+                </div-->
+                <div class="fpd-design">
+                    <div ng-repeat="design in model.productsDesign" class="fpd-category" title="{{design.libelle}}">
+                        <img ng-repeat="image in design.data" src="{{image.src}}"  title="{{image.libelle}}" data-parameters='{"zChangeable": true, "left": 215, "top": 200, "colors": "#000000", "removable": true, "draggable": true, "rotatable": true, "resizable": true, "price": 10, "boundingBox": "Base", "autoCenter": true}' />
                     </div>
                 </div>
             </div>
@@ -76,7 +81,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-success pull-right" ng-click="model.fnValider()">Valider</button>
+                <button class="btn btn-success pull-right" style="margin-right: 5px" ng-show="model.isModifier" ng-click="model.fnValider()">Nouvelle Model</button>
+                <button class="btn btn-primary pull-right" style="margin-right: 5px" ng-show="model.isModifier" ng-click="model.fnValiderModif()">Modification Model</button>
+                <button class="btn btn-success pull-right" ng-show="!model.isModifier" ng-click="model.fnValider()">Valider</button>
                 <button class="btn btn-danger pull-left" ng-click="model.fnQuitter()">Annuler</button>
             </div>
         </div>
@@ -94,10 +101,15 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="col-md-3" style="margin-bottom: 5px; margin-top: 5px;" ng-repeat="mo in model.galleryModels">
-                            <div class="tileImg" ng-click="model.fnImgClick(mo)">
+                            <!--div class="tileImg" ng-click="model.fnImgClick(mo)"-->
+                            <div class="tileImg">
                                 <img style="width: 200px; height: 200px" src="{{mo.src}}">
                                 <div style="font-weight: bold;text-decoration: underline">{{mo.reference}}</div>
                                 <div>{{mo.libelle}}</div>
+                                <div>
+                                    <button ng-click="model.fnDel(mo)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+                                    <button ng-click="model.fnEdit(mo)" class="btn btn-info" ><span class="glyphicon glyphicon-pencil"></span></button>
+                                </div>
                             </div>
                         </div>
                     </div>

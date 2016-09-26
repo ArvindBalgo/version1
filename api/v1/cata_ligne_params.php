@@ -79,6 +79,11 @@ class cata_ligne_params {
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
     }
 
+    public function delByIdCataLigne($id) {
+        $requete = "DELETE FROM cata_ligne_params WHERE id_cata_ligne=".$id;
+        $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
+    }
+
 
     //***** fonction de modification/cr�ation *****
     public function save() {
@@ -144,10 +149,10 @@ class cata_ligne_params {
     }
 
     public function getLastId(){
-        $requete = "SELECT MAX(ID) AS ID FROM CATA_LIGNE_PARAMS";
+        $requete = "SELECT MAX(id) AS id FROM cata_ligne_params";
         $rs = $this->conn->query($requete);
         $result = mysqli_fetch_array($rs);
-        return $result["ID"];
+        return $result["id"];
     }
 
     public function findByIdCata($id){

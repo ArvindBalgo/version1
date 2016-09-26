@@ -127,17 +127,17 @@ class cata {
         }
 
         if ($this->_id_cata > 0) {
-            $requete = "UPDATE cata SET libelle='" . ($this->_libelle) . "'";
-            $requete .= ",description='" . $this->_description . "'";
-            $requete .= ",src='" . $this->_src . "'";
-            $requete .= ",id_front='" . $this->_id_front . "'";
-            $requete .= ",id_back='" . $this->_id_back . "'";
-            $requete .= ",reference='" . $this->_reference . "'";
-            $requete .= ",date_created='" . $this->_date_created . "'";
-            $requete .= ",date_modified='" . $this->_date_modified . "'";
-            $requete .= ",created_by='" . $this->_created_by . "'";
-            $requete .= ",modified_by='" . $this->_modified_by . "'";
-            $requete .= " WHERE id=" . $this->_id_cata;
+            $requete = 'UPDATE cata SET libelle="' . ($this->_libelle) . '"';
+            $requete .= ',description="' . $this->_description . '"';
+            $requete .= ',src="' . $this->_src . '"';
+            $requete .= ',id_front="' . $this->_id_front . '"';
+            $requete .= ',id_back="' . $this->_id_back . '"';
+            $requete .= ',reference="' . $this->_reference . '"';
+            $requete .= ',date_created="' . $this->_date_created . '"';
+            $requete .= ',date_modified="' . $this->_date_modified . '"';
+            $requete .= ',created_by="' . $this->_created_by . '"';
+            $requete .= ',modified_by="' . $this->_modified_by . '"';
+            $requete .= ' WHERE id=' . $this->_id_cata;
 
         } else {
             $requete = "INSERT INTO cata (";
@@ -152,17 +152,18 @@ class cata {
             $requete .= "created_by,";
             $requete .= "modified_by";
             $requete .= ") VALUES (";
-            $requete .= "'" . $this->_libelle . "',";
-            $requete .= "'" . $this->_description . "',";
-            $requete .= "'" . $this->_src . "',";
-            $requete .= "'" . $this->_id_front . "',";
-            $requete .= "'" . $this->_id_back . "',";
-            $requete .= "'" . $this->_reference . "',";
-            $requete .= "'" . $this->_date_created . "',";
-            $requete .= "'" . $this->_date_modified . "',";
-            $requete .= "'" . $this->_created_by . "',";
-            $requete .= "'" . $this->_modified_by . "')";
+            $requete .= '"' . $this->_libelle . '",';
+            $requete .= '"' . $this->_description . '",';
+            $requete .= '"' . $this->_src . '",';
+            $requete .= '"' . $this->_id_front . '",';
+            $requete .= '"' . $this->_id_back . '",';
+            $requete .= '"' . $this->_reference . '",';
+            $requete .= '"' . $this->_date_created . '",';
+            $requete .= '"' . $this->_date_modified . '",';
+            $requete .= '"' . $this->_created_by . '",';
+            $requete .= '"' . $this->_modified_by . '")';
         }
+
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
         return $r;
     }
@@ -190,6 +191,7 @@ class cata {
         $listLOG =	 array();
         $requete = self::$SELECT;
         $rs = $this->conn->query($requete) or die($this->conn->error.__LINE__);
+
         $rows = [];
         while($row = mysqli_fetch_array($rs))
         {
