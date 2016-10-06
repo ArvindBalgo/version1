@@ -1,6 +1,6 @@
 <header ng-include="'sections/header.html'"></header>
 
-<div class="row container">
+<!--div class="row container">
 
     <div class='cat-button'>
 
@@ -21,12 +21,12 @@
 
         </ul>
     </div>
-</div>
-    <!--div class="row">
+</div-->
+<div class="row">
         <div class="col-md-12">
-            <div class="col-md-2 metierPadding" ng-repeat="boulot in home.btnMetier"><button  type="button" class="btn btn-default metierBtn"><b>{{boulot.libelle}}<br><span style="font-size: 10px">{{boulot.sub_libelle}}</span></b></button></div>
+            <div class="col-md-2 metierPadding" ng-repeat="boulot in home.btnMetier"><button  id="{{boulot.id}}" type="button" class="btn btn-default  btn3d" ng-class="{ active: boulot.id == home.activeId }"ng-click="home.fnClickBtn(boulot)"><b>{{boulot.libelle}}<br><span style="font-size: 10px">{{boulot.sub_libelle}}</span></b></button></div>
         </div>
-    </div-->
+    </div>
 <div class="row">
         <div class="col-md-9">
             <div class="col-md-3" style="margin-bottom: 5px; margin-top: 5px;" ng-repeat="metier in home.metier">
@@ -58,57 +58,7 @@
         </div>
     </div>
 </footer>
-<div id="myModal" class="modal fade" data-backdrop="static">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Login</h4>
-            </div>
-            <div class="modal-body">
-                <form name="loginForm" class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right" for="email"> Email / Phone </label>
-                        <div class="col-sm-7">
-                           <span class="block input-icon input-icon-right">
-                                <input type="text" class="form-control" placeholder="Email / Phone" name="email" ng-model="login.email" required focus/>
-                                <i class="ace-icon fa fa-user"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right" for="password"> Password </label>
-                        <div class="col-sm-7">
-                           <span class="block input-icon input-icon-right">
-                                <input type="password" class="form-control" placeholder="Password" ng-model="login.password" required/>
-                                <i class="ace-icon fa fa-lock"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="space"></div>
-                    <div class="clearfix">
-                        <div class="row">
-                            <label class="col-sm-3 control-label no-padding-right"> </label>
-                            <div class="col-sm-7">
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="space-4"></div>
-                    <span class="lbl col-sm-3"> </span><div class="col-sm-7">Don't have an account? <a href="" ng-click="home.fnSignUp()">Signup</a></div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="width-35 pull-right btn btn-md btn-primary" data-dismiss="modal" ng-click="doLogin(login)" data-ng-disabled="loginForm.$invalid">
-                    <i class="ace-icon fa fa-key"></i>
-                    Login
-                </button>
-                <button type="button" class="btn btn-danger pull-left" ng-click="logout()">LOGOUT</button>
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
 <div id="myModel" class="modal fade" data-backdrop="static">
     <div class="modal-dialog" style="width: 75%;height: 500px;">
         <div class="modal-content">
@@ -125,121 +75,5 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<!--SIGN UP FORM-->
-<div id="signup" class="modal fade" data-backdrop="static">
-    <div class="modal-dialog" style="width: 75%;height: 500px;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">SignUp</h4>
-            </div>
-            <div class="modal-body">
-                <div class="page-content">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-offset-1">
-                            <div id="login-box">
-                                <div>
-                                    <div >
-                                        <form name="signupForm" class="form-horizontal" role="form">
-                                            <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="email">Adresse Mail</label>
-                                                <div class="col-sm-7">
-                                    <span class="block input-icon input-icon-right">
-                                        <input type="text" class="form-control" placeholder="Email" name="email" ng-model="signup.email" focus/>
-                                        <span ng-show="signupForm.email.$error.email" class="help-inline">L'adresse mail n'est pas valide</span>
-                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="password">Mot de Passe</label>
-                                                <div class="col-sm-7">
-                                    <span class="block input-icon input-icon-right">
-                                <input type="password" class="form-control" name = "password" placeholder="Mot de Passe" ng-model="signup.password" required/>
-                                <small class="errorMessage" data-ng-show="signupForm.password.$dirty && signupForm.password.$invalid"> Entrer le mot de passe.</small>
-                            </span>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="password2">Confirmer Mot de passe</label>
-                                                <div class="col-sm-7">
-                                    <span class="block input-icon input-icon-right">
-                                <input type="password" class="form-control" name="password2" placeholder="Mot de Passe" ng-model="signup.password2" password-match="signup.password" required/>
-                                <small class="errorMessage" data-ng-show="signupForm.password2.$dirty && signupForm.password2.$error.required"> Entrer le Mot de Passe.</small>
-
-                               <small class="errorMessage" data-ng-show="signupForm.password2.$dirty && signupForm.password2.$error.passwordNoMatch && !signupForm.password2.$error.required"> Les mots de passe ne correspond pas</small>
-
-                            </span>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="name">Nom</label>
-                                                <div class="col-sm-7">
-                                                    <span class="block input-icon input-icon-right">
-                                                        <input type="text" class="form-control" placeholder="Nom" ng-model="signup.name" />
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="phone">No Téléphone</label>
-                                                <div class="col-sm-7">
-                                                    <span class="block input-icon input-icon-right">
-                                                        <input type="text" class="form-control" placeholder="Phone" name="phone" ng-model="signup.phone"/>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="address">Adresse</label>
-                                                <div class="col-sm-7">
-                                                    <span class="block input-icon input-icon-right">
-                                                        <input type="text" class="form-control" placeholder="Adresse" ng-model="signup.address" />
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="ville">Ville</label>
-                                                <div class="col-sm-7">
-                                                    <span class="block input-icon input-icon-right">
-                                                        <input type="text" class="form-control" placeholder="Ville" ng-model="signup.ville" />
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="codepostal">Code Postal</label>
-                                                <div class="col-sm-7">
-                                                     <span class="block input-icon input-icon-right">
-                                                        <input type="text" class="form-control" placeholder="Code Postal" ng-model="signup.codepostal" />
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="nosiret">No Siret</label>
-                                                <div class="col-sm-7">
-                                                    <span class="block input-icon input-icon-right">
-                                                        <input type="text" class="form-control" placeholder="No Siret" ng-model="signup.nosiret" />
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <span class="lbl col-sm-5"> </span>
-                                                <div class="col-sm-7">
-                                                    <button type="submit" class="width-35 pull-right btn btn-sm btn-primary" ng-click="signUp(signup)" data-ng-disabled="signupForm.$invalid">
-                                                        Enregistrement
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            </fieldset>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 </div>

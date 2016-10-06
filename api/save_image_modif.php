@@ -23,6 +23,39 @@ $cata = $cata->findByPrimaryKey($_POST["id"]);
 $cata->setLibelle($_POST["libelle"]);
 $cata->setDescription($_POST["description"]);
 $cata->setSrc("images/flat_images/product_".$strTime);
+$cata->setDimensions($_POST["dimensions"]);
+
+if($_POST["escargot"] == 'true') {
+    $cata->setEscargot(1);
+}
+else{
+    $cata->setEscargot(0);
+}
+if($_POST["contours"] == 'true') {
+    $cata->setContours(1);
+}
+else {
+    $cata->setContours(0);
+}
+if($_POST["liserai"] == 'true'){
+    $cata->setLiserai(1);
+}
+else{
+    $cata->setLiserai(0);
+}
+if($_POST["coucher"] == 'true'){
+    $cata->setCoucher(1);
+}
+else{
+    $cata->setCoucher(0);
+}
+if($_POST["gabarit"] == 'true'){
+    $cata->setGabarit(1);
+}
+else{
+    $cata->setGabarit(0);
+}
+
 //delete previous parameters
 $cata_ligne_params = new cata_ligne_params();
 $cata_ligne_params->delByIdCataLigne($cata->getIdFront());

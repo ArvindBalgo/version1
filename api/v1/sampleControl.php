@@ -196,8 +196,86 @@ else if($mode == 7) {
     $id = $_GET["id"];
     $cata = new cata();
     $cata = $cata->findByPrimaryKey($id);
-    $arrCata = array('id'=>$cata->getId_Cata(), 'libelle'=>$cata->getLibelle(), 'reference'=>$cata->getReference(), 'description'=>$cata->getDescription());
-
+    $arrCata = array('id'=>$cata->getId_Cata(),
+        'libelle'=>$cata->getLibelle(),
+        'reference'=>$cata->getReference(),
+        'description'=>$cata->getDescription(),
+        'dimensions' =>$cata->getDimensions(),
+        'escargot' =>$cata->getEscargot(),
+        'contours' =>$cata->getContours(),
+        'liserai' =>$cata->getLiserai(),
+        'coucher' =>$cata->getCoucher(),
+        );
     print json_encode($arrCata);
+}
+else if($mode == 8) {
+    $arrData = [];
+    $metier = new listmetier();
+    $metier = $metier->rechTous();
+    $arrData["metier"] = $metier;
+
+    $modelMetier = new modelmetier();
+
+    $modelMetier = $modelMetier->rechTous();
+    $arrData["modelsmetier"] = $modelMetier;
+    //print json_encode($modelMetier);
+    //print json_encode($metier);
+    print json_encode($arrData);
+}
+else if($mode == 9) {
+    $cata  = new cata();
+    $cata = $cata->findByPrimaryKey($_GET["id_model"]);
+    if(count($cata) == 0) {
+        print "null";
+        return;
+    }
+
+
+    $arrData = [];
+
+    //foreach($cata as $ligne) {
+    $ligne = $cata;
+    $img_src = [];
+    $arrFront = [];
+    $arrBack = [];
+    $arrElem = [];
+
+    $cata_ligne = new cata_ligne();
+    $cata_ligne = $cata_ligne->findByPrimaryKey( $cata->getIdFront());
+    if($cata_ligne != null){
+        $cata_ligne_params = new cata_ligne_params();
+        $cata_ligne_params = $cata_ligne_params->findByIdCata($cata_ligne->getId());
+        $arrFront = array('id'=>$cata_ligne->getId(), 'src'=>$cata_ligne->getSrc(), 'title'=>$cata_ligne->getTitle(), 'params' =>$cata_ligne_params);
+    }
+    else{
+        $arrFront = array();
+    }
+
+    $cata_ligne = new cata_ligne();
+    $cata_back = $cata_ligne->findByPrimaryKey($cata->getIdBack());
+    if($cata_back != null) {
+        $cata_ligne_params1 = new cata_ligne_params();
+        $cata_ligne_params1 =  $cata_ligne_params1->findByIdCata($cata_back->getId());
+
+        $arrBack = array('id'=>$cata_back->getId(), 'src'=>$cata_back->getSrc(), 'title'=>$cata_back->getTitle(), 'params'=>$cata_ligne_params1);
+
+    }
+    else {
+        $arrBack = array();
+    }
+
+    //$img_src[] =array('id'=>$cata_ligne->getId(), "src"=>$cata_ligne->getSrc());
+    //$arrData[] = array('id'=>$ligne["id"], 'title'=>$ligne["libelle"], 'thumbnail_src'=>$ligne["src"], 'img_src'=>$img_src);
+    $arrData[] = array('id'=>$cata->getId_Cata(), 'title'=>$cata->getLibelle(), 'thumbnail_src'=>$cata->getSrc(), 'elemfront'=>$arrFront, 'elemback'=>$arrBack);
+    //}
+    print json_encode($arrData);
+    //print json_encode($sample);
+    return;
+}
+else if($mode == 10) {
+    $modelMetier = new modelmetier();
+
+    $modelMetier = $modelMetier->rechTous();
+    print json_encode($modelMetier);
 
 }

@@ -3,35 +3,22 @@
     <div class="row">
         <div class="col-md-12">
             <div id="main-container">
-                <h3 id="clothing">Maquette Customizé</h3>
-                <!--div id="model" class="fpd-container fpd-shadow-2 fpd-topbar fpd-tabs fpd-tabs-side fpd-top-actions-centered fpd-bottom-actions-centered fpd-views-inside-left">
-                    <div data-ng-repeat="product in fiche.productList" class="fpd-product" title="{{product.title}}" data-thumbnail="{{product.thumbnail_src}}">
-                        <img ng-repeat="source in  product.img_src" src="{{source.src}}"   title="Base" data-parameters='{"left": 325, "top": 329, "colors": "#d59211", "price": 20}'/>
+                <h3 id="clothing">Schema Maquette</h3>
+                <div class="row" style="margin: 2px">
+                    <div class="btn-group center-block">
+                        <button ng-click="fiche.fnMetierList();" class="btn btn-info btn-lg "><span><img src="images/icons/gallery.ico" style="height: 50px;width:50px"></span>Gallery</button>
+                        <button ng-click="fiche.fnValidMaquette()" class="btn btn-primary btn-lg"><span><img src="images/icons/construction.ico" style="height: 50px;width:50px"></span>Validez ma maquette</button>
                     </div>
-                    <div class="fpd-design">
-                        <div ng-repeat="design in fiche.productsDesign" class="fpd-category" title="{{design.title}}">
-                            <img ng-repeat="image in design.imgsrc" src="{{image.src}}"  title="{{image.title}}" data-parameters='{"zChangeable": true, "left": 215, "top": 200, "colors": "#000000", "removable": true, "draggable": true, "rotatable": true, "resizable": true, "price": 10, "boundingBox": "Base", "autoCenter": true}' />
-                        </div>
-                    </div>
-                </div-->
-                <div id="model" class="fpd-container fpd-shadow-2 fpd-topbar fpd-tabs fpd-tabs-side fpd-top-actions-centered fpd-bottom-actions-centered fpd-views-inside-left">
-                    <!--div data-ng-repeat="product in fiche.productList1" class="fpd-product" title="{{product.libelle}}" data-thumbnail="{{product..src}}">
-                        <img ng-repeat="source in  product.img_src" src="{{source.src}}"   title="Base" data-parameters='{"left": 325, "top": 329, "colors": "#d59211", "price": 20}'/>
-                    </div-->
-
-                    <!--div data-ng-repeat="product in fiche.productList1" class="fpd-product" title="{{product.libelle}}" data-thumbnail="{{product.src}}">
-                        <div class="fpd-product" title="{{product.front.title}}" data-thumbnail="{{product.front.src}}">
-                            <img ng-if="source.type=='image'" ng-repeat="source in  product.back.elements" src="{{source.src}}"   title="{{source.title}}" data-parameters='{{source.parameters}}'/>
-                        </div>
-                        <img ng-if="source.type=='image'" ng-repeat="source in  product.front.elements" src="{{source.src}}"   title="{{source.title}}" data-parameters='{{source.parameters}}'/>
-                    </div-->
-
-                    <!--div class="fpd-design">
-                        <div ng-repeat="design in fiche.productsDesign" class="fpd-category" title="{{design.title}}">
-                            <img ng-repeat="image in design.imgsrc" src="{{image.src}}"  title="{{image.title}}" data-parameters='{"zChangeable": true, "left": 215, "top": 200, "colors": "#000000", "removable": true, "draggable": true, "rotatable": true, "resizable": true, "price": 10, "boundingBox": "Base", "autoCenter": true}' />
-                        </div>
-                    </div-->
                 </div>
+                <div id="model" class="fpd-container fpd-shadow-2 fpd-topbar fpd-tabs fpd-tabs-side fpd-top-actions-centered fpd-bottom-actions-centered fpd-views-inside-left">
+                    <div class="fpd-design">
+                        <div ng-repeat="design in fiche.productsDesign" class="fpd-category" title="{{design.libelle}}">
+                            <img ng-repeat="image in design.data" src="{{image.src}}"  title="{{image.libelle}}" data-parameters='{"zChangeable": true, "left": 215, "top": 200, "colors": "#000000", "removable": true, "draggable": true, "rotatable": true, "resizable": true, "price": 10, "boundingBox": "Base", "autoCenter": true}' />
+                        </div>
+                    </div>
+                </div>
+
+
                 <br />
 
                 <div class="fpd-clearfix" style="margin-top: 30px;">
@@ -42,7 +29,6 @@
                         <a href="#" id="recreation-button" class="fpd-btn">Recreate product</a>
                     </div>
                     <div class="fpd-right">
-                        <span class="price badge badge-inverse"><span id="thsirt-price"></span> $</span>
                     </div>
                 </div>
 
@@ -66,6 +52,71 @@
     <div class="row">
         <div id="imgScroll">
             <img ng-repeat="lien in fiche.imgList" src="{{lien.src}}" title="{{lien.title}}" class="imgScroll"/>
+        </div>
+    </div>
+</div>
+<div id="galleryModal" class="modal fade" data-backdrop="static">
+    <div class="modal-dialog" style="width: 75%;height: 500px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"><span><img src="images/icons/gallery.ico" style="height: 50px;width:50px">Gallery des models</span></h4>
+            </div>
+            <div class="modal-body" style="height: 550px;overflow: scroll">
+                <div class="row" style="padding: 3px;">
+                    <div class="col-md-2">Type de model: </div>
+                    <div id="selModelMetier" class="col-md-10" >
+                        <select class="sel_model_metier" style="width: 75%;"></select>
+                    </div>
+                </div>
+                <ul class="nav nav-tabs">
+                    <li ng-class="{ active: fiche.activeId == 1 }" style="cursor: pointer" ng-click="fiche.fnClickTabs(1)"><a>Models</a></li>
+                    <li ng-class="{ active: fiche.activeId == 2 }" style="cursor: pointer" ng-click="fiche.fnClickTabs(2)"><a>Gabarits</a></li>
+                </ul>
+                <div ng-show="fiche.isShow == 1">
+                    <!--div class="row" style="padding: 3px;">
+                        <div class="col-md-2">Metier : </div>
+                        <div id="selCategory" class="col-md-10" >
+                            <select class="sel_metier" style="width: 75%;"></select>
+                        </div>
+                    </div-->
+
+                    <div class="col-md-4" style="margin-bottom: 5px; margin-top: 5px;" ng-repeat="model in fiche.models">
+                        <div class="tileImg" ng-click="fiche.fnModelClick(model.id, model.id_metier)" >
+                            <img style="width: 100%; height: 100%" src="{{model.src}}">
+                            <span><p>{{model.description}}</p></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="fiche.isShow == 2">
+                    <div class="col-md-4" style="margin-bottom: 5px; margin-top: 5px;" ng-repeat="model in fiche.gabarits">
+                        <div class="tileImg" ng-click="fiche.fnModelClick(model.id, model.id_metier)" >
+                            <img style="width: 100%; height: 100%" src="{{model.src}}">
+                            <span><p>{{model.description}}</p></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalMaquette" class="modal fade" data-backdrop="static">
+    <div class="modal-dialog" style="width: 75%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"><span><!--img src="images/icons/gallery.ico" style="height: 50px;width:50px"-->Validation Maquette</span></h4>
+            </div>
+            <div class="modal-body" style="overflow: hidden">
+               Content goes here
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" ng-click="" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-success pull-right">Valider</button>
+            </div>
         </div>
     </div>
 </div>

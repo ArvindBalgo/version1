@@ -25,6 +25,37 @@ $cata->setSrc("images/flat_images/product_".$strTime);
 $cata->setIdFront(0);
 $cata->setIdBack(0);
 $cata->setReference($_POST["ref"]);
+$cata->setDimensions($_POST["dimensions"]);
+if($_POST["escargot"] == 'true') {
+    $cata->setEscargot(1);
+}
+else{
+    $cata->setEscargot(0);
+}
+if($_POST["contours"] == 'true') {
+    $cata->setContours(1);
+}
+else {
+    $cata->setContours(0);
+}
+if($_POST["liserai"] == 'true'){
+    $cata->setLiserai(1);
+}
+else{
+    $cata->setLiserai(0);
+}
+if($_POST["coucher"] == 'true'){
+    $cata->setCoucher(1);
+}
+else{
+    $cata->setCoucher(0);
+}
+if($_POST["gabarit"] == 'true'){
+    $cata->setGabarit(1);
+}
+else{
+    $cata->setGabarit(0);
+}
 $cata->setCreatedBy($session['uid']);
 $cata->setModifiedBy($session['uid']);
 $cata->save();
@@ -36,7 +67,8 @@ $cata = $cata->findByPrimaryKey($lastID);
 foreach($_POST["metiers"] as $ligne){
     $cata_metier = new cata_metier();
     $cata_metier->setId_Cata($lastID);
-    $cata_metier->setId_Metier($ligne);
+    $cata_metier->setId_Metier(0);
+    $cata_metier->setIdModelMetier($ligne);
     $cata_metier->setActive(1);
     $cata_metier->save();
 }

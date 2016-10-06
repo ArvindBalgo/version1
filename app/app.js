@@ -14,39 +14,38 @@ app.config(['$routeProvider',
             templateUrl: 'sections/fiche/fiche.tpl.html',
             controller: 'ficheController as fiche'
         })
-            .when('/logout', {
+        .when('/logout', {
                 title: 'Logout',
                 templateUrl: 'partials/login.html',
                 controller: 'logoutCtrl'
             })
-            .when('/signup', {
+        .when('/signup', {
                 title: 'Signup',
                 templateUrl: 'partials/signup.html',
                 controller: 'authCtrl'
             })
-            .when('/dashboard', {
+        .when('/dashboard', {
                 title: 'Dashboard',
                 templateUrl: 'partials/dashboard.html',
                 controller: 'authCtrl'
             })
-            .when('/', {
+        .when('/', {
                 title: 'Home',
                 templateUrl: 'sections/home/home.tpl.html',
                 controller: 'HomeController as home'
             })
-            .when('/admin', {
+        .when('/admin', {
                 title:'admin',
                 templateUrl:'sections/admin/admin.tpl.html',
                 controller:'adminController as admin'
             })
-            .otherwise({
+        .otherwise({
                 redirectTo: '/home'
             });
   }])
     .run(function ($rootScope, $location, Data) {
         console.log('error checkgin');
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
-            console.log('edafefe');
             $rootScope.authenticated = false;
             Data.get('session.php').then(function (results) {
                 if (results.uid) {

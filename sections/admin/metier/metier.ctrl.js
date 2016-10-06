@@ -2,7 +2,7 @@ angular
     .module('adminApp')
     .controller('metierController', function($scope, $rootScope, $routeParams, $location, $http, Data, $timeout, FileUploader, $compile) {
 
-        Data.get('session').then(function (results) {
+        Data.get('session.php').then(function (results) {
             if (results.uid) {
 
             } else {
@@ -25,6 +25,7 @@ angular
         vm.isModified = true;
         vm.isImgModified = false;
         vm.selRowCategory = {};
+        vm.currentSCate = {};
 
         vm.arrValues = [
             {id:1, text:500},
@@ -43,7 +44,7 @@ angular
         $(".selObj").select2({
             tags: true,
             allowClear: true,
-            data:[]
+            data:vm.arrValues
         });
 
         var uploader = $scope.uploader = new FileUploader({
@@ -138,13 +139,34 @@ console.log("row data", vm.selRowCategory);
                 vm.description = row.description;
                 $('#imgModal').modal();
             }
+            else if(opt == 4) {
+                console.log(grid, row, opt);
+                $http({
+                    method: 'GET',
+                    params: {mode:7, id:row.id},
+                    url: 'api/v1/info.php'
+                }).then(function successCallback(response) {
+                        console.log(response.data);
+                        $scope.gridOptionsCategory.data = [];
+                        $timeout(function(){
+                            $scope.gridOptionsCategory.data = response.data;
+                        }, 0);
+
+                    }, function errorCallback(error) {
+                        console.log(error);
+                    });
+
+                vm.currentSCate = row;
+                $("#modalSousCategory").modal();
+            }
 
         };
         vm.formatCell = function(){
             var trash = "<button type='button' class='btn btn-default btn-circle' style='margin-left: 5px;margin-top: 5px;' ng-click='grid.appScope.edit(grid, row.entity, 1)'><i class='glyphicon glyphicon-trash'></i></button>";
             var edit = "<button type='button' class='btn btn-info btn-circle' style='margin-left: 5px;margin-top: 5px;' ng-click='grid.appScope.edit(grid, row.entity, 2)'><i class='glyphicon glyphicon-pencil'></i></button>";
             var image = "<button type='button' class='btn btn-success btn-circle' style='margin-left: 5px;margin-top: 5px;' ng-click='grid.appScope.edit(grid, row.entity, 3)'><i class='glyphicon glyphicon-picture'></i></button>";
-            return image+edit+trash;
+            var souscat = "<button type='button' class='btn btn-primary btn-circle' style='margin-left: 5px;margin-top: 5px;' ng-click='grid.appScope.edit(grid, row.entity, 4)'><i class='glyphicon glyphicon-th-list'></i></button>";
+            return image+souscat+edit+trash;
         }
 
 
@@ -156,11 +178,22 @@ console.log("row data", vm.selRowCategory);
 
         ];
 
+        vm.columnsCategory  = [ { name:'Libelle',width:'500',field: 'description',enableHiding:false ,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+            return 'cssLibelle';
+        }}];
+
         $scope.gridOptions = {
             enableSorting: true,
             enableFiltering: true,
             columnDefs: vm.columns,
             rowHeight:50
+        };
+
+        $scope.gridOptionsCategory = {
+            enableSorting   : true,
+            enableFiltering : true,
+            columnDefs      : vm.columnsCategory,
+            rowHeight       : 50
         };
 
         vm.fnModelMetier = function(opt) {
@@ -283,6 +316,7 @@ console.log("row data", vm.selRowCategory);
             $('#imgModal').modal('hide');
             $('#modalMetier').modal('hide');
             $('#modalModel').modal('hide');
+            $("#modalSousCategory").modal('hide');
         }
 
         vm.fnValid = function() {
@@ -337,6 +371,30 @@ console.log("row data", vm.selRowCategory);
                     console.log(response.data);
                     vm.fnModelMetier();
                     $("#modalModel").modal('hide');
+                }, function errorCallback(error) {
+                    console.log(error);
+                });
+        }
+
+        vm.fnAddNewCate = function() {
+            bootbox.prompt({
+                title: "Libelle",
+                inputType: 'email',
+                callback: function (result) {
+                    console.log(result);
+                    vm.saveModelCategory(result);
+                }
+            });
+        }
+
+        vm.saveModelCategory = function(libelle){
+            $http({
+                method: 'GET',
+                params: {mode:8, description:libelle, id_modelmetier:vm.currentSCate.id, src:vm.currentSCate.src, qte:"", active:1},
+                url: 'api/v1/info.php'
+            }).then(function successCallback(response) {
+                    console.log(response.data);
+                    $("#modalSousCategory").modal('hide');
                 }, function errorCallback(error) {
                     console.log(error);
                 });

@@ -5,6 +5,11 @@
         height: 100%;
 
     }
+    .myGridColumns {
+        width: 100%;
+        height: 100%;
+
+    }
 </style>
         <div style="padding: 10px" class="row">
             <div id="selMetier" class="col-md-5"><select class="sel_metier" style="width: 100%;"></select></div>
@@ -109,6 +114,26 @@
                 <button class="btn btn-danger pull-left" ng-click="metier.fnQuitter()">Annuler</button>
                 <button ng-show="metier.isModified" type="button" class="btn btn-success" ng-click="uploader.uploadAll()"><span class="glyphicon glyphicon-upload"></span> Valider</button>
                 <button ng-show="!metier.isModified" type="button" class="btn btn-success" ng-click="metier.fnValidModel()"><span class="glyphicon glyphicon-upload"></span> Valider132</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="modalSousCategory" class="modal fade" data-backdrop="static">
+    <div class="modal-dialog" style="width: 75%;height: 500px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"> {{metier.currentSCate.description}}</h4>
+            </div>
+            <div class="modal-body" style="height: 400px">
+                <div class="col-md-12"><h2>{{metier.currentSCate.description}}</h2></div>
+                <div  ui-grid="gridOptionsCategory" ui-grid-auto-resize class="myGridColumns"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger pull-left" ng-click="metier.fnQuitter()">Annuler</button>
+                <button class="btn btn-danger pull-right" ng-click="metier.fnAddNewCate()">Ajouter</button>
             </div>
         </div>
     </div>

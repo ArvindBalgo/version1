@@ -3,11 +3,26 @@ angular
     .controller('HomeController', function($scope, $location, $http, Data, messages) {
         //Setup view model object
         console.log('HOME CONTROLLER');
+       // spinnerService.show('spin');
+        toastr.options.positionClass = 'toast-bottom-full-width';
+        toastr.options.extendedTimeOut = 0; //1000;
+        toastr.options.timeOut = 2000;
+        toastr.options.fadeOut = 250;
+        toastr.options.fadeIn = 250;
+        toastr.success('Bienvenue sur Exakom, contactez nous si vous avez des soucis!');
         var vm = this;
+        //document.getElementById("loader").style.display = "none";
         vm.btnMetier = [];
         vm.sampleMetier = [];
         vm.globalVal = '';
+        vm.activeId = "";
+        vm.origModels = [];
         Data.get('session.php').then(function (results) {
+            $scope.sessionInfo = results;
+            if(results.uid){
+                $scope.isLogged = true;
+                $scope.utilisateur = results.name;
+            }
             $scope.sessionInfo = results;
             console.log(results, 'results from admin');
 
@@ -52,6 +67,11 @@ angular
             }).then(function successCallback(response) {
                     console.log(response.data);
                     vm.btnMetier = response.data;
+                    angular.forEach(vm.btnMetier, function(value){
+                        if(value.libelle == "Tous les produits") {
+                            vm.activeId = value.id;
+                        }
+                    })
                 }, function errorCallback(error) {
                     console.log(error);
                 });
@@ -96,7 +116,7 @@ angular
                 url: 'api/v1/info.php'
             }).then(function successCallback(response) {
                     console.log("MODEL METIER");
-                    console.log(response.data);
+                    vm.origModels = angular.copy(response.data);
                     vm.metier = response.data;
                 }, function errorCallback(error) {
                     console.log(error);
@@ -108,8 +128,24 @@ angular
             $('#myModel').modal('hide');
 
             localStorage.setItem("id_model", $id);
-            localStorage.setItem("id_metier", $id_metier);
+            localStorage.setItem("idModelMetier", $id_metier);
+            localStorage.setItem("idMetier", vm.activeId);
             $location.path('fichetech');
+        };
+
+        vm.fnClickBtn = function($obj) {
+            vm.activeId = $obj.id;
+            var arrModels = [];
+            if($obj.libelle == "Tous les produits") {
+                vm.metier = angular.copy(vm.origModels);
+                return;
+            }
+            angular.forEach(vm.origModels, function(value){
+               if(value.category == $obj.id){
+                   arrModels.push(value);
+               }
+            });
+            vm.metier = angular.copy(arrModels);
         };
 
         vm.fnSignUp = function(){

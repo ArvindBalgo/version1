@@ -138,6 +138,16 @@ class listmetier{
         return $rows;
     }
 
+    public function rechTous() {
+        $listMetier  = array();
+        $rs = $this->conn->query("SELECT id, concat(libelle ,' ', sub_libelle) as text FROM listmetier");
+        $rows = [];
+        while($row = mysqli_fetch_array($rs)){
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
     public function findByPrimaryKey($key) { // Recherche d'une adresse par id
         $requete = self::$SELECT . " WHERE id=" . $key;
         $rs = $this->conn->query($requete);

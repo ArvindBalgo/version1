@@ -133,6 +133,19 @@ class modelmetier{
         return $rows;
     }
 
+    public function rechTous() { // Recherche de toutes
+
+        $listMetier = array();
+        $requete = "SELECT id, description as text, category from modelmetier";
+        $rs = $this->conn->query($requete) or die($this->conn->error.__LINE__);
+        $rows = [];
+        while($row = mysqli_fetch_array($rs))
+        {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
     public function findByPrimaryKey($key) { // Recherche d'une adresse par id
         $requete = self::$SELECT . " WHERE id=" . $key;
         $rs = $this->conn->query($requete);
@@ -140,5 +153,17 @@ class modelmetier{
             return null;
         }
         return $this->mapSqlToObject(mysqli_fetch_array($rs));
+    }
+
+    public function  rechModelCategory(){
+        $requete = "SELECT mm.id as modelid, mm.description as modeldescription, mm.category as modelcategory, mmc.id as categoryid, mmc.description as categorydescription  FROM modelmetier mm inner join modelmetier_category mmc on (mm.id = mmc.id_modelmetier)";
+
+        $rs = $this->conn->query($requete) or die($this->conn->error._LINE_);
+        $rows = [];
+        while($row = mysqli_fetch_array($rs))
+        {
+            $rows[] = $row;
+        }
+        return $rows;
     }
 }

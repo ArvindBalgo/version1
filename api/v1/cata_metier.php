@@ -11,6 +11,8 @@ class cata_metier {
     //**** Variables declarations ****
     private $_id_cata = null;
     private $_id_metier = null;
+    private $_id_modelmetier = null;
+
     private $_active = null;
 
    private static $SELECT="SELECT * FROM cata_metier";
@@ -30,6 +32,11 @@ class cata_metier {
     public function setId_Metier($id_metier) {
         $this->_id_metier= $id_metier;
     }
+
+    public function setIdModelMetier($id) {
+        $this->_id_modelmetier= $id;
+    }
+
     public function setActive($active) {
         $this->_active = $active;
     }
@@ -43,6 +50,9 @@ class cata_metier {
         return $this->_id_metier;
     }
 
+    public function getIdModelMetier() {
+        return $this->_id_modelmetier;
+    }
 
     public function getActive() {
         return $this->_active;
@@ -59,10 +69,12 @@ class cata_metier {
             $requete = "INSERT INTO cata_metier (";
             $requete .= "id_cata,";
             $requete .= "id_metier,";
+            $requete .= "id_modelmetier,";
             $requete .= "active";
             $requete .= ") VALUES (";
             $requete .= "'" . $this->_id_cata . "',";
             $requete .= "'" . $this->_id_metier . "',";
+            $requete .= "'" . $this->_id_modelmetier . "',";
             $requete .= "'" . $this->_active . "')";
 
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
@@ -76,6 +88,7 @@ class cata_metier {
         $cata_metier = new cata_metier();
         $cata_metier->_id_cata = $rs["id_cata"];
         $cata_metier->_id_metier = $rs["id_metier"];
+        $cata_metier->_id_modelmetier = $rs["id_modelmetier"];
         $cata_metier->_active = $rs["active"];
         return $cata_metier;
     }

@@ -76,8 +76,54 @@
                 <div class="col-md-2" style="margin-bottom: 5px; margin-top: 5px;"><b>Model</b></div>
                 <div class="col-md-10" style="margin-bottom: 5px; margin-top: 5px;">
                     <select class="selObj" multiple="multiple" style="width: 100%" ng-model="strData">
-                        <option ng-repeat="data in model.arrData" value="{{data.id}}">{{data.description}}</option>
+                        <option ng-repeat="data in model.arrData" value="{{data.categoryid}}">{{data.modeldescription}} - {{data.categorydescription}}</option>
                     </select>
+                </div>
+                <div class="row">
+                    <div class="col-md-2" style="margin-bottom: 5px; margin-top: 5px;">
+                        <b>Dimensions</b>
+                    </div>
+                    <div class="col-md-10">
+                        <select class="sel_dimension" style="width: 75%;" multiple="multiple" ng-model="model.strDimension">
+                        </select>
+                    </div>
+                </div>
+                <div class="row" style="padding: 10px">
+                    <div class="col-md-2">
+
+                    </div>
+                    <div class="col-md-10 well">
+                        <div class="col-md-2">
+                            <b>Attache Escargot/Trou</b>
+                        </div>
+                        <div class="col-md-1">
+                            <label><input type="checkbox" ng-model="model.chkEscargo"></label>
+                        </div>
+                        <div class="col-md-1">
+                            <b>Contours</b>
+                        </div>
+                        <div class="col-md-1" style="margin-left: 10px">
+                            <label><input type="checkbox" ng-model="model.chkContours"></label>
+                        </div>
+                        <div class="col-md-1">
+                            <b>Liserai</b>
+                        </div>
+                        <div class="col-md-1">
+                            <label><input type="checkbox" ng-model="model.chkLiserai"></label>
+                        </div>
+                        <div class="col-md-1">
+                            <b>Affichage Couché</b>
+                        </div>
+                        <div class="col-md-1"  style="margin-left: 10px">
+                            <label><input type="checkbox" ng-model="model.chkCoucher"></label>
+                        </div>
+                        <div class="col-md-1">
+                            <b>Gabarit</b>
+                        </div>
+                        <div class="col-md-1"  style="margin-left: 10px">
+                            <label><input type="checkbox" ng-model="model.chkGabarit"></label>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -98,7 +144,17 @@
                 <h4 class="modal-title"> Gallery Models</h4>
             </div>
             <div class="modal-body" style="height: 400px;overflow: scroll">
-                <div class="row">
+                <div class="row" style="padding: 3px;">
+                    <div class="col-md-2">Type de model: </div>
+                    <div id="selModelMetier" class="col-md-10" >
+                        <select class="sel_model_metier" style="width: 75%;"></select>
+                    </div>
+                </div>
+                <ul class="nav nav-tabs">
+                    <li ng-class="{ active: model.activeId == 1 }" style="cursor: pointer" ng-click="model.fnClickTabs(1)"><a>Models</a></li>
+                    <li ng-class="{ active: model.activeId == 2 }" style="cursor: pointer" ng-click="model.fnClickTabs(2)"><a>Gabarits</a></li>
+                </ul>
+                <div class="row" ng-show="model.isShow == 1">
                     <div class="col-md-12">
                         <div class="col-md-3" style="margin-bottom: 5px; margin-top: 5px;" ng-repeat="mo in model.galleryModels">
                             <!--div class="tileImg" ng-click="model.fnImgClick(mo)"-->
@@ -113,6 +169,9 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="row" ng-show="model.isShow == 2">
+                    HER ahebdjihg
                 </div>
             </div>
             <div class="modal-footer">

@@ -9,12 +9,13 @@
     <!-- build:css assets/css/styles.css -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="sections/home/home.css"/>
-    
+    <link href="css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="sections/fiche/fiche.css"/>
     <!-- The CSS for the plugin itself - required -->
     <link rel="stylesheet" type="text/css" href="css/FancyProductDesigner-all.min.css" />
     <!-- Optional - only when you would like to use custom fonts - optional -->
     <link rel="stylesheet" type="text/css" href="css/jquery.fancyProductDesigner-fonts.css" />
+    <link rel="stylesheet" type="text/css" href="css/toastr.min.css" />
     <!--link rel="stylesheet" href="assets/css/font-icons.css" type='text/css'>
     <link rel="stylesheet" href="assets/css/animations.css"/>
     <link rel="stylesheet" href="assets/css/style.css"/>
@@ -42,6 +43,7 @@
 <script src="js/jquery.ui.draggable.min.js"></script>
 <script src="js/jquery.ui.sortable.min.js"></script>
 <script src="assets/js/endless_scroll_min.js"></script>
+<script src="js/bootbox.min.js"></script>
 <script src="js/fabric.min.js"></script>
 <script src="js/FancyProductDesigner-all.min.js"></script>
 <script src="assets/js/angular-1.5.7/angular.js"></script>
@@ -51,9 +53,11 @@
 <script src="assets/js/ui-bootstrap-tpls-1.1.2.min.js"></script>
 <script src="js/es5-shim.min.js"></script>
 <script src="js/console-sham.min.js"></script>
+<script src="js/select2.min.js"></script>
 <script src="js/angular-file-upload.min.js"></script>
 <script src="js/angular-file-upload.min.js.map"></script>
 <script src="js/toaster.js"></script>
+<script src="js/toastr.min.js"></script>
 <script src="app/app.js"></script>
 <script src="app/data.js"></script>
 <script src="app/directives.js"></script>

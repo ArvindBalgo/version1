@@ -82,3 +82,27 @@ else if($mode == 6){
     $model->save();
     print "done";
 }
+else if($mode == 7) {
+    $model = new modelmetier_category();
+    $model = $model->findByModel($_GET['id']);
+    print json_encode($model);
+}
+else if($mode == 8) {
+    $model = new modelmetier_category();
+    $model->setDescription($_GET["description"]);
+    $model->setIdModelMetier($_GET["id_modelmetier"]);
+    $model->setSrc($_GET["src"]);
+    $model->setQte($_GET["qte"]);
+    $model->setActive($_GET["active"]);
+    $model->save();
+
+    $model = new modelmetier_category();
+    $model = $model->findByModel($_GET['id_modelmetier']);
+    print json_encode($model);
+}
+else if($mode == 9) {
+    $metier = new modelmetier();
+    $metier = $metier->rechModelCategory();
+    print json_encode($metier);
+    return;
+}

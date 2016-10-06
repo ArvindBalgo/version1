@@ -1,51 +1,6 @@
 <?php
-require_once 'dbHandler.php';
-require_once 'passwordHash.php';
-require_once 'listmetier.php';
-require_once '../chromePHP.php';
-require '../libs/Slim/Slim.php';
+include_once 'authFN.php';
 
-\Slim\Slim::registerAutoloader();
-chromePHP::log("TES TEST ");
-$app = new \Slim\Slim();
-
-// User id from db - Global Variable
-$user_id = NULL;
-//$app->run();
-function verifyRequiredParams($required_fields,$request_params) {
-    $error = false;
-    $error_fields = "";
-    foreach ($required_fields as $field) {
-        if (!isset($request_params->$field) || strlen(trim($request_params->$field)) <= 0) {
-            $error = true;
-            $error_fields .= $field . ', ';
-        }
-    }
-
-    if ($error) {
-        // Required field(s) are missing or empty
-        // echo error json and stop the app
-        $response = array();
-        $app = \Slim\Slim::getInstance();
-        $response["status"] = "error";
-        $response["message"] = 'Required field(s) ' . substr($error_fields, 0, -2) . ' is missing or empty';
-        echoResponse(200, $response);
-        $app->stop();
-    }
-}
-
-
-function echoResponse($status_code, $response) {
-    $app = \Slim\Slim::getInstance();
-    // Http response code
-    $app->status($status_code);
-
-    // setting response content type to json
-    $app->contentType('application/json');
-
-    echo json_encode($response);
-}
-chromePHP::log(" HEREH WE GO");
 $db = new DbHandler();
 $session = $db->getSession();
 $response["uid"] = $session['uid'];
@@ -167,7 +122,7 @@ $app->post('/signUp', function() use ($app) {
             $response["status"] = "error";
             $response["message"] = "Failed to create customer. Please try again";
             echoResponse(201, $response);
-        }            
+        }
     }else{
         $response["status"] = "error";
         $response["message"] = "An user with the provided phone or email exists!";

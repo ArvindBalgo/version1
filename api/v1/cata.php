@@ -15,6 +15,12 @@ class cata {
     private $_id_front = null;
     private $_id_back = null;
     private $_reference = null;
+    private $_dimensions = "";
+    private $_escargot = false;
+    private $_contours = false;
+    private $_liserai = false;
+    private $_coucher = false;
+    private $_gabarit   = false;
     private $_date_created = null;
     private $_date_modified = null;
     private $_created_by = null;
@@ -53,6 +59,30 @@ class cata {
     public function setReference($ref) {
         $this->_reference= $ref;
     }
+
+    public function setDimensions($dim) {
+        $this->_dimensions = $dim;
+    }
+    public function setEscargot($escargot) {
+        $this->_escargot = $escargot;
+    }
+
+    public function setContours($contours) {
+        $this->_contours = $contours;
+    }
+
+    public function setLiserai($liserai) {
+        $this->_liserai = $liserai;
+    }
+
+    public function setCoucher($coucher) {
+        $this->_coucher = $coucher;
+    }
+
+    public function setGabarit($gabarit) {
+        $this->_gabarit = $gabarit;
+    }
+
     public function setCreatedBy($user) {
         $this->_created_by= $user;
     }
@@ -92,10 +122,32 @@ class cata {
         return $this->_reference;
     }
 
+    public function getDimensions (){
+        return $this->_dimensions;
+    }
+
+    public function getEscargot (){
+        return $this->_escargot;
+    }
+    public function getContours (){
+        return $this->_contours;
+    }
+
+    public function getLiserai (){
+        return $this->_liserai;
+    }
+
+    public function getCoucher (){
+        return $this->_coucher;
+    }
+
+    public function getGabarit(){
+        return $this->_gabarit;
+    }
+
     public function getDateCreated() {
         return $this->_date_created;
     }
-
 
     public function getDateModified() {
         return $this->_date_modified;
@@ -133,6 +185,12 @@ class cata {
             $requete .= ',id_front="' . $this->_id_front . '"';
             $requete .= ',id_back="' . $this->_id_back . '"';
             $requete .= ',reference="' . $this->_reference . '"';
+            $requete .= ',dimensions="' . $this->_dimensions . '"';
+            $requete .= ',escargot="' . $this->_escargot . '"';
+            $requete .= ',contours="' . $this->_contours . '"';
+            $requete .= ',liserai="' . $this->_liserai . '"';
+            $requete .= ',coucher="' . $this->_coucher . '"';
+            $requete .= ',gabarit="' . $this->_gabarit . '"';
             $requete .= ',date_created="' . $this->_date_created . '"';
             $requete .= ',date_modified="' . $this->_date_modified . '"';
             $requete .= ',created_by="' . $this->_created_by . '"';
@@ -147,6 +205,12 @@ class cata {
             $requete .= "id_front,";
             $requete .= "id_back,";
             $requete .= "reference,";
+            $requete .= "dimensions,";
+            $requete .= "escargot,";
+            $requete .= "contours,";
+            $requete .= "liserai,";
+            $requete .= "coucher,";
+            $requete .= "gabarit,";
             $requete .= "date_created,";
             $requete .= "date_modified,";
             $requete .= "created_by,";
@@ -158,6 +222,12 @@ class cata {
             $requete .= '"' . $this->_id_front . '",';
             $requete .= '"' . $this->_id_back . '",';
             $requete .= '"' . $this->_reference . '",';
+            $requete .= '"' . $this->_dimensions . '",';
+            $requete .= '"' . $this->_escargot . '",';
+            $requete .= '"' . $this->_contours . '",';
+            $requete .= '"' . $this->_liserai . '",';
+            $requete .= '"' . $this->_coucher . '",';
+            $requete .= '"' . $this->_gabarit . '",';
             $requete .= '"' . $this->_date_created . '",';
             $requete .= '"' . $this->_date_modified . '",';
             $requete .= '"' . $this->_created_by . '",';
@@ -180,9 +250,15 @@ class cata {
         $cata->_id_front = $rs["id_front"];
         $cata->_id_back = $rs["id_back"];
         $cata->_reference = $rs["reference"];
+        $cata->_dimensions  = $rs["dimensions"];
+        $cata->_escargot    = $rs["escargot"];
+        $cata->_contours    = $rs["contours"];
+        $cata->_liserai     = $rs["liserai"];
+        $cata->_coucher     = $rs["coucher"];
+        $cata->_gabarit     = $rs["gabarit"];
         $cata->_date_created = $rs["date_created"];
         $cata->_date_modified = $rs["date_modified"];
-        $cata->_created_by = $rs["created_by"];
+        $cata->_created_by  = $rs["created_by"];
         $cata->_modified_by = $rs["modified_by"];
         return $cata;
     }
@@ -237,4 +313,4 @@ class cata {
         }
         return $rows;
     }
-} 
+}

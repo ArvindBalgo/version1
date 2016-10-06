@@ -45,4 +45,3 @@ function echoResponse($status_code, $response) {
 
     echo json_encode($response);
 }
-chromePHP::log("AUTH function");
