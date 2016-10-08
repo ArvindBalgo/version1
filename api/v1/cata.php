@@ -313,4 +313,17 @@ class cata {
         }
         return $rows;
     }
+
+    public function findAllBySousCategory($id){
+        $requete = "Select * from cata C inner join cata_metier cm on (C.id = cm.id_cata) where cm.id_modelmetier=".$id;
+
+        $rs = $this->conn->query($requete);
+
+        $rows = [];
+        while($row = mysqli_fetch_array($rs))
+        {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
 }

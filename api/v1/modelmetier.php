@@ -136,7 +136,7 @@ class modelmetier{
     public function rechTous() { // Recherche de toutes
 
         $listMetier = array();
-        $requete = "SELECT id, description as text, category from modelmetier";
+        $requete = "SELECT c.id, concat(l.libelle , ' - ' , m.description, ' - ', c.description) as text from listmetier l inner join modelmetier m on l.id = m.category inner join modelmetier_category c on m.id = c.id_modelmetier";
         $rs = $this->conn->query($requete) or die($this->conn->error.__LINE__);
         $rows = [];
         while($row = mysqli_fetch_array($rs))

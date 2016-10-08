@@ -861,16 +861,52 @@ console.log(response.data, "baakallk");
                 vm.fnOpenModal = function(){
                     $scope.product = yourDesigner.getProduct();
                     console.log($scope.product);
+                    console.log(vm.objEnCours, " loaded obj at modal open");
                     $('#myModel').modal();
                     if(vm.isModifier) {
                         vm.libelle = vm.objEnCours.libelle;
                         vm.reference = vm.objEnCours.reference;
                         vm.description=vm.objEnCours.description;
-                        vm.chkEscargo = vm.objEnCours.escargot;
+                        if(vm.objEnCours.escargot == 1) {
+                            vm.chkEscargo = true;
+                        }
+                        else {
+                            vm.chkEscargo = false;
+                        }
+
+                        if(vm.objEnCours.contours == 1) {
+                            vm.chkContours = true;
+                        }
+                        else {
+                            vm.chkContours = false;
+                        }
+
+                        if(vm.objEnCours.liserai == 1) {
+                            vm.chkLiserai = true;
+                        }
+                        else {
+                            vm.chkLiserai = false;
+                        }
+
+                        if(vm.objEnCours.coucher == 1) {
+                            vm.chkCoucher = true;
+                        }
+                        else {
+                            vm.chkCoucher = false;
+                        }
+
+                        if(vm.objEnCours.gabarit == 1) {
+                            vm.chkGabarit = true;
+                        }
+                        else {
+                            vm.chkGabarit = false;
+                        }
+
+                       /* vm.chkEscargo = vm.objEnCours.escargot;
                         vm.chkContours = vm.objEnCours.contours;
                         vm.chkLiserai = vm.objEnCours.liserai;
                         vm.chkCoucher = vm.objEnCours.coucher;
-                        vm.chkGabarit  = vm.objEnCours.gabarit;
+                        vm.chkGabarit  = vm.objEnCours.gabarit;*/
                     }
                     else{
                         vm.libelle      = "";
@@ -884,10 +920,9 @@ console.log(response.data, "baakallk");
                     }
                 }
                 vm.fnGallery = function() {
-                    vm.fnMetierList();
                     $http({
                         method: 'GET',
-                        params: {mode:4},
+                        params: {mode:4, id:$(".sel_model_metier").select2().val()},
                         url: 'api/v1/sampleControl.php'
                     }).then(function successCallback(response) {
                             console.log(response);
@@ -1574,7 +1609,7 @@ console.log(response.data, "baakallk");
                     }).then(function successCallback(response) {
                             vm.isModifier=true;
                             vm.objEnCours = response.data;
-
+                            console.log(vm.objEnCours, " loaded obj");
                         }, function errorCallback(error) {
                             console.log(error);
                         });
@@ -2222,7 +2257,8 @@ console.log(response.data, "baakallk");
 
                     yourDesigner.getProductDataURL(function(dataURL) {
 
-                        if(vm.libelle == '' || vm.description=='' || $(".selObj").select2().val() == '' || $(".selObj").select2().val() == null || vm.strDimension == 'undefined' || vm.strDimension == ""){
+                        //if(vm.libelle == '' || vm.description=='' || $(".sel_model").select2().val() == '' || $(".sel_model").select2().val() == null || vm.strDimension == 'undefined' || vm.strDimension == ""){
+                        if(vm.libelle == '' || vm.description=='' || $(".sel_model").select2().val() == '' || $(".sel_model").select2().val() == null){
                             bootbox.alert("Toutes les informations sont obligatoire");
                             return;
                         }
@@ -2232,13 +2268,14 @@ console.log(response.data, "baakallk");
                                                         ref             : vm.reference,
                                                         libelle         : vm.libelle,
                                                         description     : vm.description,
-                                                        dimensions      : vm.strDimension.toString(),
+                                                        //dimensions      : vm.strDimension.toString(),
+                                                        dimensions      : "",
                                                         escargot        : vm.chkEscargo,
                                                         contours        : vm.chkContours,
                                                         liserai         : vm.chkLiserai,
                                                         coucher         : vm.chkCoucher,
                                                         gabarit         : vm.chkGabarit,
-                                                        metiers         : $(".selObj").select2().val(),
+                                                        metiers         : $(".sel_model").select2().val(),
                                                         data            : yourDesigner.getProduct()});});
                     $('#myModel').modal('hide');
 
@@ -2246,7 +2283,8 @@ console.log(response.data, "baakallk");
 
                 vm.fnValiderModif = function(){
                     yourDesigner.getProductDataURL(function(dataURL) {
-                        if(vm.libelle == '' || vm.description=='' || $(".selObj").select2().val() == '' || $(".selObj").select2().val() == null || vm.strDimension == 'undefined' || vm.strDimension == ""){
+                        //if(vm.libelle == '' || vm.description=='' || $(".sel_model").select2().val() == '' || $(".sel_model").select2().val() == null || vm.strDimension == 'undefined' || vm.strDimension == ""){
+                        if(vm.libelle == '' || vm.description=='' || $(".sel_model").select2().val() == '' || $(".sel_model").select2().val() == null){
                             bootbox.alert("Toutes les informations sont obligatoire");
                             return;
                         }
@@ -2256,13 +2294,14 @@ console.log(response.data, "baakallk");
                             ref:vm.reference,
                             libelle:vm.libelle,
                             description:vm.description,
-                            dimensions      : vm.strDimension.toString(),
+                            //dimensions      : vm.strDimension.toString(),
+                            dimensions      : "",
                             escargot        : vm.chkEscargo,
                             contours        : vm.chkContours,
                             liserai         : vm.chkLiserai,
                             coucher         : vm.chkCoucher,
                             gabarit         : vm.chkGabarit,
-                            metiers:$(".selObj").select2().val(),
+                            metiers         : $(".sel_model").select2().val(),
                             data:yourDesigner.getProduct()});
 
                     });
@@ -2339,13 +2378,31 @@ console.log(response.data, "baakallk");
                         data: vm.listMetier.modelsmetier
                     });
 
-                    $(".sel_model_metier").on("select2:select", function (e) {
-                        vm.rechModels($(".sel_metier").select2().val() , $(".sel_model_metier").select2().val());
+                    $(".sel_model").select2({
+                        theme:"classic",
+                        data: vm.listMetier.modelsmetier
                     });
+
+                    $(".sel_model_metier").on("select2:select", function (e) {
+                        console.log($(".sel_model_metier").select2().val() , "  :::");
+                        //vm.rechModels($(".sel_model_metier").select2().val());
+                        vm.fnGallery();
+                    });
+
+                    $(".sel_model").on("select2:select", function (e) {
+                        console.log($(".sel_model").select2().val() , "  :::");
+                        //vm.rechModels($(".sel_model_metier").select2().val());
+                       // vm.fnGallery();
+                    });
+
 
                 }, function errorCallback(error) {
                     console.log(error);
                 });
+        }
+
+        vm.rechModels = function ($id_modelmetier_catalogue){
+
         }
 
         $(document).ready(function() {
@@ -2354,5 +2411,6 @@ console.log(response.data, "baakallk");
                     closeOnSelect:false}
             );
             var $eventSelect = $(".selObj");
+            vm.fnMetierList();
         });
     });

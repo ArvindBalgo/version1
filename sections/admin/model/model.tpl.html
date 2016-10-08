@@ -75,17 +75,19 @@
                 </div>
                 <div class="col-md-2" style="margin-bottom: 5px; margin-top: 5px;"><b>Model</b></div>
                 <div class="col-md-10" style="margin-bottom: 5px; margin-top: 5px;">
-                    <select class="selObj" multiple="multiple" style="width: 100%" ng-model="strData">
+                    <!--select class="selObj" style="width: 100%" ng-model="strData">
                         <option ng-repeat="data in model.arrData" value="{{data.categoryid}}">{{data.modeldescription}} - {{data.categorydescription}}</option>
-                    </select>
+                    </select-->
+
+                    <select class="sel_model" style="width: 75%;"></select>
                 </div>
                 <div class="row">
                     <div class="col-md-2" style="margin-bottom: 5px; margin-top: 5px;">
                         <b>Dimensions</b>
                     </div>
                     <div class="col-md-10">
-                        <select class="sel_dimension" style="width: 75%;" multiple="multiple" ng-model="model.strDimension">
-                        </select>
+                        <!--select class="sel_dimension" style="width: 75%;" multiple="multiple" ng-model="model.strDimension">
+                        </select-->
                     </div>
                 </div>
                 <div class="row" style="padding: 10px">
@@ -171,7 +173,20 @@
                     </div>
                 </div>
                 <div class="row" ng-show="model.isShow == 2">
-                    HER ahebdjihg
+                    <div class="col-md-12">
+                        <div class="col-md-3" style="margin-bottom: 5px; margin-top: 5px;" ng-repeat="mo in model.galleryModels">
+                            <!--div class="tileImg" ng-click="model.fnImgClick(mo)"-->
+                            <div class="tileImg">
+                                <img style="width: 200px; height: 200px" src="{{mo.src}}">
+                                <div style="font-weight: bold;text-decoration: underline">{{mo.reference}}</div>
+                                <div>{{mo.libelle}}</div>
+                                <div>
+                                    <button ng-click="model.fnDel(mo)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+                                    <button ng-click="model.fnEdit(mo)" class="btn btn-info" ><span class="glyphicon glyphicon-pencil"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

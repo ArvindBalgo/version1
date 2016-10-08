@@ -64,14 +64,18 @@ $lastID = $cata->getLastId();
 
 $cata = $cata->findByPrimaryKey($lastID);
 
-foreach($_POST["metiers"] as $ligne){
+$souscategory = new modelmetier_category();
+$souscategory = $souscategory->findByPrimaryKey($_POST["metiers"]);
+
+
+//foreach($_POST["metiers"] as $ligne){
     $cata_metier = new cata_metier();
     $cata_metier->setId_Cata($lastID);
-    $cata_metier->setId_Metier(0);
-    $cata_metier->setIdModelMetier($ligne);
+    $cata_metier->setId_Metier($souscategory->getIdModelMetier());
+    $cata_metier->setIdModelMetier($_POST["metiers"]);
     $cata_metier->setActive(1);
     $cata_metier->save();
-}
+//}
 $contents = $_POST["data"];
 $count=0;
 foreach($contents as $ligne){

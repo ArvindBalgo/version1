@@ -112,7 +112,7 @@ else if($mode == 3){
 }
 else if($mode == 4){
     $cata = new cata();
-    $results = $cata->rechercher();
+    $results = $cata->findAllBySousCategory($_GET["id"]);
     /*$sample = new gabarits();
     $sample = $sample->findByIdModel($id);*/
     print json_encode($results);
@@ -205,6 +205,7 @@ else if($mode == 7) {
         'contours' =>$cata->getContours(),
         'liserai' =>$cata->getLiserai(),
         'coucher' =>$cata->getCoucher(),
+        'gabarit' =>$cata->getGabarit()
         );
     print json_encode($arrCata);
 }
