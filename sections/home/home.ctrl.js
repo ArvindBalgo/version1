@@ -14,6 +14,9 @@ angular
         //document.getElementById("loader").style.display = "none";
         vm.btnMetier = [];
         vm.sampleMetier = [];
+        vm.listProduits = [];
+        vm.currentCategory = {};
+        vm.currentSCategory = {};
         vm.globalVal = '';
         vm.activeId = "";
         vm.origModels = [];
@@ -42,10 +45,12 @@ angular
         vm.fnImgClick = function(data){
             console.log("CLICKED IMG: ",data.description, data.id);
             vm.description = data.description;
-            vm.src = data.src
+            vm.src = data.src;
+            vm.currentCategory = angular.copy(data);
+
             $http({
                 method: 'GET',
-                params: {mode:0, id:data.id},
+                params: {mode:11, id:data.id},
                 url: 'api/v1/sampleControl.php'
             }).then(function successCallback(response) {
                     console.log(response);
@@ -56,6 +61,27 @@ angular
                 });
 
             //$location.path('fichetech');
+        }
+
+        vm.fnImgClick2 = function(data){
+            vm.description = vm.currentCategory.description + " - " + data.description;
+            vm.src = data.src;
+            $http({
+                method: 'GET',
+                params: {mode:12, id:data.id},
+                url: 'api/v1/sampleControl.php'
+            }).then(function successCallback(response) {
+                    vm.listProduits = angular.copy(response.data);
+                    $('#myModel').modal('hide');
+                    $('#produits').modal();
+                }, function errorCallback(error) {
+                    console.log(error);
+                });
+        }
+
+        vm.fnRetourCategory = function(){
+            $('#produits').modal('hide');
+            vm.fnImgClick(vm.currentCategory);
         }
 
         //WEBSERVICE

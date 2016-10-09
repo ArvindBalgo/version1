@@ -125,4 +125,10 @@ class cata_metier {
         }
         return $rows;
     }
+
+    public function fnUpdateSubCat($id, $id_category){
+        $requete = "UPDATE cata_metier set id_modelmetier=".$id_category . " where id_cata=".$id;
+        $this->conn->query($requete) or die($this->conn->error.__LINE__);
+        return "done";
+    }
 } 

@@ -326,4 +326,23 @@ class cata {
         }
         return $rows;
     }
+
+    public function fnFindAllModelCategory($id){
+        $requete = "SELECT
+                    m.*,
+                    (SELECT COUNT(*)
+                    FROM cata_metier
+                    WHERE cata_metier.id_modelmetier= m.id) AS counts
+                    FROM modelmetier_category  m
+                    where m.id_modelmetier=".$id;
+
+        $rs = $this->conn->query($requete);
+
+        $rows = [];
+        while($row = mysqli_fetch_array($rs))
+        {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
 }

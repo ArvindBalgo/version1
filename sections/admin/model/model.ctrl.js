@@ -7,6 +7,8 @@ angular
         vm.libelle = '';
         vm.description = '';
         vm.reference = '';
+        vm.transferTxt = "";
+        vm.currentProduit = {};
         vm.isModifier = false;
         vm.objEnCours = {};
         vm.chkEscargo  = false;
@@ -2401,6 +2403,59 @@ console.log(response.data, "baakallk");
                 });
         }
 
+        vm.fnTransfer = function(data){
+            vm.transferTxt = data.reference;
+            vm.currentProduit = angular.copy(data);
+            $("#transfer").modal();
+
+            $(".sel_transfer").select2({
+                theme:"classic",
+                data: vm.listMetier.modelsmetier
+            });
+
+            $(".sel_transfer").on("select2:select", function (e) {
+                console.clear();
+                console.log("id of produit: " , vm.currentProduit.id);
+                console.log("new id_model category", $(".sel_transfer").select2().val());
+            });
+        }
+
+        vm.fnTransferProduit = function(){
+            bootbox.dialog({
+                message: "Confirmer-vous le transfer de ce produit?",
+                title: "Suppresion",
+                buttons: {
+                    annuler: {
+                        label: "Non",
+                        className: "btn-secondary",
+                        callback: function() {
+
+                        }
+                    },
+                    valider: {
+                        label: "Oui",
+                        className: "btn-success",
+                        callback: function() {
+                            console.log("id of produit: " , vm.currentProduit.id);
+                            console.log("new id_model category", $(".sel_transfer").select2().val());
+                            $http({
+                                method: 'GET',
+                                params: {mode:13, id_produit:vm.currentProduit.id , id_category:$(".sel_transfer").select2().val()},
+                                url: 'api/v1/sampleControl.php'
+                            }).then(function successCallback(response) {
+                                    vm.fnQuitter();
+                                    $("#transfer").modal('hide');
+                                    vm.fnGallery();
+
+                                }, function errorCallback(error) {
+                                    console.log(error);
+                                });
+                        }
+                    }
+                }
+            });
+
+        }
         vm.rechModels = function ($id_modelmetier_catalogue){
 
         }

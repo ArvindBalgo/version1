@@ -280,3 +280,27 @@ else if($mode == 10) {
     print json_encode($modelMetier);
 
 }
+else if($mode == 11) {
+    $id = $_GET["id"];
+    $cata = new cata();
+    $results = $cata->fnFindAllModelCategory($id);
+    /*$sample = new gabarits();
+    $sample = $sample->findByIdModel($id);*/
+    print json_encode($results);
+    return;
+}
+else if($mode == 12) {
+    $id = $_GET["id"];
+    $cata = new cata();
+    $results  = $cata->findAllBySousCategory($id);
+    print json_encode($results);
+    return;
+}
+else if($mode == 13) {
+    $id_produit = $_GET["id_produit"];
+    $id_subcategory = $_GET["id_category"];
+
+    $cataMetier = new cata_metier();
+    $cataMetier = $cataMetier->fnUpdateSubCat($id_produit, $id_subcategory);
+    print json_encode($cataMetier);
+}
