@@ -76,7 +76,7 @@ $cata->setReference($_POST["ref"]);
 $cata->setModifiedBy($session['uid']);
 $cata->save();
 
-$lastID = $cata->getLastId();
+$lastID = $cata->getId_Cata();
 
 $cata = new cata();
 $cata = $cata->findByPrimaryKey($_POST["id"]);

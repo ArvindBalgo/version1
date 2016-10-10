@@ -129,11 +129,97 @@
             </div>
             <div class="modal-body" style="height: 400px">
                 <div class="col-md-12"><h2>{{metier.currentSCate.description}}</h2></div>
-                <div  ui-grid="gridOptionsCategory" ui-grid-auto-resize class="myGridColumns"></div>
+                <div>
+                    <table>
+                        <th>Libelle</th>
+                        <th>Actions</th>
+                        <tr ng-repeat="subCategory in metier.arrSubCategory">
+
+                            <td style="width: 500px">{{ subCategory.description }}</td>
+                            <td>
+                                <button type='button'
+                                        class='btn btn-success btn-circle'
+                                        style='margin-left: 5px;margin-top: 5px;'
+                                        ng-click='metier.fnEditSubCategory(subCategory , 1)'>
+                                    <i class='glyphicon glyphicon-picture'></i>
+                                </button>
+                                <button type='button'
+                                        class='btn btn-info btn-circle'
+                                        style='margin-left: 5px;margin-top: 5px;'
+                                        ng-click='metier.fnEditSubCategory(subCategory , 2)'>
+                                    <i class='glyphicon glyphicon-pencil'></i>
+                                </button>
+                                <button type='button'
+                                        class='btn btn-default btn-circle'
+                                        style='margin-left: 5px;margin-top: 5px;'
+                                        ng-click='metier.fnEditSubCategory(subCategory , 3)'>
+                                    <i class='glyphicon glyphicon-trash'></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!--div  ui-grid="gridOptionsCategory" ui-grid-auto-resize class="myGridColumns"></div-->
             </div>
             <div class="modal-footer">
                 <button class="btn btn-danger pull-left" ng-click="metier.fnQuitter()">Annuler</button>
-                <button class="btn btn-danger pull-right" ng-click="metier.fnAddNewCate()">Ajouter</button>
+                <button class="btn btn-success pull-right" ng-click="metier.fnAddNewCate()">Ajouter</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="imgSCModal" class="modal fade" data-backdrop="static">
+    <div class="modal-dialog" style="width: 100%;height: 400px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"> Image {{metier.scDescription}}</h4>
+            </div>
+            <div class="modal-body" style="height: 400px">
+                <div class="col-md-12"><img src="{{metier.currentSCImg}}"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger pull-left" data-dismiss="modal">Annuler</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalSCModel" class="modal fade" data-backdrop="static">
+    <div class="modal-dialog" style="width: 50%;height: 300px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"> {{metier.modelLibelle}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-2"><b>Libelle </b></div>
+                        <div class="col-md-8 col-sm-8 input-group" style="margin-bottom: 5px;">
+                            <input type="text" class="form-control" style="width: 50%" ng-model="metier.currentSCategory.description" placeholder="Libelle" aria-describedby="basic-addon1">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"><b>Message </b></div>
+                        <div class="col-md-8 col-sm-8 input-group" style="margin-bottom: 5px;">
+                            <textarea  style="width: 50%" class="form-control custom-control" ng-model="metier.currentSCategory.message" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--div class="col-md-2"><b>Actif </b></div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" ng-model="metier.currentSCategory.active" ng-checked="metier.currentSCategory.active == 1"></label>
+                        </div-->
+                        <input class="col-md-5 col-md-offset-2" style="margin-top: 15px" type="file" nv-file-select="" uploader="uploader">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger pull-left" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-success" ng-click="uploader.uploadAll()"><span class="glyphicon glyphicon-upload"></span> Valider</button>
             </div>
         </div>
     </div>

@@ -21,6 +21,25 @@ angular
         vm.listMetier = [];
 
 
+        vm.columnsCategory  = [ { name:'Dimensions',width:'300',field: 'dimensions',enableCellEdit: true,enableHiding:false ,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+            return 'cssLibelle';
+        }}];
+
+        $scope.gridOptDimensions = {
+            enableSorting   : true,
+            enableFiltering : true,
+            columnDefs      : vm.columnsCategory,
+            rowHeight       : 50,
+            data            : [ {
+                "dimensions": "100"
+            },
+                {
+                    "dimensions": "200"
+                }]
+        };
+
+
+
         $(".sel_dimension").select2({
             tags: true,
             allowClear: true,
@@ -2291,6 +2310,7 @@ console.log(response.data, "baakallk");
                             return;
                         }
 
+                        console.log(vm.description , "   ::::::TEST");
                         $.post( "api/save_image_modif.php", { base64_image: dataURL,
                             id:vm.objEnCours.id,
                             ref:vm.reference,
@@ -2329,6 +2349,12 @@ console.log(response.data, "baakallk");
                         $.post( "api/save_image.php", { base64_image: dataURL} ).success(function(data) {
                             // console.log(data);
                         })
+                    });
+                }
+
+                vm.fnAjoutDim = function() {
+                    $scope.gridOptDimensions.data.push({
+                        "dimensions": ""
                     });
                 }
 
@@ -2457,6 +2483,12 @@ console.log(response.data, "baakallk");
 
         }
         vm.rechModels = function ($id_modelmetier_catalogue){
+
+        }
+
+        vm.fnClickDimensions = function() {
+            $("#dimensions").modal();
+            console.log(vm.objEnCours , "  ::obj en cours");
 
         }
 

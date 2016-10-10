@@ -86,7 +86,7 @@
                         <b>Dimensions</b>
                     </div>
                     <div class="col-md-10">
-                        <button class="btn btn-circle btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
+                        <button class="btn btn-circle btn-warning" style="outline-style: none;" ng-click="model.fnClickDimensions()"><span class="glyphicon glyphicon-pencil"></span></button>
                         <!--select class="sel_dimension" style="width: 75%;" multiple="multiple" ng-model="model.strDimension">
                         </select-->
                     </div>
@@ -217,6 +217,25 @@
             <div class="modal-footer">
                 <button class="btn btn-danger pull-left" data-dismiss="modal">Annuler</button>
                 <button class="btn btn-success pull-right" ng-click="model.fnTransferProduit()">Valider</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="dimensions" class="modal fade" data-backdrop="static" style="overflow: hidden">
+    <div class="modal-dialog" style="width: 50%;height: 500px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Dimensions</h4>
+            </div>
+            <div class="modal-body" style="height: 450px;overflow: hidden">
+                <div  ui-grid="gridOptDimensions" style="height: 400px;width:90%" ui-grid-auto-resize ui-grid-edit ui-grid-cellnav class="myGridColumns"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger pull-left" data-dismiss="modal">Annuler</button>
+                <button class="btn btn-success pull-right" ng-click="">Sauvegarder</button>
+                <button class="btn btn-info pull-right" ng-click="model.fnAjoutDim()">Nouveau</button>
             </div>
         </div>
     </div>

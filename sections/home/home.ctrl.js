@@ -19,6 +19,7 @@ angular
         vm.currentSCategory = {};
         vm.globalVal = '';
         vm.activeId = "";
+        vm.message = "";
         vm.origModels = [];
         Data.get('session.php').then(function (results) {
             $scope.sessionInfo = results;
@@ -66,6 +67,7 @@ angular
         vm.fnImgClick2 = function(data){
             vm.description = vm.currentCategory.description + " - " + data.description;
             vm.src = data.src;
+            vm.message = data.message;
             $http({
                 method: 'GET',
                 params: {mode:12, id:data.id},

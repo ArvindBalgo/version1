@@ -4,6 +4,7 @@ class modelmetier_category{
     //**** D�claration des variables ****
     private $_id            = null;
     private $_description   = null;
+    private $_message       = null;
     private $_id_modelmetier= null;
     private $_src           = null;
     private $_qte           = null;
@@ -30,6 +31,10 @@ class modelmetier_category{
         $this->_description = $libelle;
     }
 
+    public function setMessage($msg) {
+        $this->_message = $msg;
+    }
+
     public function setIdModelMetier($id) {
         $this->_id_modelmetier = $id;
     }
@@ -52,6 +57,10 @@ class modelmetier_category{
 
     public function getDescription() {
         return $this->_description;
+    }
+
+    public function getMessage() {
+        return $this->_message;
     }
 
     public function getIdModelMetier() {
@@ -77,13 +86,10 @@ class modelmetier_category{
 
     //***** fonction de modification/cr�ation *****
     public function save() {
-        $this->_date_modified = date('Y/m/d H:i:s', time());
-        if ($this->_date_created == null) {
-            $this->_date_created = date('Y/m/d H:i:s', time());
-        }
         if ($this->_id > 0) {
             $requete = "update modelmetier_category set description='" . ($this->_description) . "'";
             $requete .= ",id_modelmetier='" . $this->_id_modelmetier . "'";
+            $requete .= ",message='" . $this->_message . "'";
             $requete .= ",src='" . $this->_src."'";
             $requete .= ",qte='" . $this->_qte."'";
             $requete .= ",active=" . $this->_active;
@@ -92,12 +98,14 @@ class modelmetier_category{
         } else {
             $requete = "INSERT INTO modelmetier_category (";
             $requete .= "description,";
+            $requete .= "message,";
             $requete .= "id_modelmetier,";
             $requete .= "src,";
             $requete .= "qte,";
             $requete .= "active";
             $requete .= ") VALUES (";
             $requete .= "'" . $this->_description . "',";
+            $requete .= "'" . $this->_message . "',";
             $requete .= "'" . $this->_id_modelmetier . "',";
             $requete .= "'" . $this->_src . "',";
             $requete .= "'" . $this->_qte . "',";
@@ -113,6 +121,7 @@ class modelmetier_category{
         $metier = new modelmetier_category();
         $metier->_id = $rs["id"];
         $metier->_description = $rs["description"];
+        $metier->_message = $rs["message"];
         $metier->_id_modelmetier = $rs["id_modelmetier"];
         $metier->_qte = $rs["qte"];
         $metier->_src = $rs["src"];
@@ -136,7 +145,7 @@ class modelmetier_category{
     public function rechTous() { // Recherche de toutes
 
         $listMetier = array();
-        $requete = "SELECT id, description as text, id_modelmetier from modelmetier_category";
+        $requete = "SELECT id, description as text, id_modelmetier, message from modelmetier_category";
         $rs = $this->conn->query($requete) or die($this->conn->error.__LINE__);
         $rows = [];
         while($row = mysqli_fetch_array($rs))
@@ -149,9 +158,7 @@ class modelmetier_category{
     public function findByPrimaryKey($key) { // Recherche d'une adresse par id
         $requete = self::$SELECT . " WHERE id=" . $key;
         $rs = $this->conn->query($requete);
-        if ($rs->EOF) {
-            return null;
-        }
+
         return $this->mapSqlToObject(mysqli_fetch_array($rs));
     }
 
@@ -164,5 +171,12 @@ class modelmetier_category{
             $rows[] = $row;
         }
         return $rows;
+    }
+
+    public function deleteByCategory($id) {
+        $requete =  "DELETE from modelmetier_category where id_modelmetier=".$id;
+        $rs = $this->conn->query($requete);
+
+        return $rs;
     }
 }

@@ -73,6 +73,7 @@ class modelmetier{
     public function delete($id) {
         $requete = "DELETE FROM modelmetier WHERE id=" . $id;
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
+        return $r;
     }
 
     //***** fonction de modification/cr�ation *****

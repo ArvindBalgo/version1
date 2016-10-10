@@ -26,6 +26,10 @@ angular
         vm.isImgModified = false;
         vm.selRowCategory = {};
         vm.currentSCate = {};
+        vm.arrSubCategory = [];
+        vm.currentSCImg = "";
+        vm.scDescription = "";
+        vm.currentSCategory = {};
 
         vm.arrValues = [
             {id:1, text:500},
@@ -93,6 +97,69 @@ angular
             $("#modalModel").modal('hide');
 
         };
+
+        //image upload sub category
+        var uploadersc = $scope.uploader = new FileUploader({
+            url: 'api/subCategoryUpload.php'
+        });
+
+
+        uploadersc.filters.push({
+            name: 'customFilter',
+            fn: function(item /*{File|FileLikeObject}*/, options) {
+                return this.queue.length < 10;
+            }
+        });
+        uploadersc.filters.push({
+            name: 'imageFilter',
+            fn: function(item /*{File|FileLikeObject}*/, options) {
+                var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+                return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+            }
+        });
+        uploadersc.formData.push({
+            name: vm.modelLibelle,
+            //qte: $(".selObj").select2().val(),
+            active:vm.active
+        });
+        uploadersc.onBeforeUploadItem = function(item) {
+            var id_model = 0;
+            var img_modified = 0;
+            var isActive = 0;
+            if(vm.currentSCategory.active){
+                isActive = 1;
+            }
+            if(typeof vm.selRowCategory.id === 'undefined' || vm.selRowCategory.id === null){
+                id_model = 0
+            }
+            else{
+                id_model = vm.selRowCategory.id;
+            }
+            if(vm.isImgModified){
+                img_modified = 1;
+            }
+
+            item.formData = [{id:vm.currentSCategory.id,description:vm.currentSCategory.description, active:vm.currentSCategory.active, message:vm.currentSCategory.message}];
+        };
+        uploadersc.onSuccessItem = function(fileItem, response, status, headers) {
+            console.info('onSuccessItem', fileItem, response, status, headers);
+
+            $("#modalSCModel").modal('hide');
+            $http({
+                method: 'GET',
+                params: {mode:7, id:vm.currentSCate.id},
+                url: 'api/v1/info.php'
+            }).then(function successCallback(response) {
+                    console.log(response.data);
+                    vm.arrSubCategory = response.data;
+
+                }, function errorCallback(error) {
+                    console.log(error);
+                });
+        };
+
+
+
         vm.fnFormatter = function(grid, row){
             console.log( row);
             return 'BLABLA';
@@ -100,11 +167,27 @@ angular
 
         $scope.edit  = function (grid, row, opt){
             vm.isModified = true;
-            console.log("+++++");
-            console.log(row, opt);
-            //console.log(grid, row, opt);
             var arrQte = [];
-            console.log("+++++");
+            if(opt == 1) {
+                bootbox.confirm("Confirmez-vous la suppresion de cette ligne <b>"+row.description+"</b>?", function(result) {
+                    if(result){
+                        console.log(row.id);
+                        console.log("confirmation to delete");
+
+                        $http({
+                            method: 'GET',
+                            params: {mode:0, id:row.id},
+                            url: 'api/v1/metierCRUD.php'
+                        }).then(function successCallback(response) {
+                                console.log(response.data);
+                                vm.fnModelMetier();
+                            }, function errorCallback(error) {
+                                console.log(error);
+                            });
+
+                    }
+                })
+            }
             if(opt == 2) {
                 if(row.qte != ""){
                     arrQte = row.qte.split(",");
@@ -121,14 +204,14 @@ angular
                     vm.active = false;
                 }
 
-console.log("row data", vm.selRowCategory);
+
                 $("#modalModel").modal();
 
                 $(".selObj").select2({
                     tags: true,
                     allowClear: true,
                     data:[]
-                });;
+                });
 
                 $('.selObj').val(arrQte).trigger("change");
 
@@ -150,6 +233,13 @@ console.log("row data", vm.selRowCategory);
                         $scope.gridOptionsCategory.data = [];
                         $timeout(function(){
                             $scope.gridOptionsCategory.data = response.data;
+                            //$scope.gridOptionsCategory.handleWindowResize();
+                            vm.arrSubCategory = response.data;
+
+                            /*var hgt = $('#modalSousCategory').height();
+                            var wdt = $('#modalSousCategory').width();
+                            $('#modalSousCategory').width(wdt);
+                            $('#modalSousCategory').height(hgt);*/
                         }, 0);
 
                     }, function errorCallback(error) {
@@ -170,6 +260,60 @@ console.log("row data", vm.selRowCategory);
         }
 
 
+        vm.formatCellSubCategory = function(){
+            var trash = "<button type='button' class='btn btn-default btn-circle' style='margin-left: 5px;margin-top: 5px;' ng-click='grid.appScope.editSubCategory(grid, row.entity, 1)'><i class='glyphicon glyphicon-trash'></i></button>";
+            var edit = "<button type='button' class='btn btn-info btn-circle' style='margin-left: 5px;margin-top: 5px;' ng-click='grid.appScope.editSubCategory(grid, row.entity, 2)'><i class='glyphicon glyphicon-pencil'></i></button>";
+            var image = "<button type='button' class='btn btn-success btn-circle' style='margin-left: 5px;margin-top: 5px;' ng-click='grid.appScope.editSubCategory(grid, row.entity, 3)'><i class='glyphicon glyphicon-picture'></i></button>";
+            var souscat = "<button type='button' class='btn btn-primary btn-circle' style='margin-left: 5px;margin-top: 5px;' ng-click='grid.appScope.editSubCategory(grid, row.entity, 4)'><i class='glyphicon glyphicon-th-list'></i></button>";
+            return image+souscat+edit+trash;
+        }
+
+        vm.fnEditSubCategory = function(obj , opt){
+            console.log("****************************");
+            console.log(obj);
+            console.log("****************************");
+            if(opt ==1) {
+                vm.currentSCImg = obj.src;
+                vm.scDescription = obj.description;
+                $('#imgSCModal').modal();
+            }
+            else if(opt == 2) {
+                vm.currentSCategory = obj;
+                $("#modalSCModel").modal();
+            }
+            else if(opt ==3) {
+                bootbox.confirm("Confirmez-vous la suppresion de cette ligne <b>"+obj.description+"</b>?", function(result) {
+                    if(result){
+                        console.log(obj.id);
+                        console.log("confirmation to delete");
+
+                        $http({
+                            method: 'GET',
+                            params: {mode:1, id:obj.id},
+                            url: 'api/v1/metierCRUD.php'
+                        }).then(function successCallback(response) {
+                                console.log(response.data);
+                              //  vm.fnModelMetier();
+                                $http({
+                                    method: 'GET',
+                                    params: {mode:7, id:vm.currentSCate.id},
+                                    url: 'api/v1/info.php'
+                                }).then(function successCallback(response) {
+                                        console.log(response.data);
+                                        vm.arrSubCategory = response.data;
+
+                                    }, function errorCallback(error) {
+                                        console.log(error);
+                                    });
+                            }, function errorCallback(error) {
+                                console.log(error);
+                            });
+
+                    }
+                })
+            }
+        }
+
         vm.columns = [  { name:'Libelle',field: 'description',enableHiding:false ,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
                 return 'cssLibelle';
                         }},
@@ -178,9 +322,10 @@ console.log("row data", vm.selRowCategory);
 
         ];
 
-        vm.columnsCategory  = [ { name:'Libelle',width:'500',field: 'description',enableHiding:false ,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+        vm.columnsCategory  = [ { name:'Libelle',width:'250',field: 'description',enableHiding:false ,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
             return 'cssLibelle';
-        }}];
+        }},
+            { name:'Actions', field: '',enableFiltering:false,cellTemplate: vm.formatCellSubCategory() ,enableHiding:false}];
 
         $scope.gridOptions = {
             enableSorting: true,
@@ -394,7 +539,19 @@ console.log("row data", vm.selRowCategory);
                 url: 'api/v1/info.php'
             }).then(function successCallback(response) {
                     console.log(response.data);
-                    $("#modalSousCategory").modal('hide');
+                    //$("#modalSousCategory").modal('hide');
+                    $http({
+                        method: 'GET',
+                        params: {mode:7, id:vm.currentSCate.id},
+                        url: 'api/v1/info.php'
+                    }).then(function successCallback(response) {
+                            console.log(response.data);
+                            vm.arrSubCategory = response.data;
+
+                        }, function errorCallback(error) {
+                            console.log(error);
+                        });
+
                 }, function errorCallback(error) {
                     console.log(error);
                 });
