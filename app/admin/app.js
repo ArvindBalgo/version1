@@ -59,6 +59,11 @@ app.config(['$routeProvider',
             templateUrl:'sections/admin/model/model.tpl.html',
             controller: 'modelController as model'
         })
+            .when('/imgProduits', {
+            title:      'Produits',
+            templateUrl:'sections/admin/produits/produits.tpl.html',
+            controller: 'produitsController as produits'
+        })
         .when('/metier', {
                 title:      'Metier',
                 templateUrl:'sections/admin/metier/metier.tpl.html',

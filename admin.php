@@ -21,6 +21,7 @@
     <link rel="stylesheet" type="text/css" href="css/ui-grid.min.css" />
     <link rel="stylesheet" type="text/css" href="sections/admin/admin.css" />
     <link rel="stylesheet" type="text/css" href="sections/admin/metier/metier.css" />
+    <link rel="stylesheet" type="text/css" href="sections/admin/produits/produits.css" />
     <!-- endbuild -->
 </head>
 <body data-ng-app="adminApp" ng-controller="mainController">
@@ -82,6 +83,7 @@
 <script src="sections/admin/gallery/gallery.ctrl.js"></script>
 <script src="sections/admin/samplemodel/sample.ctrl.js"></script>
 <script src="sections/admin/model/model.ctrl.js"></script>
+<script src="sections/admin/produits/produits.ctrl.js"></script>
 <!--script src="sections/premieres/premieres.ctrl.js"></script>
 <script src="sections/search/search.ctrl.js"></script>
 <script src="sections/view/view.ctrl.js"></script>

@@ -51,7 +51,7 @@ angular
             data:vm.arrValues
         });
 
-        var uploader = $scope.uploader = new FileUploader({
+        var uploader = $scope.uploader12 = new FileUploader({
             url: 'api/categoryupload.php'
         });
 

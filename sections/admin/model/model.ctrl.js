@@ -1606,7 +1606,7 @@ console.log(response.data, "baakallk");
                                 callback: function() {
                                     $http({
                                         method: 'GET',
-                                        params: {mode:6, id:obj.id, id_back:obj.id_back, id_front:obj.id_front},
+                                        params: {mode:6, id:obj.id_cata, id_back:obj.id_back, id_front:obj.id_front},
                                         url: 'api/v1/sampleControl.php'
                                     }).then(function successCallback(response) {
                                             console.log(response);
@@ -2466,7 +2466,7 @@ console.log(response.data, "baakallk");
                             console.log("new id_model category", $(".sel_transfer").select2().val());
                             $http({
                                 method: 'GET',
-                                params: {mode:13, id_produit:vm.currentProduit.id , id_category:$(".sel_transfer").select2().val()},
+                                params: {mode:13, id_produit:vm.currentProduit.id_cata , id_category:$(".sel_transfer").select2().val()},
                                 url: 'api/v1/sampleControl.php'
                             }).then(function successCallback(response) {
                                     vm.fnQuitter();

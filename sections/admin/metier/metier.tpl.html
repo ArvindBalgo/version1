@@ -104,7 +104,7 @@
                         <div class="checkbox">
                             <label><input type="checkbox" ng-model="metier.active"></label>
                         </div>
-                        <input ng-show="metier.isModified" class="col-md-5 col-md-offset-2" style="margin-top: 15px" type="file" nv-file-select="" uploader="uploader">
+                        <input ng-show="metier.isModified" class="col-md-5 col-md-offset-2" style="margin-top: 15px" type="file" nv-file-select="" uploader="uploader12">
                         <img ng-show="!metier.isModified" class="col-md-5 col-md-offset-2" src="{{metier.srcModel}}" style="width: 100px; height: 100px;">
                         <button ng-show="!metier.isModified" class="col-md-1 btn btn-warning" ng-click="metier.fnModifImg()">Editer</button>
                     </div>
@@ -112,7 +112,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-danger pull-left" ng-click="metier.fnQuitter()">Annuler</button>
-                <button ng-show="metier.isModified" type="button" class="btn btn-success" ng-click="uploader.uploadAll()"><span class="glyphicon glyphicon-upload"></span> Valider</button>
+                <button ng-show="metier.isModified" type="button" class="btn btn-success" ng-click="uploader12.uploadAll()"><span class="glyphicon glyphicon-upload"></span> Valider</button>
                 <button ng-show="!metier.isModified" type="button" class="btn btn-success" ng-click="metier.fnValidModel()"><span class="glyphicon glyphicon-upload"></span> Valider132</button>
             </div>
         </div>
