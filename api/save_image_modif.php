@@ -22,7 +22,7 @@ $cata = new cata();
 $cata = $cata->findByPrimaryKey($_POST["id"]);
 $cata->setLibelle($_POST["libelle"]);
 $cata->setDescription($_POST["description"]);
-$cata->setSrc("images/flat_images/product_".$strTime);
+//$cata->setSrc("images/flat_images/product_".$strTime);
 $cata->setDimensions($_POST["dimensions"]);
 
 if($_POST["escargot"] == 'true') {
