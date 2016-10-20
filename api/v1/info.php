@@ -106,3 +106,20 @@ else if($mode == 9) {
     print json_encode($metier);
     return;
 }
+else if($mode == 10){
+    $instruction = new instructions();
+    $instruction->setInstruction($_GET["text"]);
+    $instruction->save();
+}
+else if($mode == 11) {
+    $instruction = new instructions();
+    $instruction = $instruction->rechercher();
+    print json_encode($instruction);
+}
+else if($mode == 12) {
+    $instruction = new instructions();
+    $instruction = $instruction->findByPrimaryKey($_GET["id"]);
+    $instruction->setInstruction($_GET["instruction"]);
+    $instruction->save();
+}
+

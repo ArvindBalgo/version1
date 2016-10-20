@@ -4,12 +4,8 @@ angular
         //Setup view model object
         console.log('HOME CONTROLLER');
        // spinnerService.show('spin');
-        toastr.options.positionClass = 'toast-bottom-full-width';
-        toastr.options.extendedTimeOut = 0; //1000;
-        toastr.options.timeOut = 2000;
-        toastr.options.fadeOut = 250;
-        toastr.options.fadeIn = 250;
-        toastr.success('Bienvenue sur Exakom, contactez nous si vous avez des soucis!');
+        toastr.options.positionClass = 'toast-top-full-width';
+        toastr.success("Bienvenue chez Exakom, nous sommes à votre disposition si vous avez besoin d'aide");
         var vm = this;
         //document.getElementById("loader").style.display = "none";
         vm.btnMetier = [];
@@ -41,6 +37,8 @@ angular
             {id:1, description: "Vous avez des idées mais pas le temps ou vous ne trouvez votre choix Vous avez besoin d’aide et vous voulez être rappelé par un conseil."},
             {id:1, description: "Vous avez plusieurs produits créezun modèle de base on pourra s’en servir pour la conception de tous vos produit"},
                         ];
+
+        vm.instructions = [];
 
         vm.description = "";
         vm.fnImgClick = function(data){
@@ -151,11 +149,11 @@ angular
                 });
         }
 
-        vm.fnModelClick  = function($id, $id_metier) {
+        vm.fnModelClick  = function($id, $id_metier, $id_cata) {
            console.log($id);
             $('#myModel').modal('hide');
 
-            localStorage.setItem("id_model", $id);
+            localStorage.setItem("id_model", $id_cata);
             localStorage.setItem("idModelMetier", $id_metier);
             localStorage.setItem("idMetier", vm.activeId);
             $location.path('fichetech');
@@ -180,6 +178,20 @@ angular
             $('#myModal').modal('hide');
             $('#signup').modal();
         };
+
+        vm.fnInstructions = function(){
+            $http({
+                method: 'GET',
+                params: {mode:11},
+                url: 'api/v1/info.php'
+            }).then(function successCallback(response) {
+                    vm.instructions = response.data;
+                }, function errorCallback(error) {
+                    console.log(error);
+                });
+        }
+
+        vm.fnInstructions();
         vm.fnRecupMetier();
         vm.fnModelMetierAll();
     });

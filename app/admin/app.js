@@ -74,6 +74,11 @@ app.config(['$routeProvider',
                 templateUrl:'sections/admin/gallery/gallery.tpl.html',
                 controller: 'galleryController as gallery'
             })
+        .when('/instructions', {
+            title:      'Instructions',
+            templateUrl:'sections/admin/instructions/instructions.tpl.html',
+            controller: 'instructionsController as instructions'
+        })
         .when('/', {
             title: 'Login',
             templateUrl: 'sections/login/login.tpl.html',

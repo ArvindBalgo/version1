@@ -39,7 +39,7 @@
         <div class="col-md-3">
             <div class="encart-droite">
                 <ul >
-                    <li ng-repeat="instruction in home.instructions">{{instruction.description}}</li>
+                    <li ng-repeat="instruction in home.instructions">{{instruction.instruction}}</li>
                 </ul>
             </div>
             <div style="margin-top: 15px; padding-top: 10px">
@@ -87,12 +87,12 @@
             </div>
             <div class="modal-body" style="height: 450px;overflow: scroll">
                 <div class="row">
-                    <div class="col-md-10 col-md-offset-1">
-                        <div class="well well-lg">{{home.message}}</div>
+                    <div class="col-md-10">
+                        <div style="color: #e12a18;font-weight: 600">{{home.message}}</div>
                     </div>
                 </div>
                 <div class="col-md-3" style="margin-bottom: 5px; margin-top: 5px;" ng-repeat="sample in home.listProduits">
-                    <div class="tileImg" style="" ng-click="home.fnModelClick(sample.id, sample.id_metier)" >
+                    <div class="tileImg" style="" ng-click="home.fnModelClick(sample.id, sample.id_metier, sample.id_cata)" >
                         <img style="width: 200px; height: 200px" src="{{sample.src}}">
                         <span><p>{{sample.description}} </p></span>
                     </div>
