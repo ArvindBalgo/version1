@@ -18,6 +18,39 @@ angular
         vm.currentMetier = "";
         //console.log("FACT VALUE:: ", messages.list);
 
+        $(".sel_trait").select2({
+            tags: true,
+            allowClear: true,
+            data:[],
+            "language": {
+                "noResults": function(){
+                    return "Pas de résutat";
+                }
+            }
+        });
+
+        $(".sel_dimensions").select2({
+            tags: true,
+            allowClear: true,
+            data:[],
+            "language": {
+                "noResults": function(){
+                    return "Pas de résutat";
+                }
+            }
+        });
+        $(".sel_qte").select2({
+            tags: true,
+            allowClear: true,
+            data:[],
+            "language": {
+                "noResults": function(){
+                    return "Pas de résutat";
+                }
+            }
+        });
+
+
         vm.imgList = [
             {id:1,title:"Cheque cadeau",src:"assets/img/cheque_cadeau.png"},
             {id:2,title:"Carte Message",src:"assets/img/carte_message.png"},
@@ -877,6 +910,7 @@ angular
                             }).then(function successCallback(response) {
 
                                     var data = angular.copy(response.data);
+                                    vm.productList  = data;
 
                                     angular.forEach(response.data, function(value){
                                         var arrProducts = [];
@@ -1509,6 +1543,30 @@ angular
                                 if(results.uid){
                                     $scope.isLogged = true;
                                     $scope.utilisateur = results.name;
+                                    var arrDimensions = vm.productList[0].dimensions.split(',');
+                                    var arrQte = vm.productList[0].qte.split(',');
+                                    var arrDataDims = [];
+                                    var arrDataQte = [];
+                                    angular.forEach(arrDimensions, function(value, key){
+                                        arrDataDims.push({id:key , text:value});
+                                    });
+                                    angular.forEach(arrQte, function(value, key){
+                                        arrDataQte.push({id:key , text:value});
+                                    });
+
+                                    // clear all option
+                                    $('.sel_dimensions').html('').select2({data: [{id: '', text: ''}]});
+
+                                    // clear and add new option
+                                    $(".sel_dimensions").html('').select2({data: arrDataDims});
+                                    console.log(arrDimensions , "  array of dimensions");
+
+                                    $('.sel_qte').html('').select2({data: [{id: '', text: ''}]});
+
+                                    // clear and add new option
+                                    $(".sel_qte").html('').select2({data: arrDataQte});
+                                    //selection produit
+                                    $('#aucun').prop('checked', true);
                                     $('#modalMaquette').modal();
                                 }
                                 else if(!results.uid) {

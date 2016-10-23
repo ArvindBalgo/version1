@@ -55,6 +55,7 @@ angular
                     console.log(response);
                     vm.sampleMetier = angular.copy(response.data);
                     $('#myModel').modal();
+                    document.body.style.overflow = "hidden";
                 }, function errorCallback(error) {
                     console.log(error);
                 });
@@ -74,6 +75,7 @@ angular
                     vm.listProduits = angular.copy(response.data);
                     $('#myModel').modal('hide');
                     $('#produits').modal();
+                    document.body.style.overflow = "hidden";
                 }, function errorCallback(error) {
                     console.log(error);
                 });
@@ -151,8 +153,8 @@ angular
 
         vm.fnModelClick  = function($id, $id_metier, $id_cata) {
            console.log($id);
-            $('#myModel').modal('hide');
-
+            //$('#myModel').modal('hide');
+            vm.fnRemoveModal();
             localStorage.setItem("id_model", $id_cata);
             localStorage.setItem("idModelMetier", $id_metier);
             localStorage.setItem("idMetier", vm.activeId);
@@ -191,6 +193,11 @@ angular
                 });
         }
 
+        vm.fnRemoveModal = function(){
+            $('#produits').modal('hide');
+            $('#myModel').modal('hide');
+            document.body.style.overflow = "scroll";
+        }
         vm.fnInstructions();
         vm.fnRecupMetier();
         vm.fnModelMetierAll();

@@ -7,7 +7,7 @@
                 <div class="row" style="margin: 2px">
                     <div class="btn-group center-block">
                         <button ng-click="fiche.fnMetierList();" class="btn btn-info btn-lg "><span><img src="images/icons/gallery.ico" style="height: 50px;width:50px"></span>Gallery</button>
-                        <button ng-click="fiche.fnValidMaquette()" class="btn btn-primary btn-lg"><span><img src="images/icons/construction.ico" style="height: 50px;width:50px"></span>Validez ma maquette</button>
+                        <button ng-click="fiche.fnValidMaquette()" class="btn btn-primary btn-lg"><span><img src="images/icons/construction.ico" style="height: 50px;width:50px"></span>Schématisez ma maquette</button>
                     </div>
                 </div>
                 <div id="model" class="fpd-container fpd-shadow-2 fpd-topbar fpd-tabs fpd-tabs-side fpd-top-actions-centered fpd-bottom-actions-centered fpd-views-inside-left">
@@ -82,7 +82,7 @@
                     </div-->
 
                     <div class="col-md-4" style="margin-bottom: 5px; margin-top: 5px;" ng-repeat="model in fiche.models">
-                        <div class="tileImg" ng-click="fiche.fnModelClick(model.id, model.id_metier)" >
+                        <div class="tileImg" ng-click="fiche.fnModelClick(model.id_cata, model.id_metier)" >
                             <img style="width: 100%; height: 100%" src="{{model.src}}">
                             <span><p>{{model.description}}</p></span>
                         </div>
@@ -91,7 +91,7 @@
 
                 <div ng-show="fiche.isShow == 2">
                     <div class="col-md-4" style="margin-bottom: 5px; margin-top: 5px;" ng-repeat="model in fiche.gabarits">
-                        <div class="tileImg" ng-click="fiche.fnModelClick(model.id, model.id_metier)" >
+                        <div class="tileImg" ng-click="fiche.fnModelClick(model.id_cata, model.id_metier)" >
                             <img style="width: 100%; height: 100%" src="{{model.src}}">
                             <span><p>{{model.description}}</p></span>
                         </div>
@@ -108,10 +108,66 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title"><span><!--img src="images/icons/gallery.ico" style="height: 50px;width:50px"-->Validation Maquette</span></h4>
+                <h4 class="modal-title"><span>Validation Schema</span></h4>
             </div>
             <div class="modal-body" style="overflow: hidden">
-               Content goes here
+               <div class="row">
+                   <div class="well well-lg">
+                       <p>
+                           Nos ingènieurs graphiques prendront en charge vos schèmas et nous vous enverrons une maquette gratuitment dans l'espace de 24 heures pour avoir votre approbation et ensuite vous pouvez passez la commande.
+                       </p>
+                   </div>
+                   <div class="col-md-12" style="padding-bottom: 5px">
+                       <div class="col-md-3">
+                           Titre
+                       </div>
+                       <div class="col-md-7">
+                           <input type="text" class="form-control" ng-model="home.titre" placeholder="Titre" aria-describedby="basic-addon1">
+                       </div>
+                   </div>
+                   <div class="col-md-12" style="padding-bottom: 5px" ng-show="fiche.productList[0].contours == 1 || fiche.productList[0].coucher == 1 || fiche.productList[0].escargot == 1 || fiche.productList[0].liserai == 1">
+                       <div class="col-md-3">
+                           Caractéristique Additionel
+                       </div>
+                       <div class="col-md-7">
+                           <form>
+                               <label class="radio-inline">
+                                   <input id="aucun" type="radio" name="optradio" ng-model="optTraitAucun">Aucun
+                               </label>
+                               <label ng-show="fiche.productList[0].contours == 1" class="radio-inline">
+                                   <input id="trait" type="radio" name="optradio" ng-model="optTraitContours">Contours
+                               </label>
+                               <label class="radio-inline" ng-show="fiche.productList[0].coucher == 1">
+                                   <input id="coucher" type="radio" name="optradio" ng-model="optTraitCoucher">Coucher
+                               </label>
+                               <label class="radio-inline" ng-show="fiche.productList[0].escargot == 1">
+                                   <input id="escargot" type="radio" name="optradio" ng-model="optTraitEscargot">Attach Escargot
+                               </label>
+                               <label class="radio-inline" ng-show="fiche.productList[0].liserai == 1">
+                                   <input id="liserai" type="radio" name="optradio" ng-model="optTraitLiserai">Liserai
+                               </label>
+                           </form>
+                       </div>
+                   </div>
+                   <div class="col-md-12" style="padding-bottom: 5px">
+                       <div class="col-md-3">
+                           Dimensions
+                       </div>
+                       <div class="col-md-7" style="padding-bottom: 5px">
+                           <select class="sel_dimensions" style="width: 100%;"></select>
+                       </div>
+                   </div>
+                   <div class="col-md-12">
+                       <div class="col-md-3">
+                           Quantité
+                       </div>
+                       <div class="col-md-7">
+                           <select class="sel_qte" style="width: 100%;"></select>
+                       </div>
+                   </div>
+                   <div class="col-md-12">
+                   </div>
+               </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" ng-click="" data-dismiss="modal">Annuler</button>

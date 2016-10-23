@@ -125,7 +125,11 @@ else if($mode == 5) {
         print "null";
         return;
     }
-
+    
+    $cataMetier = new cata_metier();
+    $cataMetier = $cataMetier->findByIdCata($_GET["id"]);
+    $modelMetier = new modelmetier();
+    $modelMetier = $modelMetier->findByPrimaryKey($cataMetier->getIdMetier());
 
     $arrData = [];
     /*    foreach($sample as $ligne) {
@@ -168,7 +172,17 @@ else if($mode == 5) {
 
         //$img_src[] =array('id'=>$cata_ligne->getId(), "src"=>$cata_ligne->getSrc());
         //$arrData[] = array('id'=>$ligne["id"], 'title'=>$ligne["libelle"], 'thumbnail_src'=>$ligne["src"], 'img_src'=>$img_src);
-        $arrData[] = array('id'=>$cata->getId_Cata(), 'title'=>$cata->getLibelle(), 'thumbnail_src'=>$cata->getSrc(), 'elemfront'=>$arrFront, 'elemback'=>$arrBack);
+        $arrData[] = array( 'id'=>$cata->getId_Cata(),
+                            'title'=>$cata->getLibelle(),
+                            'thumbnail_src'=>$cata->getSrc(),
+                            'escargot'=>$cata->getEscargot(),
+                            'contours'=>$cata->getContours(),
+                            'liserai'=>$cata->getLiserai(),
+                            'coucher'=>$cata->getCoucher(),
+                            'dimensions'=>$cata->getDimensions(),
+                            'qte'=>$modelMetier->getQte(),
+                            'elemfront'=>$arrFront,
+                            'elemback'=>$arrBack);
     //}
     print json_encode($arrData);
     //print json_encode($sample);
@@ -196,6 +210,13 @@ else if($mode == 7) {
     $id = $_GET["id"];
     $cata = new cata();
     $cata = $cata->findByPrimaryKey($id);
+
+    $cataMetier = new cata_metier();
+    $cataMetier = $cataMetier->findByIdCata($_GET["id"]);
+
+    $modelMetier = new modelmetier();
+    $modelMetier = $modelMetier->findByPrimaryKey($cataMetier->getIdMetier());
+
     $arrCata = array('id'=>$cata->getId_Cata(),
         'libelle'=>$cata->getLibelle(),
         'reference'=>$cata->getReference(),
@@ -205,7 +226,8 @@ else if($mode == 7) {
         'contours' =>$cata->getContours(),
         'liserai' =>$cata->getLiserai(),
         'coucher' =>$cata->getCoucher(),
-        'gabarit' =>$cata->getGabarit()
+        'gabarit' =>$cata->getGabarit(),
+        'qte' => $modelMetier->getQte()
         );
     print json_encode($arrCata);
 }
@@ -231,7 +253,11 @@ else if($mode == 9) {
         return;
     }
 
+    $cataMetier = new cata_metier();
+    $cataMetier = $cataMetier->findByIdCata($_GET["id_model"]);
 
+    $modelMetier = new modelmetier();
+    $modelMetier = $modelMetier->findByPrimaryKey($cataMetier->getIdMetier());
     $arrData = [];
 
     //foreach($cata as $ligne) {
@@ -267,7 +293,17 @@ else if($mode == 9) {
 
     //$img_src[] =array('id'=>$cata_ligne->getId(), "src"=>$cata_ligne->getSrc());
     //$arrData[] = array('id'=>$ligne["id"], 'title'=>$ligne["libelle"], 'thumbnail_src'=>$ligne["src"], 'img_src'=>$img_src);
-    $arrData[] = array('id'=>$cata->getId_Cata(), 'title'=>$cata->getLibelle(), 'thumbnail_src'=>$cata->getSrc(), 'elemfront'=>$arrFront, 'elemback'=>$arrBack);
+    $arrData[] = array(     'id'=>$cata->getId_Cata(),
+                            'title'=>$cata->getLibelle(),
+                            'thumbnail_src'=>$cata->getSrc(),
+                            'escargot'=>$cata->getEscargot(),
+                            'contours'=>$cata->getContours(),
+                            'liserai'=>$cata->getLiserai(),
+                            'coucher'=>$cata->getCoucher(),
+                            'dimensions'=>$cata->getDimensions(),
+                            'qte'=>$modelMetier->getQte(),
+                            'elemfront'=>$arrFront,
+                            'elemback'=>$arrBack);
     //}
     print json_encode($arrData);
     //print json_encode($sample);

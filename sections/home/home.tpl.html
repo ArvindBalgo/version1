@@ -59,20 +59,23 @@
     </div>
 </footer>
 
-<div id="myModel" class="modal fade" data-backdrop="static">
-    <div class="modal-dialog" style="width: 75%;height: 500px;">
+<div id="myModel" class="modal fade" data-backdrop="static" style="overflow: hidden">
+    <div class="modal-dialog" style="width: 75%;height: 510px;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title"><img style="height: 20px;width: 20px;text-align: center;align-content: center" src="{{home.src}}"> {{home.description}} </h4>
             </div>
-            <div class="modal-body" style="height: 550px;overflow: scroll">
+            <div class="modal-body" style="height: 450px;overflow: auto">
                 <div class="col-md-3" style="margin-bottom: 5px; margin-top: 5px;" ng-repeat="sample in home.sampleMetier">
                     <div class="tileImg" style="height: 250px" ng-click="home.fnImgClick2(sample)" >
                         <img style="width: 200px; height: 200px" src="{{sample.src}}">
                         <span><p style="height: 50px">{{sample.description}} </p></span>
                     </div>
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" ng-click="home.fnRemoveModal()">Quitter</button>
             </div>
         </div>
     </div>
@@ -82,10 +85,10 @@
     <div class="modal-dialog" style="width: 75%;height:100%;">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" class="close" ng-click="home.fnRemoveModal()" aria-hidden="true">&times;</button>
                 <h4 class="modal-title"><img style="height: 20px;width: 20px;text-align: center;align-content: center" src="{{home.src}}"> {{home.description}} </h4>
             </div>
-            <div class="modal-body" style="height: 450px;overflow: scroll">
+            <div class="modal-body" style="height: 450px;overflow: auto">
                 <div class="row">
                     <div class="col-md-10">
                         <div style="color: #e12a18;font-weight: 600">{{home.message}}</div>
@@ -99,7 +102,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger pull-left" ng-click="home.fnRetourCategory()">Retour</button>
+                <button type="button" class="btn btn-default pull-left" ng-click="home.fnRemoveModal()">Quitter</button>
+                <button type="button" class="btn btn-danger pull-right" ng-click="home.fnRetourCategory()">Retour</button>
             </div>
         </div>
     </div>

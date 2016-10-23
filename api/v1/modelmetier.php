@@ -150,7 +150,7 @@ class modelmetier{
     public function findByPrimaryKey($key) { // Recherche d'une adresse par id
         $requete = self::$SELECT . " WHERE id=" . $key;
         $rs = $this->conn->query($requete);
-        if ($rs->EOF) {
+        if (!$rs) {
             return null;
         }
         return $this->mapSqlToObject(mysqli_fetch_array($rs));

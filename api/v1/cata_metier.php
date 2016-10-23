@@ -131,4 +131,13 @@ class cata_metier {
         $this->conn->query($requete) or die($this->conn->error.__LINE__);
         return "done";
     }
+
+    public function findByIdCata($id){
+        $requete = self::$SELECT . " WHERE id_cata=".$id;
+        $rs = $this->conn->query($requete);
+        if (!$rs) {
+            return null;
+        }
+        return $this->mapSqlToObject(mysqli_fetch_array($rs));
+    }
 } 
