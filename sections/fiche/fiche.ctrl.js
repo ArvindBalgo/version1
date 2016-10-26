@@ -13,6 +13,7 @@ angular
         vm.libMetier = [];
         vm.activeId = 1;
         vm.isShow = 1;
+        vm.produit = [{titre:"", commentaire:''}];
         $scope.alertMsg = "";
 
         vm.currentMetier = "";
@@ -112,6 +113,30 @@ angular
                 url: 'api/v1/sampleControl.php'
             }).then(function successCallback(response) {
                     vm.productList=response.data;
+                    var arrDimensions = vm.productList[0].dimensions.split(',');
+                    var arrQte = vm.productList[0].qte.split(',');
+                    var arrDataDims = [];
+                    var arrDataQte = [];
+                    angular.forEach(arrDimensions, function(value, key){
+                        arrDataDims.push({id:key , text:value});
+                    });
+                    angular.forEach(arrQte, function(value, key){
+                        arrDataQte.push({id:key , text:value});
+                    });
+
+                    // clear all option
+                    $('.sel_dimensions').html('').select2({data: [{id: '', text: ''}]});
+
+                    // clear and add new option
+                    $(".sel_dimensions").html('').select2({data: arrDataDims});
+                    console.log(arrDimensions , "  array of dimensions");
+
+                    $('.sel_qte').html('').select2({data: [{id: '', text: ''}]});
+
+                    // clear and add new option
+                    $(".sel_qte").html('').select2({data: arrDataQte});
+                    //selection produit
+                    $('#aucun').prop('checked', true);
                     $timeout(function() {
                         $("#imgScroll").endlessScroll({ width: '100%',height: '250px', steps: -2, speed: 40, mousestop: true });
 
@@ -164,8 +189,8 @@ angular
                                     'right': ['magnify-glass', 'zoom', 'reset-product', 'qr-code', 'ruler'],
                                     'bottom': ['undo','redo'],
                                     'left': ['manage-layers','info','save','load']*/
-                                    'top':['magnify-glass', 'zoom', 'reset-product','ruler'],
-                                     'right': ['undo','redo']
+                                    'top':[],
+                                     'right': ['magnify-glass', 'zoom', 'reset-product','ruler','undo','redo']
                                 }
                             },
                             yourDesigner = new FancyProductDesigner($yourDesigner, pluginOpts);
@@ -911,7 +936,30 @@ angular
 
                                     var data = angular.copy(response.data);
                                     vm.productList  = data;
+                                    var arrDimensions = vm.productList[0].dimensions.split(',');
+                                    var arrQte = vm.productList[0].qte.split(',');
+                                    var arrDataDims = [];
+                                    var arrDataQte = [];
+                                    angular.forEach(arrDimensions, function(value, key){
+                                        arrDataDims.push({id:key , text:value});
+                                    });
+                                    angular.forEach(arrQte, function(value, key){
+                                        arrDataQte.push({id:key , text:value});
+                                    });
 
+                                    // clear all option
+                                    $('.sel_dimensions').html('').select2({data: [{id: '', text: ''}]});
+
+                                    // clear and add new option
+                                    $(".sel_dimensions").html('').select2({data: arrDataDims});
+                                    console.log(arrDimensions , "  array of dimensions");
+
+                                    $('.sel_qte').html('').select2({data: [{id: '', text: ''}]});
+
+                                    // clear and add new option
+                                    $(".sel_qte").html('').select2({data: arrDataQte});
+                                    //selection produit
+                                    $('#aucun').prop('checked', true);
                                     angular.forEach(response.data, function(value){
                                         var arrProducts = [];
                                         var arrFront = [];
@@ -1220,7 +1268,7 @@ angular
                                             }
 
 
-                                        })
+                                        });
                                         angular.forEach(value.elemback.params, function(value1){
                                             var flag = false;
                                             if(value1.parameters.fill != "false"){
@@ -1543,30 +1591,11 @@ angular
                                 if(results.uid){
                                     $scope.isLogged = true;
                                     $scope.utilisateur = results.name;
-                                    var arrDimensions = vm.productList[0].dimensions.split(',');
-                                    var arrQte = vm.productList[0].qte.split(',');
-                                    var arrDataDims = [];
-                                    var arrDataQte = [];
-                                    angular.forEach(arrDimensions, function(value, key){
-                                        arrDataDims.push({id:key , text:value});
-                                    });
-                                    angular.forEach(arrQte, function(value, key){
-                                        arrDataQte.push({id:key , text:value});
-                                    });
-
-                                    // clear all option
-                                    $('.sel_dimensions').html('').select2({data: [{id: '', text: ''}]});
-
-                                    // clear and add new option
-                                    $(".sel_dimensions").html('').select2({data: arrDataDims});
-                                    console.log(arrDimensions , "  array of dimensions");
-
-                                    $('.sel_qte').html('').select2({data: [{id: '', text: ''}]});
-
-                                    // clear and add new option
-                                    $(".sel_qte").html('').select2({data: arrDataQte});
-                                    //selection produit
-                                    $('#aucun').prop('checked', true);
+                                    console.log($('input[name="optradio"]:checked').val(), "BLA");
+                                    console.log(vm.produit ,"TEST");
+                                    console.log($('.sel_dimensions').select2('data') , " dimensions values");
+                                    console.log($('.sel_qte').select2('data') , " quantitee");
+                                    console.log();
                                     $('#modalMaquette').modal();
                                 }
                                 else if(!results.uid) {
@@ -1576,6 +1605,24 @@ angular
                                 $scope.sessionInfo = results;
                                 //$location();
                             })
+                        }
+
+                        vm.fnSaveProduit = function(flag){
+                            yourDesigner.getProductDataURL(function(dataURL) {
+                                $.post( "api/save_image_client.php", {
+                                    base64_image    : dataURL,
+                                    titre           : vm.produit.titre,
+                                    commentaire     : vm.produit.commentaire,
+                                    option          : $('input[name="optradio"]:checked').val(),
+                                    dimension       : $('.sel_dimensions').select2('data')[0].text,
+                                    qte             : $('.sel_qte').select2('data')[0].text,
+                                    bonrepli        : flag,
+                                    data            : yourDesigner.getProduct()});});
+
+                            bootbox.alert('Votre Schèma a été enregistré.');
+                            toastr.options.positionClass = 'toast-top-right';
+                            toastr.success("Enregistrement terminé");
+                            $("#modalMaquette").modal('hide');
                         }
 
                     }, 0);
@@ -1697,5 +1744,24 @@ angular
         vm.fnClickTabs = function(tabVal){
             vm.activeId = tabVal;
             vm.isShow = tabVal;
+        };
+
+        $scope.fnSignUp = function() {
+            $('#signupFiche').modal();
+        }
+
+        vm.fnRegister = function (client) {
+            Data.post('signupClient.php', {
+                customer: client
+            }).then(function (results) {
+                    Data.toast(results);
+                    if (results.status == "success") {
+                        //$location.path('home');
+                        console.log("REGISTRATION SUCCESFULL : ", results);
+                        $('#myModal').modal('hide');
+                        $('#signupFiche').modal('hide');
+                        vm.fnValidMaquette();
+                    }
+                });
         }
     });

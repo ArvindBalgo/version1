@@ -61,18 +61,8 @@
                         </a>
                     </li>
                     <li ng-show="{{isLogged}}" style="margin-top: 20px">
-                        <span>Bonjour {{utilisateur}}</span>
+                        <span>Bonjour {{utilisateur}}</span> <button class="btn btn-danger" ng-click="logout()"><span class="glyphicon glyphicon-off"></span></button>
                     </li>
-                    <!--li class="dropdown">
-                        <a href="#" class="dropdown-toggle" style="color: white" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">FR <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                        </ul>
-                    </li-->
                 </ul>
                 <form class="navbar-form navbar-right visible-lg" role="search">
                     <div class="form-group ">
@@ -159,16 +149,16 @@
                         </div>
                     </div>
                     <div class="space-4"></div>
-                    <span class="lbl col-sm-3"> </span><div class="col-sm-7">Don't have an account? <a href="" ng-click="home.fnSignUp()">Signup</a></div>
+                    <span class="lbl col-sm-3"> </span><div class="col-sm-7">Pas de compte? <a href="" ng-click="fnSignUp()">S'enregistrer</a></div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="width-35 pull-right btn btn-md btn-primary" data-dismiss="modal" ng-click="doLogin(login)" data-ng-disabled="loginForm.$invalid">
                     <i class="ace-icon fa fa-key"></i>
-                    Login
+                    Se Connecter
                 </button>
-                <button type="button" class="btn btn-danger pull-left" ng-click="logout()">LOGOUT</button>
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <!--button type="button" class="btn btn-danger pull-left" ng-click="logout()">LOGOUT</button-->
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Annuler</button>
             </div>
         </div>
     </div>
@@ -180,7 +170,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">SignUp</h4>
+                <h4 class="modal-title">Enregistrement</h4>
             </div>
             <div class="modal-body">
                 <div class="page-content">

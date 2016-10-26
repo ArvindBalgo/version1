@@ -29,6 +29,7 @@ if(!$isUserExists){
         $_SESSION['phone'] = $phone;
         $_SESSION['name'] = $name;
         $_SESSION['email'] = $email;
+        $_SESSION['admin'] = 0;
         echoResponse(200, $response);
     } else {
         $response["status"] = "error";

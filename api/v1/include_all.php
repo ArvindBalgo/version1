@@ -18,3 +18,6 @@ include_once 'cata_image.php';
 include_once 'cata_category.php';
 include_once 'modelmetier_category.php';
 include_once 'instructions.php';
+include_once 'commande.php';
+include_once 'commande_ligne.php';
+include_once 'commande_ligne_params.php';

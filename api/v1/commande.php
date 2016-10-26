@@ -7,50 +7,37 @@
  */
 
 /*CREATE TABLE `commande` (
-`Id` int(10) NOT NULL,
-  `Date_comm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `User_id` int(10) NOT NULL,
-  `Id_model` varchar(10) NOT NULL,
-  `Quantite` int(10) NOT NULL,
-  `Date_Created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `Date modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `Unit_price` float NOT NULL,
-  `Total` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `commande`
---
-ALTER TABLE `commande`
-  ADD PRIMARY KEY (`Id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `commande`
---
-ALTER TABLE `commande`
-  MODIFY `Id` int(10) NOT NULL AUTO_INCREMENT;
+  `id` int(11) NOT NULL,
+  `title` text NOT NULL,
+  `addon` int(11) NOT NULL,
+  `dimension` text NOT NULL,
+  `quantite` int(11) NOT NULL,
+  `commentaire` int(11) NOT NULL,
+  `prix` int(11) NOT NULL,
+  `id_front` int(11) NOT NULL,
+  `id_back` int(11) NOT NULL,
+  `src` text NOT NULL,
+  `createdby` int(11) NOT NULL,
+  `createdon` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 */
 
 class commande {
 
     //**** Variables declarations ****
     private $_id = null;
-    private $_date_comm = null;
-    private $_user_id = null;
-    private $_id_model = null;
-    private $_quantite = null;
-    private $_date_created = null;
-    private $_date_modified = null;
-    private $_unit_price = null;
-    private $_total = null;
+    private $_title = "";
+    private $_addon = 0;
+    private $_dimension = "";
+    private $_quantite = "";
+    private $_commentaire = "";
+    private $_prix = 0;
+    private $_id_front = 0;
+    private $_id_back = 0;
+    private $_src = "";
+    private $_bonrepli = "";
+    private $_createdby = "";
+    private $_createdon = "";
 
 
     //**** Constructeur ****
@@ -68,36 +55,52 @@ class commande {
         $this->_id= $Id;
     }
 
-    public function setDate_comm($Date_comm) {
-        $this->_date_comm= $Date_comm;
+    public function setTitle($title) {
+        $this->_title= $title;
     }
 
-    public function setUser_id($User_id) {
-        $this->_user_id= $User_id;
+    public function setAddon($addon) {
+        $this->_addon= $addon;
     }
 
-    public function setId_model($Id_model) {
-        $this->_id_model= $Id_model;
+    public function setDimension($dimension) {
+        $this->_dimension= $dimension;
     }
 
     public function setQuantite($qte) {
         $this->_quantite= $qte;
     }
 
-    public function setDate_created($Date_created) {
-        $this->_date_created= $Date_created;
+    public function setCommentaire($comm) {
+        $this->_commentaire= $comm;
     }
 
-    public function setDate_modified($Date_modified) {
-        $this->_date_modified= $Date_modified;
+    public function setPrix($prix) {
+        $this->_prix= $prix;
     }
 
-    public function setUnit_price($Unit_price) {
-        $this->_unit_price= $Unit_price;
+    public function setIDFront($idFront) {
+        $this->_id_front= $idFront;
     }
 
-    public function setTotal($Total) {
-        $this->_total= $Total;
+    public function setCreatedBy($createdby) {
+        $this->_createdby= $createdby;
+    }
+
+    public function setCreatedOn($createdon) {
+        $this->_createdon= $createdon;
+    }
+
+    public function setIDBack($idBack) {
+        $this->_id_back= $idBack;
+    }
+
+    public function setSrc($src){
+        $this->_src = $src;
+    }
+
+    public function setBonRepli($flag){
+        $this->_bonrepli = $flag;
     }
 
     //**** Getters *****
@@ -105,36 +108,52 @@ class commande {
         return $this->_id;
     }
 
-    public function getDate_comm($Date_comm) {
-        return $this->_date_comm;
+    public function getTitle() {
+        return $this->_title;
     }
 
-    public function getUser_id($User_id) {
-        return $this->_user_id;
+    public function getAddon() {
+        return $this->_addon;
     }
 
-    public function getId_model($Id_model) {
-        return $this->_id_model;
+    public function getDimension() {
+        return $this->_dimension;
     }
 
-    public function getQuantite($qte) {
+    public function getQuantite() {
         return $this->_quantite;
     }
 
-    public function getDate_created($Date_created) {
-        return $this->_date_created;
+    public function getCommentaire() {
+        return $this->_commentaire;
     }
 
-    public function getDate_modified($Date_modified) {
-        return $this->_date_modified;
+    public function getPrix() {
+        return $this->_prix;
     }
 
-    public function getUnit_price($Unit_price) {
-        return $this->_unit_price;
+    public function getIDFront() {
+        return $this->_id_front;
     }
 
-    public function getTotal($Total) {
-        return $this->_total;
+    public function getIDBack() {
+        return $this->_id_back;
+    }
+
+    public function getCreatedBy() {
+        return $this->_createdby;
+    }
+
+    public function getCreatedOn(){
+        return $this->_createdon;
+    }
+
+    public function getSrc() {
+        return $this->_src;
+    }
+
+    public function getBonRepli() {
+        return $this->_bonrepli;
     }
 
     public function delete($Id) {
@@ -146,41 +165,53 @@ class commande {
     //***** fonction de modification/cr�ation *****
     public function save() {
         // $this->_date_filled = date('Y/m/d H:i:s', time());
-        if ($this->_Date_created == null) {
-            $this->_Date_created= date('Y/m/d H:i:s', time());
+        if ($this->_createdon == null || $this->_createdon == "") {
+            $this->_createdon= date('Y/m/d H:i:s', time());
         }
         if ($this->_id > 0) {
-            $requete = "UPDATE commande SET date_comm='" . ($this->_Date_comm) . "'";
-            $requete .= ",user_id='" . $this->_User_id . "',";
-            $requete .= ",id_model='" . $this->_Id_model . "',";
-            $requete .= ",quantite='" . $this->_Quantite . "',";
-            $requete .= ",date_created='" . $this->_Date_created . "',";
-            $requete .= ",date_modified='" . $this->_Date_modified . "',";
-            $requete .= ",unit_price='" . $this->_Unit_price . "',";
-            $requete .= ",total='" . $this->_Total . "'";
-            $requete .= " WHERE id=" . $this->_Id;
+            $requete = "UPDATE commande SET title='" . ($this->_title) . "'";
+            $requete .= ",addon='" . $this->_addon . "'";
+            $requete .= ",dimension='" . $this->_dimension . "'";
+            $requete .= ",quantite='" . $this->_quantite . "'";
+            $requete .= ",commentaire='" . $this->_commentaire . "'";
+            $requete .= ",prix='" . $this->_prix . "'";
+            $requete .= ",id_front='" . $this->_id_front . "'";
+            $requete .= ",id_back='" . $this->_id_back . "'";
+            $requete .= ",src='" . $this->_src . "'";
+            $requete .= ",bonrepli='" . $this->_bonrepli . "'";
+            $requete .= ",createdby='" . $this->_createdby . "'";
+            $requete .= ",createdon='" . $this->_createdon . "'";
+            $requete .= " WHERE id=" . $this->_id;
 
         } else {
             $requete = "INSERT INTO commande (";
             $requete .= "id,";
-            $requete .= "date_comm,";
-            $requete .= "user_id,";
-            $requete .= "id_model,";
+            $requete .= "title,";
+            $requete .= "addon,";
+            $requete .= "dimension,";
             $requete .= "quantite,";
-            $requete .= "date_created,";
-            $requete .= "date_modified,";
-            $requete .= "unit_price,";
-            $requete .= "total";
+            $requete .= "commentaire,";
+            $requete .= "prix,";
+            $requete .= "id_front,";
+            $requete .= "id_back,";
+            $requete .= "src,";
+            $requete .= "bonrepli,";
+            $requete .= "createdby,";
+            $requete .= "createdon";
             $requete .= ") VALUES (";
             $requete .= "'" . $this->_id . "',";
-            $requete .= "'" . $this->_Date_comm . "',";
-            $requete .= "'" . $this->_User_id . "',";
-            $requete .= "'" . $this->_Id_model . "',";
-            $requete .= "'" . $this->_Quantite . "',";
-			$requete .= "'" . $this->_Date_created . "',";
-			$requete .= "'" . $this->_Date_modified . "',";
-			$requete .= "'" . $this->_Unit_price . "',";
-			$requete .= "'" . $this->_Total . "')";
+            $requete .= "'" . $this->_title . "',";
+            $requete .= "'" . $this->_addon . "',";
+            $requete .= "'" . $this->_dimension . "',";
+            $requete .= "'" . $this->_quantite . "',";
+			$requete .= "'" . $this->_commentaire . "',";
+			$requete .= "'" . $this->_prix . "',";
+			$requete .= "'" . $this->_id_front . "',";
+			$requete .= "'" . $this->_id_back . "',";
+			$requete .= "'" . $this->_src . "',";
+			$requete .= "'" . $this->_bonrepli . "',";
+			$requete .= "'" . $this->_createdby . "',";
+			$requete .= "'" . $this->_createdon . "')";
         }
 
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
@@ -191,21 +222,25 @@ class commande {
 
     //***** Fonction de passege sql->objet *****
     private function mapSqlToObject($rs) {
-        $comm = new commande();
-        $comm->_id = $rs->fields["id"];
-        $comm->_date_comm = $rs->fields["date_comm"];
-        $comm->_user_id = $rs->fields["user_id"];
-        $comm->_id_model = $rs->fields["id_model"];
-        $comm->_quantite = $rs->fields["quantite"];
-        $comm->_date_created = $rs->fields["date_created"];
-        $comm->_date_modified = $rs->fields["date_modified"];
-        $comm->_unit_price = $rs->fields["unit_price"];
-        $comm->_total = $rs->fields["total"];
+        $comm               = new commande();
+        $comm->_id          = $rs["id"];
+        $comm->_title       = $rs["title"];
+        $comm->_addon       = $rs["addon"];
+        $comm->_dimension   = $rs["dimension"];
+        $comm->_quantite    = $rs["quantite"];
+        $comm->_commentaire = $rs["commentaire"];
+        $comm->_prix        = $rs["prix"];
+        $comm->_id_front    = $rs["id_front"];
+        $comm->_id_back     = $rs["id_back"];
+        $comm->_src         = $rs["src"];
+        $comm->_bonrepli    = $rs["bonrepli"];
+        $comm->_createdby   = $rs["createdby"];
+        $comm->_createdon   = $rs["createdon"];
+
         return $comm;
     }
 
-    public function rechercher() { // Recherche de toutes les adresses
-        $listcommande = array();
+    public function rechercher() { // Retourner toutes
         $requete = self::$SELECT;
         $rs = $this->conn->query($requete) or die($this->conn->error.__LINE__);
         $rows = [];
@@ -219,10 +254,16 @@ class commande {
     public function findByPrimaryKey($key) { // Recherche d'une adresse par id
         $requete = self::$SELECT . " WHERE id=" . $key;
         $rs = $this->conn->query($requete);
-        if ($rs->EOF) {
+        if (!$rs) {
             return null;
         }
-        return $this->mapSqlToObject($rs);
+        return $this->mapSqlToObject(mysqli_fetch_array($rs));
     }
 
+    public function getLastId(){
+        $requete = "SELECT MAX(id) AS id FROM commande";
+        $rs = $this->conn->query($requete);
+        $result = mysqli_fetch_array($rs);
+        return $result["id"];
+    }
 } 

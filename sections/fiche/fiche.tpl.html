@@ -3,25 +3,86 @@
     <div class="row">
         <div class="col-md-12">
             <div id="main-container">
-                <h3 id="clothing">Schema Maquette</h3>
+                <h3 id="clothing">Réalisez votre maquette, elle sera ensuite traitée par nos graphistes</h3>
                 <div class="row" style="margin: 2px">
-                    <div class="btn-group center-block">
-                        <button ng-click="fiche.fnMetierList();" class="btn btn-info btn-lg "><span><img src="images/icons/gallery.ico" style="height: 50px;width:50px"></span>Gallery</button>
-                        <button ng-click="fiche.fnValidMaquette()" class="btn btn-primary btn-lg"><span><img src="images/icons/construction.ico" style="height: 50px;width:50px"></span>Schématisez ma maquette</button>
+                    <div class="col-md-12 btn-group center-block" style="margin: 5px">
+                        <button ng-click="fiche.fnMetierList();" class="btn btn-info btn-lg "><span><img src="images/icons/gallery.ico" style="height: 50px;width:50px"></span> Galerie de modèles</button>
+                        <button ng-click="fiche.fnValidMaquette()" class="btn btn-primary btn-lg" style="height: 72px;">Validez ma maquette</button>
+                        <button ng-click="" class="btn btn-primary btn-lg" style="height: 72px;"> Confiez nous la conception de votre maquette</button>
                     </div>
-                </div>
-                <div id="model" class="fpd-container fpd-shadow-2 fpd-topbar fpd-tabs fpd-tabs-side fpd-top-actions-centered fpd-bottom-actions-centered fpd-views-inside-left">
-                    <div class="fpd-design">
-                        <div ng-repeat="design in fiche.productsDesign" class="fpd-category" title="{{design.libelle}}">
-                            <img ng-repeat="image in design.data" src="{{image.src}}"  title="{{image.libelle}}" data-parameters='{"zChangeable": true, "left": 215, "top": 200, "colors": "#000000", "removable": true, "draggable": true, "rotatable": true, "resizable": true, "price": 10, "boundingBox": "Base", "autoCenter": true}' />
+                    <div class="col-md-12 " style="margin: 5px">
+                        <div class="col-md-12" style="padding-bottom: 5px">
+                            <div class="col-md-3" style="font-weight: bold">
+                                Titre
+                            </div>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control" ng-model="fiche.produit.titre" placeholder="Titre" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="padding-bottom: 5px" ng-show="fiche.productList[0].contours == 1 || fiche.productList[0].coucher == 1 || fiche.productList[0].escargot == 1 || fiche.productList[0].liserai == 1">
+                            <div class="col-md-3" style="font-weight: bold">
+                                Caractéristique Additionel
+                            </div>
+                            <div class="col-md-7">
+                                <form>
+                                    <label class="radio-inline">
+                                        <input id="aucun" type="radio" name="optradio" value="0">Aucun
+                                    </label>
+                                    <label ng-show="fiche.productList[0].contours == 1" class="radio-inline">
+                                        <input id="trait" type="radio" name="optradio" value="1">Contours
+                                    </label>
+                                    <label class="radio-inline" ng-show="fiche.productList[0].coucher == 1">
+                                        <input id="coucher" type="radio" name="optradio" value="2">Coucher
+                                    </label>
+                                    <label class="radio-inline" ng-show="fiche.productList[0].escargot == 1">
+                                        <input id="escargot" type="radio" name="optradio" value="3">Attach Escargot
+                                    </label>
+                                    <label class="radio-inline" ng-show="fiche.productList[0].liserai == 1">
+                                        <input id="liserai" type="radio" name="optradio" value="4">Liserai
+                                    </label>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="padding-bottom: 5px">
+                            <div class="col-md-3" style="font-weight: bold">
+                                Dimensions
+                            </div>
+                            <div class="col-md-7" style="padding-bottom: 5px">
+                                <select class="sel_dimensions" style="width: 100%;"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="padding-bottom: 5px">
+                            <div class="col-md-3" style="font-weight: bold">
+                                Quantité
+                            </div>
+                            <div class="col-md-7">
+                                <select class="sel_qte" style="width: 100%;"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-3" style="font-weight: bold">
+                                Vos instructions
+                            </div>
+                            <div class="col-md-7">
+                                <textarea class="form-control" rows="5" id="comment" ng-model="fiche.produit.commentaire"></textarea>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <div class="col-md-12">
+                        <div id="model" class="fpd-container fpd-shadow-2 fpd-topbar fpd-tabs fpd-tabs-side fpd-top-actions-centered fpd-bottom-actions-centered fpd-views-inside-left">
+                            <div class="fpd-design">
+                                <div ng-repeat="design in fiche.productsDesign" class="fpd-category" title="{{design.libelle}}">
+                                    <img ng-repeat="image in design.data" src="{{image.src}}"  title="{{image.libelle}}" data-parameters='{"zChangeable": true, "left": 215, "top": 200, "colors": "#000000", "removable": true, "draggable": true, "rotatable": true, "resizable": true, "price": 10, "boundingBox": "Base", "autoCenter": true}' />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+                </div>
 
                 <br />
 
-                <div class="fpd-clearfix" style="margin-top: 30px;">
+  <!--              <div class="fpd-clearfix" style="margin-top: 30px;">
                     <div class="api-buttons fpd-container fpd-left">
                         <a href="#" id="print-button" class="fpd-btn">Print</a>
                         <a href="#" id="image-button" class="fpd-btn">Create Image</a>
@@ -37,15 +98,7 @@
                     <span class="fpd-btn" id="save-image-php">Save image with php</span>
                     <span class="fpd-btn" id="send-image-mail-php">Send image to mail</span>
                 </p>
-
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                <label for="comment">Comment:</label>
-                <textarea class="form-control" rows="5" id="comment"></textarea>
+-->
             </div>
         </div>
     </div>
@@ -114,65 +167,135 @@
                <div class="row">
                    <div class="well well-lg">
                        <p>
-                           Nos ingènieurs graphiques prendront en charge vos schèmas et nous vous enverrons une maquette gratuitment dans l'espace de 24 heures pour avoir votre approbation et ensuite vous pouvez passez la commande.
+                           Nos graphistes prendront en charge votre maquette et nous vous enverrons un Bon à Tirer dans un délai maximum de 72hr, hors jours feriés,après la validation de votre Bon à Tirer, votre produit passera en fabrication.
+
                        </p>
-                   </div>
-                   <div class="col-md-12" style="padding-bottom: 5px">
-                       <div class="col-md-3">
-                           Titre
-                       </div>
-                       <div class="col-md-7">
-                           <input type="text" class="form-control" ng-model="home.titre" placeholder="Titre" aria-describedby="basic-addon1">
-                       </div>
-                   </div>
-                   <div class="col-md-12" style="padding-bottom: 5px" ng-show="fiche.productList[0].contours == 1 || fiche.productList[0].coucher == 1 || fiche.productList[0].escargot == 1 || fiche.productList[0].liserai == 1">
-                       <div class="col-md-3">
-                           Caractéristique Additionel
-                       </div>
-                       <div class="col-md-7">
-                           <form>
-                               <label class="radio-inline">
-                                   <input id="aucun" type="radio" name="optradio" ng-model="optTraitAucun">Aucun
-                               </label>
-                               <label ng-show="fiche.productList[0].contours == 1" class="radio-inline">
-                                   <input id="trait" type="radio" name="optradio" ng-model="optTraitContours">Contours
-                               </label>
-                               <label class="radio-inline" ng-show="fiche.productList[0].coucher == 1">
-                                   <input id="coucher" type="radio" name="optradio" ng-model="optTraitCoucher">Coucher
-                               </label>
-                               <label class="radio-inline" ng-show="fiche.productList[0].escargot == 1">
-                                   <input id="escargot" type="radio" name="optradio" ng-model="optTraitEscargot">Attach Escargot
-                               </label>
-                               <label class="radio-inline" ng-show="fiche.productList[0].liserai == 1">
-                                   <input id="liserai" type="radio" name="optradio" ng-model="optTraitLiserai">Liserai
-                               </label>
-                           </form>
-                       </div>
-                   </div>
-                   <div class="col-md-12" style="padding-bottom: 5px">
-                       <div class="col-md-3">
-                           Dimensions
-                       </div>
-                       <div class="col-md-7" style="padding-bottom: 5px">
-                           <select class="sel_dimensions" style="width: 100%;"></select>
-                       </div>
-                   </div>
-                   <div class="col-md-12">
-                       <div class="col-md-3">
-                           Quantité
-                       </div>
-                       <div class="col-md-7">
-                           <select class="sel_qte" style="width: 100%;"></select>
-                       </div>
-                   </div>
-                   <div class="col-md-12">
                    </div>
                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" ng-click="" data-dismiss="modal">Annuler</button>
-                <button type="button" class="btn btn-success pull-right">Valider</button>
+                <button type="button" class="btn btn-success pull-right" ng-click="fiche.fnSaveProduit(0)">PASSEZ MA COMMANDE SANS BON À TIRER</button>
+                <button type="button" class="btn btn-success pull-right" ng-click="fiche.fnSaveProduit(1)">PASSEZ MA COMMANDE AVEC BON À TIRER</button>
             </div>
         </div>
     </div>
 </div>
+
+<!--SIGN UP FORM-->
+<div id="signupFiche" class="modal fade" data-backdrop="static">
+    <div class="modal-dialog" style="width: 75%;height: 500px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">SignUp</h4>
+            </div>
+            <div class="modal-body">
+                <div class="page-content">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-offset-1">
+                            <div id="login-box">
+                                <div>
+                                    <div >
+                                        <form name="signupForm" class="form-horizontal" role="form">
+                                            <div class="form-group">
+                                                <label class="col-sm-5 control-label no-padding-right" for="email">Adresse Mail</label>
+                                                <div class="col-sm-7">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="text" class="form-control" placeholder="Email" name="email" ng-model="signup.email" focus/>
+                                        <span ng-show="signupForm.email.$error.email" class="help-inline">L'adresse mail n'est pas valide</span>
+                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-5 control-label no-padding-right" for="password">Mot de Passe</label>
+                                                <div class="col-sm-7">
+                                    <span class="block input-icon input-icon-right">
+                                <input type="password" class="form-control" name = "password" placeholder="Mot de Passe" ng-model="signup.password" required/>
+                                <small class="errorMessage" data-ng-show="signupForm.password.$dirty && signupForm.password.$invalid"> Entrer le mot de passe.</small>
+                            </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-5 control-label no-padding-right" for="password2">Confirmer Mot de passe</label>
+                                                <div class="col-sm-7">
+                                    <span class="block input-icon input-icon-right">
+                                <input type="password" class="form-control" name="password2" placeholder="Mot de Passe" ng-model="signup.password2" password-match="signup.password" required/>
+                                <small class="errorMessage" data-ng-show="signupForm.password2.$dirty && signupForm.password2.$error.required"> Entrer le Mot de Passe.</small>
+
+                               <small class="errorMessage" data-ng-show="signupForm.password2.$dirty && signupForm.password2.$error.passwordNoMatch && !signupForm.password2.$error.required"> Les mots de passe ne correspond pas</small>
+
+                            </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-5 control-label no-padding-right" for="name">Nom</label>
+                                                <div class="col-sm-7">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="text" class="form-control" placeholder="Nom" ng-model="signup.name" />
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-5 control-label no-padding-right" for="phone">No Téléphone</label>
+                                                <div class="col-sm-7">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="text" class="form-control" placeholder="Phone" name="phone" ng-model="signup.phone"/>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-5 control-label no-padding-right" for="address">Adresse</label>
+                                                <div class="col-sm-7">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="text" class="form-control" placeholder="Adresse" ng-model="signup.address" />
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-5 control-label no-padding-right" for="ville">Ville</label>
+                                                <div class="col-sm-7">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="text" class="form-control" placeholder="Ville" ng-model="signup.ville" />
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-5 control-label no-padding-right" for="codepostal">Code Postal</label>
+                                                <div class="col-sm-7">
+                                                     <span class="block input-icon input-icon-right">
+                                                        <input type="text" class="form-control" placeholder="Code Postal" ng-model="signup.codepostal" />
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-5 control-label no-padding-right" for="nosiret">No Siret</label>
+                                                <div class="col-sm-7">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="text" class="form-control" placeholder="No Siret" ng-model="signup.nosiret" />
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <span class="lbl col-sm-5"> </span>
+                                                <div class="col-sm-7">
+                                                    <button type="submit" class="width-35 pull-right btn btn-sm btn-primary" ng-click="fiche.fnRegister(signup)" data-ng-disabled="signupForm.$invalid">
+                                                        Enregistrement
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

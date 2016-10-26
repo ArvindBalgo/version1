@@ -176,7 +176,7 @@ angular
             vm.metier = angular.copy(arrModels);
         };
 
-        vm.fnSignUp = function(){
+        $scope.fnSignUp = function(){
             $('#myModal').modal('hide');
             $('#signup').modal();
         };
