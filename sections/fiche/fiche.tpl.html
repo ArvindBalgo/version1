@@ -106,7 +106,7 @@
                 </div>
                 <ul class="nav nav-tabs">
                     <li ng-class="{ active: fiche.activeId == 1 }" style="cursor: pointer" ng-click="fiche.fnClickTabs(1)"><a>Models</a></li>
-                    <li ng-class="{ active: fiche.activeId == 2 }" style="cursor: pointer" ng-click="fiche.fnClickTabs(2)"><a>Gabarits</a></li>
+                    <li ng-class="{ active: fiche.activeId == 2 }" style="cursor: pointer" ng-click="fiche.fnClickTabs(2)"><a>Créez ma maquette</a></li>
                 </ul>
                 <div ng-show="fiche.isShow == 1">
                     <!--div class="row" style="padding: 3px;">
@@ -125,7 +125,8 @@
                 </div>
 
                 <div ng-show="fiche.isShow == 2">
-                    <div class="col-md-4" style="margin-bottom: 5px; margin-top: 5px;" ng-repeat="model in fiche.gabarits">
+                    <div class="col-md-4" style="margin-bottom: 5px; margin-top: 5px;" ng-repeat="model in fiche.
+                    gabarits">
                         <div class="tileImg" ng-click="fiche.fnModelClick(model.id_cata, model.id_metier)" >
                             <img style="width: 100%; height: 100%" src="{{model.src}}">
                             <span><p>{{model.description}}</p></span>

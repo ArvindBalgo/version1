@@ -20,6 +20,7 @@ angular
         vm.activeTabId = 1;
         vm.arrProds = [];
         vm.arrGabarits = [];
+        $scope.isFiche = false;
 
         Data.get('session.php').then(function (results) {
             $scope.sessionInfo = results;

@@ -15,6 +15,7 @@ angular
         vm.isShow = 1;
         vm.produit = [{titre:"", commentaire:''}];
         $scope.alertMsg = "";
+        $scope.isFiche = true;
 
         vm.currentMetier = "";
         //console.log("FACT VALUE:: ", messages.list);
