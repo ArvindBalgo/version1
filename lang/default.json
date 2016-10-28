@@ -15,7 +15,7 @@
 		"stroke": "Stroke",
 		"curved_text": "Text arrondie",
 		"edit_text": "Modifer text",
-		"color": "Coleur",
+		"color": "Couleur",
 		"filters": "Filtres",
 		"patterns": "Patterns",
 		"transparency": "Transparence",
@@ -68,6 +68,7 @@
 		"text_input_placeholder": "Ajouter un texte ici",
 		"text_add_btn": "Ajout Text",
 		"designs": "Choisissez parmi nos images",
+        "designs_search_in": "Search in",
 		"manage_layers": "Modifer Couches"
 	},
 	"misc": {
@@ -81,7 +82,24 @@
 		"maximum_size_info": "The image %filename exceeds the maximum file size of %mbMB.",
 		"customization_required_info": "You need to customize the default design!",
 		"not_supported_device_info": "Sorry! But the product designer can not be displayed on your device. Please use a device with a larger screen!",
-		"unsaved_product_alert": "Your customizations are not saved. Are you sure to leave this page?",
-		"image_added": "Image Added!"
-	}
+        "image_added": "Image Added!",
+        "reset_confirm": "Are you to reset everything?",
+        "popup_blocker_alert": "Please disable your pop-up blocker and try again."
+    },
+    "plus": {
+        "names_numbers": "Names & Numbers",
+        "names_numbers_add_new": "Add New",
+        "drawing": "Free Drawing",
+        "drawing_brush_type": "Brush Type",
+        "drawing_pencil": "Pencil",
+        "drawing_circle": "Circle",
+        "drawing_spray": "Spray",
+        "drawing_color": "Color",
+        "drawing_line_width": "Line Width",
+        "drawing_draw_here": "Draw Here",
+        "drawing_clear": "Clear",
+        "drawing_add": "Add",
+        "bulk_add_variations_title": "Bulk Order",
+        "bulk_add_variations_add": "Add"
+    }
 }

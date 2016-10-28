@@ -17,6 +17,10 @@ angular
         vm.activeId = "";
         vm.message = "";
         vm.origModels = [];
+        vm.activeTabId = 1;
+        vm.arrProds = [];
+        vm.arrGabarits = [];
+
         Data.get('session.php').then(function (results) {
             $scope.sessionInfo = results;
             if(results.uid){
@@ -72,6 +76,17 @@ angular
                 params: {mode:12, id:data.id},
                 url: 'api/v1/sampleControl.php'
             }).then(function successCallback(response) {
+                    console.log(response.data , "  produits lists info ");
+                    vm.arrProds         = [];
+                    vm.arrGabarits      = [];
+                    angular.forEach(response.data, function(value){
+                        if(value.gabarit == 0){
+                            vm.arrProds.push(value);
+                        }
+                        else{
+                            vm.arrGabarits.push(value);
+                        }
+                    });
                     vm.listProduits = angular.copy(response.data);
                     $('#myModel').modal('hide');
                     $('#produits').modal();
@@ -151,13 +166,12 @@ angular
                 });
         }
 
-        vm.fnModelClick  = function($id, $id_metier, $id_cata) {
-           console.log($id);
+        vm.fnModelClick  = function($id, $id_modelMetier, $id_cata, $id_metier) {
             //$('#myModel').modal('hide');
             vm.fnRemoveModal();
             localStorage.setItem("id_model", $id_cata);
-            localStorage.setItem("idModelMetier", $id_metier);
-            localStorage.setItem("idMetier", vm.activeId);
+            localStorage.setItem("idModelMetier", $id_modelMetier);
+            localStorage.setItem("idMetier",$id_metier);
             $location.path('fichetech');
         };
 
@@ -198,6 +212,11 @@ angular
             $('#myModel').modal('hide');
             document.body.style.overflow = "scroll";
         }
+
+        vm.fnClickTabs = function(tabVal){
+            vm.activeTabId = tabVal;
+            vm.isShow = tabVal;
+        };
         vm.fnInstructions();
         vm.fnRecupMetier();
         vm.fnModelMetierAll();

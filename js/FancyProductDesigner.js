@@ -134,6 +134,9 @@
 				while(text.length!==0&&this.letters.size()>=text.length){
 					this.letters.remove(this.letters.item(this.letters.size()-1));
 				}
+				if(text.length === 0) {
+					this.letters.remove(this.letters.item(0));
+				}
 				for(var i=0; i<text.length; i++){
 					//I need to pass the options from the main options
 					if(this.letters.item(i)===undefined){
@@ -376,7 +379,6 @@
 				this.height=this.letters.height;
 				this.letters.left=-(this.letters.width/2);
 				this.letters.top=-(this.letters.height/2);
-//				console.log('End rendering')
 			}
 		},
 		_renderOld: function (ctx){
@@ -683,45 +685,6 @@ fabric.Object.prototype._drawControl = function(control, ctx, methodName, left, 
 			ctx.fillText(icon, left+iconOffset, top+iconOffset);
 		}
 	}
-};
-
-fabric.Object.prototype.findTargetCorner = function(pointer) {
-	if (!this.hasControls || !this.active) {
-        return false;
-      }
-
-      var ex = pointer.x,
-          ey = pointer.y,
-          xPoints,
-          lines;
-      this.__corner = 0;
-      for (var i in this.oCoords) {
-
-        if (!this.isControlVisible(i)) {
-          continue;
-        }
-
-        if (i === 'mtr' && !this.hasRotatingPoint) {
-          continue;
-        }
-
-        if (this.get('lockUniScaling') &&
-           (i === 'mt' || i === 'mr' || i === 'mb' || i === 'ml')) {
-          continue;
-        }
-
-        lines = this._getImageLines(this.oCoords[i].corner);
-
-		//FPD: target corner not working when canvas has zoom greater than 1
-        var zoom = this.canvas.getZoom() ? this.canvas.getZoom() : 1;
-
-        xPoints = this._findCrossPoints({ x: ex*zoom, y: ey*zoom }, lines);
-        if (xPoints !== 0 && xPoints % 2 === 1) {
-          this.__corner = i;
-          return i;
-        }
-      }
-      return false;
 };
 
 fabric.Object.prototype.setCoords = function() {
@@ -2919,36 +2882,33 @@ var FancyProductDesignerView = function($productStage, view, callback, fabricCan
 				if(opts.target == undefined) {
 					instance.deselectElement();
 				}
-				else {
 
-					var pointer = instance.stage.getPointer(opts.e),
-						targetCorner = opts.target.findTargetCorner(pointer);
+			},
+			'mouse:up': function(opts) {
 
-					tempModifiedParameters = instance.getElementJSON();
+				var targetCorner = opts.target.__corner || false;
 
-					//remove element
-					if(targetCorner == 'bl' && instance.currentElement.removable) {
-						instance.removeElement(instance.currentElement);
-					}
+				tempModifiedParameters = instance.getElementJSON();
 
-					//copy element
-					if(targetCorner == 'tl' && instance.currentElement.copyable && !instance.currentElement.hasUploadZone) {
+				//remove element
+				if(targetCorner == 'bl' && instance.currentElement.removable) {
+					instance.removeElement(instance.currentElement);
+				}
 
-						var newOpts = instance.getElementJSON();
-						newOpts.autoCenter = true;
+				//copy element
+				if(targetCorner == 'tl' && instance.currentElement.copyable && !instance.currentElement.hasUploadZone) {
 
-						instance.addElement(
-							FPDUtil.getType(instance.currentElement.type),
-							instance.currentElement.source,
-							'Copy '+instance.currentElement.title,
-							newOpts
-						);
+					var newOpts = instance.getElementJSON();
+					newOpts.autoCenter = true;
 
-					}
+					instance.addElement(
+						FPDUtil.getType(instance.currentElement.type),
+						instance.currentElement.source,
+						'Copy '+instance.currentElement.title,
+						newOpts
+					);
 
 				}
-			},
-			'mouse:up': function() {
 
 				mouseDownStage = false;
 
@@ -3577,6 +3537,11 @@ var FancyProductDesignerView = function($productStage, view, callback, fabricCan
 		}
 
 		params = typeof params !== 'undefined' ? params : {};
+		if(type === 'text') {
+			//strip HTML tags
+			source = source.replace(/(<([^>]+)>)/ig,"");
+			title = title.replace(/(<([^>]+)>)/ig,"");
+		}
 
 		if(typeof params != "object") {
 			FPDUtil.showModal("The element "+title+" does not have a valid JSON object as parameters! Please check the syntax, maybe you set quotes wrong.");
@@ -4049,7 +4014,7 @@ var FancyProductDesignerView = function($productStage, view, callback, fabricCan
 		}
 
 		//needs to before setOptions
-		if(parameters.text) {
+		if(typeof parameters.text === 'string') {
 
 			var text = parameters.text;
 			if(element.maxLength != 0 && text.length > element.maxLength) {
@@ -4469,7 +4434,11 @@ var FancyProductDesignerView = function($productStage, view, callback, fabricCan
 			instance.responsiveScale = 1;
 		}
 
-		instance.stage.setDimensions({width: $productStage.width(), height: instance.options.stageHeight * instance.responsiveScale})
+		instance.stage
+		.setDimensions({
+			width: $productStage.width(),
+			height: instance.options.stageHeight * instance.responsiveScale
+		})
 		.setZoom(instance.responsiveScale)
 		.calcOffset()
 		.renderAll();
@@ -6820,6 +6789,12 @@ var FPDActions = function(fpdInstance, $actions){
 
 	};
 
+	this.hideAllTooltips = function() {
+
+		fpdInstance.$mainWrapper.find('.fpd-action-btn.tooltipstered').tooltipster('hide');
+
+	};
+
 	_initialize();
 
 };
@@ -8185,6 +8160,7 @@ var FancyProductDesigner = function(elem, opts) {
 		_viewInstances = [];
 		stageCleared = false;
 		productIsCustomized = false,
+		zoomReseted = false,
 		initCSSClasses = '',
 		anonymFuncs = {};
 
@@ -8353,6 +8329,8 @@ var FancyProductDesigner = function(elem, opts) {
 	 * @default 1
 	 */
 	this.orderQuantity = 1;
+
+	this._order = {};
 
 	var fpdOptions = new FancyProductDesignerOptions(),
 		options = fpdOptions.merge(fpdOptions.defaults, opts);
@@ -8590,6 +8568,13 @@ var FancyProductDesigner = function(elem, opts) {
 				return;
 			}
 
+			if(instance.actions) {
+				instance.actions.hideAllTooltips();
+				if(!zoomReseted) {
+					instance.resetZoom();
+				}
+			}
+
 			//deselect element if one is selected and active element is not input (FB browser fix)
 			if(instance.currentElement && $(document.activeElement).is(':not(input)')) {
 				instance.deselectElement();
@@ -8619,6 +8604,8 @@ var FancyProductDesigner = function(elem, opts) {
 			if(instance.$container.filter('[class*="fpd-off-canvas-"]').length > 0) {
 				instance.mainBar.$content.height(instance.$mainWrapper.height());
 			}
+
+
 
 		});
 
@@ -9913,7 +9900,7 @@ var FancyProductDesigner = function(elem, opts) {
 
 		var printCanvas = new fabric.Canvas('fpd-hidden-canvas', {
 				containerClass: 'fpd-hidden fpd-hidden-canvas',
-				enableRetinaScaling: true
+				enableRetinaScaling: false
 			}),
 			viewCount = 0;
 
@@ -9940,12 +9927,12 @@ var FancyProductDesigner = function(elem, opts) {
 					}
 					else {
 						callback(printCanvas.toDataURL(options));
-						printCanvas.dispose();
+						/*printCanvas.dispose();
 						$body.children('.fpd-hidden-canvas, #fpd-hidden-canvas').remove();
 
 						if(instance.currentViewInstance) {
 							instance.currentViewInstance.resetCanvasSize();
-						}
+						}*/
 
 					}
 
@@ -10204,6 +10191,7 @@ var FancyProductDesigner = function(elem, opts) {
 	 */
 	this.setZoom = function(value) {
 
+		zoomReseted = false;
 		this.deselectElement();
 
 		if(instance.currentViewInstance) {
@@ -10230,6 +10218,7 @@ var FancyProductDesigner = function(elem, opts) {
 	 */
 	this.resetZoom = function() {
 
+		zoomReseted = true;
 		this.deselectElement();
 
 		if(instance.currentViewInstance) {
@@ -10515,6 +10504,28 @@ var FancyProductDesigner = function(elem, opts) {
 		instance.currentPrice = instance.singleProductPrice * instance.orderQuantity;
 
 		$elem.trigger('priceChange', [null, instance.currentPrice, instance.singleProductPrice]);
+
+	};
+
+	/**
+	 * Returns an order object containing the product from the getProduct() method. If using plus add-on and bulk variations, the variations will be added into the object.
+	 *
+	 * @method getOrder
+	 * @param {Object} options Options for the methods that are called inside this mehtod, e.g. getProduct() can receive two parameters.
+	 * @example fpd.getOrder( {onlyEditableElements: true, customizationRequired: true} );
+	 */
+	this.getOrder = function(options) {
+
+		options = typeof options === 'undefined' ? {} : options;
+
+		instance._order.product = instance.getProduct(
+			options.onlyEditableElements || false,
+			options.customizationRequired || false
+		);
+
+		$elem.trigger('getOrder');
+
+		return instance._order;
 
 	};
 

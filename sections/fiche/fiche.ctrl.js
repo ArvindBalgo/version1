@@ -196,9 +196,9 @@ angular
                             yourDesigner = new FancyProductDesigner($yourDesigner, pluginOpts);
 
                         angular.forEach(vm.productList, function(value){
-                            var arrProducts = [];
-                            var arrFront = [];
-                            var arrBack = [];
+                            var arrProducts     = [];
+                            var arrFront        = [];
+                            var arrBack         = [];
 
                             angular.forEach(value.elemfront.params, function(value1){
                                 var flag = false;
@@ -1647,7 +1647,7 @@ angular
         vm.fnGallery = function() {
             $http({
                 method: 'GET',
-                params: {mode:0, id:localStorage.idModelMetier},
+                params: {mode:0, id:localStorage.idMetier},
                 url: 'api/v1/sampleControl.php'
             }).then(function successCallback(response) {
                     //console.log(response.data);
@@ -1664,7 +1664,7 @@ angular
                         else {
                             vm.gabarits.push(value);
                         }
-                    })
+                    });
 
 
                     $("#galleryModal").modal();
