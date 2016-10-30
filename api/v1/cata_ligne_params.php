@@ -104,11 +104,11 @@ class cata_ligne_params {
             $requete .= "type,";
             $requete .= "params";
             $requete .= ") VALUES (";
-            $requete .= "'" . $this->_title . "',";
-            $requete .= "'" . $this->_src . "',";
+            $requete .= "'" . addslashes($this->_title) . "',";
+            $requete .= "'" . addslashes($this->_src) . "',";
             $requete .= "'" . $this->_id_cata_ligne . "',";
             $requete .= "'" . $this->_type . "',";
-            $requete .= "'" . $this->_params . "')";
+            $requete .= "'" . addslashes($this->_params) . "')";
         }
 
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
@@ -162,7 +162,7 @@ class cata_ligne_params {
         while($row = mysqli_fetch_array($rs))
         {
             //$rows[] = array("id_cata_ligne"=>$rs["id_cata_ligne"], "params"=>unserialize($rs["params"]), "src"=>$rs["src"] , "title" => $rs["title"] , "type" => $rs["type"]);
-            array_push($rows,array("id_cata_ligne"=>$row["id_cata_ligne"], "parameters"=>(unserialize($row["params"])), "source"=>$row["src"] , "title" => $row["title"] , "type" => $row["type"]) );
+            array_push($rows,array("id_cata_ligne"=>$row["id_cata_ligne"], "parameters"=>(unserialize(stripslashes($row["params"]))), "source"=>$row["src"] , "title" => $row["title"] , "type" => $row["type"]) );
         }
 
         return $rows;

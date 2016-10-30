@@ -21,3 +21,9 @@ else if($mode == 1) {
     $modelmetier_category = $modelmetier_category->delete($id);
     print "done";
 }
+else if ($mode == 2) {
+    $id = $_GET["id"];
+    $metier  = new listmetier();
+    $metier->delete($id);
+    print "done";
+}
