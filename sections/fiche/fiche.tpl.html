@@ -3,13 +3,13 @@
     <div class="row">
         <div class="col-md-12">
             <div id="main-container">
-                <h3 id="clothing">Réalisez votre maquette, elle sera ensuite traitée par nos graphistes</h3>
+                <div class="row">
+                    <div class="col-md-10"><h3 id="clothing">Réalisez votre maquette, elle sera ensuite traitée par nos graphistes</h3></div>
+                    <div class="col-md-2"><button class="btn btn-warning" ng-click="fiche.fnClickPanier()">Panier <span class="glyphicon glyphicon-shopping-cart"></span> ({{fiche.countProds}})</button></div>
+                </div>
+
                 <div class="row" style="margin: 2px">
-                    <div class="col-md-12 btn-group center-block" style="margin: 5px">
-                        <button ng-click="fiche.fnMetierList();" class="btn btn-info btn-lg "><span><img src="images/icons/gallery.ico" style="height: 50px;width:50px"></span> Galerie de modèles</button>
-                        <button ng-click="fiche.fnValidMaquette()" class="btn btn-primary btn-lg" style="height: 72px;">Validez ma maquette</button>
-                        <button ng-click="" class="btn btn-primary btn-lg" style="height: 72px;"> Confiez nous la conception de votre maquette</button>
-                    </div>
+                    <div class="well well-md">Nos graphistes prendront en charge votre maquette et nous vous enverrons un Bon à Tirer dans un délai maximum de 72hr, hors jours feriés,après la validation de votre Bon à Tirer, votre produit passera en fabrication.</div>
                     <div class="col-md-12 " style="margin: 5px">
                         <div class="col-md-12" style="padding-bottom: 5px">
                             <div class="col-md-3" style="font-weight: bold">
@@ -19,7 +19,25 @@
                                 <input type="text" class="form-control" ng-model="fiche.produit.titre" placeholder="Titre" aria-describedby="basic-addon1">
                             </div>
                         </div>
-                        <div class="col-md-12" style="padding-bottom: 5px" ng-show="fiche.productList[0].contours == 1 || fiche.productList[0].coucher == 1 || fiche.productList[0].escargot == 1 || fiche.productList[0].liserai == 1">
+                        <div class="col-md-12" style="padding-bottom: 5px" ng-show="fiche.productList[0].escargot == 1">
+                            <div class="col-md-3" style="font-weight: bold">
+                                Option Attache
+                            </div>
+                            <div class="col-md-7">
+                                <form>
+                                    <label class="radio-inline">
+                                        <input id="aucunEscargot" type="radio" name="optescargot" value="0">Aucun
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input id="avecTrou" type="radio" name="optescargot" value="1">Attache Escargot
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input id="sansTrou" type="radio" name="optescargot" value="2">Avec Trou
+                                    </label>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="padding-bottom: 5px" ng-show="fiche.productList[0].contours == 1 || fiche.productList[0].liserai == 1">
                             <div class="col-md-3" style="font-weight: bold">
                                 Caractéristique Additionel
                             </div>
@@ -29,18 +47,35 @@
                                         <input id="aucun" type="radio" name="optradio" value="0">Aucun
                                     </label>
                                     <label ng-show="fiche.productList[0].contours == 1" class="radio-inline">
-                                        <input id="trait" type="radio" name="optradio" value="1">Contours
-                                    </label>
-                                    <label class="radio-inline" ng-show="fiche.productList[0].coucher == 1">
-                                        <input id="coucher" type="radio" name="optradio" value="2">Coucher
-                                    </label>
-                                    <label class="radio-inline" ng-show="fiche.productList[0].escargot == 1">
-                                        <input id="escargot" type="radio" name="optradio" value="3">Attach Escargot
+                                        <input id="trait" type="radio" name="optradio" value="1">Cadre
                                     </label>
                                     <label class="radio-inline" ng-show="fiche.productList[0].liserai == 1">
-                                        <input id="liserai" type="radio" name="optradio" value="4">Liserai
+                                        <input id="liserai" type="radio" name="optradio" value="2">Liseré
                                     </label>
                                 </form>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="padding-bottom: 5px">
+                            <div class="col-md-3" style="font-weight: bold">
+                                Commande
+                            </div>
+                            <div class="col-md-7">
+                                <form>
+                                    <label  class="radio-inline">
+                                        <input id="cmdBonTirer" type="radio" name="optcommande" value="1">Avec Bon à tirer
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input id="cmdBonNonTirer" type="radio" name="optcommande" value="2">Sans Bon à tirer
+                                    </label>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="padding-bottom: 5px">
+                            <div class="col-md-3" style="font-weight: bold">
+                                Finition papier Couché
+                            </div>
+                            <div class="col-md-7" style="padding-bottom: 5px">
+                                <select class="sel_papier" style="width: 100%;"></select>
                             </div>
                         </div>
                         <div class="col-md-12" style="padding-bottom: 5px">
@@ -67,6 +102,13 @@
                                 <textarea class="form-control" rows="5" id="comment" ng-model="fiche.produit.commentaire"></textarea>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-12 btn-group center-block" style="margin: 5px">
+                        <button ng-click="fiche.fnMetierList();" class="btn btn-info btn-lg "><span><img src="images/icons/gallery.ico" style="height: 50px;width:50px"></span> Galerie de modèles</button>
+                        <!--button type="button" class="btn btn-success pull-right" ng-click="fiche.fnSaveProduit(0)">Ajouter Au panier</button-->
+                        <!--button type="button" class="btn btn-success pull-right" ng-click="fiche.fnSaveProduit(1)">PASSEZ MA COMMANDE AVEC BON À TIRER</button-->
+                        <button class="btn btn-primary btn-lg pull-right" style="height: 72px;" ng-click="fiche.fnAddBasket()">Ajouter Au panier</button>
+                        <!--button ng-click="" class="btn btn-primary btn-lg" style="height: 72px;"> Confiez nous la conception de votre maquette</button-->
                     </div>
                     <div class="col-md-12">
                         <div id="model" class="fpd-container fpd-shadow-2 fpd-topbar fpd-tabs fpd-tabs-side fpd-top-actions-centered fpd-bottom-actions-centered fpd-views-inside-left">
@@ -95,7 +137,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title"><span><img src="images/icons/gallery.ico" style="height: 50px;width:50px">Gallery des models</span></h4>
+                <h4 class="modal-title"><span><img src="images/icons/gallery.ico" style="height: 50px;width:50px">Galerie de modèles</span></h4>
             </div>
             <div class="modal-body" style="height: 550px;overflow: scroll">
                 <div class="row" style="padding: 3px;">
@@ -105,8 +147,8 @@
                     </div>
                 </div>
                 <ul class="nav nav-tabs">
-                    <li ng-class="{ active: fiche.activeId == 1 }" style="cursor: pointer" ng-click="fiche.fnClickTabs(1)"><a>Models</a></li>
-                    <li ng-class="{ active: fiche.activeId == 2 }" style="cursor: pointer" ng-click="fiche.fnClickTabs(2)"><a>Créez ma maquette</a></li>
+                    <li ng-class="{ active: fiche.activeId == 1 }" style="cursor: pointer" ng-click="fiche.fnClickTabs(1)"><a>Créez ma maquette avec modèles</a></li>
+                    <li ng-class="{ active: fiche.activeId == 2 }" style="cursor: pointer" ng-click="fiche.fnClickTabs(2)"><a>Créez ma maquette sans modèle</a></li>
                 </ul>
                 <div ng-show="fiche.isShow == 1">
                     <!--div class="row" style="padding: 3px;">
@@ -279,6 +321,80 @@
             </div>
         </div>
 
+    </div>
+</div>
+
+<!--PANIER CHECKOUT-->
+<div id="modalPanier" class="modal fade" data-backdrop="static">
+    <div class="modal-dialog" style="width: 90%;height:80%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"><span class="glyphicon glyphicon-shopping-cart"></span><span> Panier - Produits</span></h4>
+            </div>
+            <div class="modal-body" style="overflow: hidden">
+                <div class="row">
+                    <div>Vos produits seront traité et on vous feras un retour d'ici 72 heures</div>
+                    <table border="1">
+                        <th class="paddingTable">Titre</th>
+                        <th class="paddingTable">Option Attache</th>
+                        <th class="paddingTable">Additionel</th>
+                        <th class="paddingTable">Commande</th>
+                        <th class="paddingTable">Finition Papier</th>
+                        <th class="paddingTable">Dimension</th>
+                        <th class="paddingTable">Quantité</th>
+                        <th class="paddingTable">Instructions</th>
+                        <th class="paddingTable">Prix</th>
+                        <th class="paddingTable">Actions</th>
+                        <tr ng-repeat="(key, ligne) in fiche.arrProduits">
+                            <td class="paddingTable">{{ligne.title}} - {{key}}</td>
+                            <!--Escargot-->
+                            <td class="paddingTable" ng-show="ligne.escargot == 0">Aucun</td>
+                            <td class="paddingTable" ng-show="ligne.escargot == 1">Attach Escargot</td>
+                            <td class="paddingTable" ng-show="ligne.escargot == 2">Avec Trou</td>
+                            <!--Caractéristiques Optionnel-->
+                            <td class="paddingTable" ng-show="ligne.option==0">Aucun</td>
+                            <td class="paddingTable" ng-show="ligne.option==1">Avec Cadre</td>
+                            <td class="paddingTable" ng-show="ligne.option==2">Avec Liseré</td>
+                            <!--Bon de commande-->
+                            <td class="paddingTable" ng-show="ligne.bonrepli==1">Avec Bon à tirer</td>
+                            <td class="paddingTable" ng-show="ligne.bonrepli==2">Sans Bon à tirer</td>
+                            <td class="paddingTable"> - </td>
+                            <td class="paddingTable">{{ligne.dimension}}</td>
+                            <td class="paddingTable">{{ligne.qte}}</td>
+                            <!--td class="paddingTable">{{ligne.commentaire}}</td-->
+                            <td class="paddingTable" style="text-align: center"><button type="button" class="btn btn-primary btn-circle1" ng-click="fiche.fnAlertCommentaire(ligne.commentaire)"><b>i</b></button></td>
+                            <td class="paddingTable">€ 120</td>
+                            <td>
+                                <button type='button'
+                                        class='btn btn-success btn-circle'
+                                        style='margin-left: 5px;margin-top: 5px;'
+                                        ng-click='fiche.fnImgClient(ligne)'>
+                                    <i class='glyphicon glyphicon-picture'></i>
+                                </button>
+                                <button type='button'
+                                        class='btn btn-info btn-circle'
+                                        style='margin-left: 5px;margin-top: 5px;'
+                                        ng-click='fiche.fnEditClient(ligne)'>
+                                    <i class='glyphicon glyphicon-pencil'></i>
+                                </button>
+                                <button type='button'
+                                        class='btn btn-default btn-circle'
+                                        style='margin-left: 5px;margin-top: 5px;'
+                                        ng-click=''>
+                                    <i class='glyphicon glyphicon-trash'></i>
+                                </button>
+                            </td>
+
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" ng-click="" data-dismiss="modal">Quitter</button>
+                <button type="button" class="btn btn-success pull-right">Valider</button>
+            </div>
+        </div>
     </div>
 </div>
 

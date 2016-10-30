@@ -11,14 +11,27 @@ angular
         vm.modelsTous=[];
         vm.listMetier = [];
         vm.libMetier = [];
+        vm.arrProduits = [];
         vm.activeId = 1;
         vm.isShow = 1;
         vm.produit = [{titre:"", commentaire:''}];
+
         $scope.alertMsg = "";
         $scope.isFiche = true;
 
         vm.currentMetier = "";
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        })
+
         //console.log("FACT VALUE:: ", messages.list);
+        vm.arrProduits = JSON.parse(localStorage.getItem("produits"));
+        if (vm.arrProduits == null) {
+            vm.arrProduits = [];
+            localStorage.setItem("produits", JSON.stringify(vm.arrProduits));
+        }
+
+        vm.countProds = (JSON.parse(localStorage.getItem("produits"))).length;
 
         $(".sel_trait").select2({
             tags: true,
@@ -42,6 +55,16 @@ angular
             }
         });
         $(".sel_qte").select2({
+            tags: true,
+            allowClear: true,
+            data:[],
+            "language": {
+                "noResults": function(){
+                    return "Pas de résutat";
+                }
+            }
+        });
+        $(".sel_papier").select2({
             tags: true,
             allowClear: true,
             data:[],
@@ -138,6 +161,8 @@ angular
                     $(".sel_qte").html('').select2({data: arrDataQte});
                     //selection produit
                     $('#aucun').prop('checked', true);
+                    $('#aucunEscargot').prop('checked', true);
+                    $('#cmdBonTirer').prop('checked', true);
                     $timeout(function() {
                         $("#imgScroll").endlessScroll({ width: '100%',height: '250px', steps: -2, speed: 40, mousestop: true });
 
@@ -191,7 +216,7 @@ angular
                                     'bottom': ['undo','redo'],
                                     'left': ['manage-layers','info','save','load']*/
                                     'top':[],
-                                     'right': ['magnify-glass', 'zoom', 'reset-product','ruler','undo','redo']
+                                     'right': ['zoom', 'reset-product','ruler','undo','redo']
                                 }
                             },
                             yourDesigner = new FancyProductDesigner($yourDesigner, pluginOpts);
@@ -791,8 +816,10 @@ angular
                                     }})
                                 }
                             })
-                            arrProducts.push({title:value.title, thumbnail:value.thumbnail_src, elements:arrFront});
-                            arrProducts.push({title:value.title, thumbnail:value.thumbnail_src, elements:arrBack});
+                            //arrProducts.push({title:value.title, thumbnail:value.thumbnail_src, elements:arrFront});
+                            //arrProducts.push({title:value.title, thumbnail:value.thumbnail_src, elements:arrBack});
+                            arrProducts.push({title:'Recto', thumbnail:'images/gallery/simple.png', elements:arrFront});
+                            arrProducts.push({title:'Recto Verso', thumbnail:'images/gallery/recto.jpg', elements:arrBack});
                             yourDesigner.addProduct(arrProducts);
                         });
 
@@ -961,6 +988,8 @@ angular
                                     $(".sel_qte").html('').select2({data: arrDataQte});
                                     //selection produit
                                     $('#aucun').prop('checked', true);
+                                    $('#aucunEscargot').prop('checked', true);
+                                    $('#cmdBonTirer').prop('checked', true);
                                     angular.forEach(response.data, function(value){
                                         var arrProducts = [];
                                         var arrFront = [];
@@ -1609,23 +1638,99 @@ angular
                         }
 
                         vm.fnSaveProduit = function(flag){
+                            var obj={};
                             yourDesigner.getProductDataURL(function(dataURL) {
                                 $.post( "api/save_image_client.php", {
                                     base64_image    : dataURL,
                                     titre           : vm.produit.titre,
                                     commentaire     : vm.produit.commentaire,
                                     option          : $('input[name="optradio"]:checked').val(),
+                                    escargot        : $('input[name="optescargot"]:checked').val(),
                                     dimension       : $('.sel_dimensions').select2('data')[0].text,
                                     qte             : $('.sel_qte').select2('data')[0].text,
                                     bonrepli        : flag,
-                                    data            : yourDesigner.getProduct()});});
+                                    data            : yourDesigner.getProduct()}
+                                );
+                                obj.base64_image = dataURL;
+                                obj.title = vm.produit.titre;
+                                obj.commentaire = vm.produit.commentaire;
+                                obj.option = $('input[name="optradio"]:checked').val();
+                                obj.escargot = $('input[name="optescargot"]:checked').val();
+                                obj.dimension = $('.sel_dimensions').select2('data')[0].text;
+                                obj.qte = $('.sel_qte').select2('data')[0].text;
+                                obj.bonrepli = flag;
+                                obj.data = yourDesigner.getProduct();
+                                console.log(obj , " object produit");
+                            });
 
                             bootbox.alert('Votre Schèma a été enregistré.');
                             toastr.options.positionClass = 'toast-top-right';
                             toastr.success("Enregistrement terminé");
+                            //localStorage.setItem("id_model", $id_cata);
+
+
+
                             $("#modalMaquette").modal('hide');
                         }
 
+                        vm.fnAddBasket = function() {
+                            console.clear();
+                            if(typeof vm.produit.titre == 'undefined' || (vm.produit.titre).trim() == "") {
+                                bootbox.alert("<div style='text-align: center'><b>Veuillez renseigner le titre s'il-vous-plait.</b></div>");
+                                return;
+                            }
+                            var obj={};
+                            yourDesigner.getProductDataURL(function(dataURL) {
+                                obj.base64_image = dataURL;
+                                obj.title = vm.produit.titre;
+                                obj.commentaire = vm.produit.commentaire;
+                                obj.option = $('input[name="optradio"]:checked').val();
+                                obj.escargot = $('input[name="optescargot"]:checked').val();
+                                obj.dimension = $('.sel_dimensions').select2('data')[0].text;
+                                obj.qte = $('.sel_qte').select2('data')[0].text;
+                                obj.bonrepli = $('input[name="optcommande"]:checked').val();
+                                obj.data = yourDesigner.getProduct();
+
+                                vm.arrProduits = JSON.parse(localStorage.getItem("produits"));
+                                if (vm.arrProduits == null) {
+                                    vm.arrProduits = [];
+                                    localStorage.setItem("produits", JSON.stringify(vm.arrProduits));
+                                }
+                                vm.arrProduits.push((obj));
+                                localStorage.setItem("produits", JSON.stringify(vm.arrProduits));
+                            });
+                            console.log("********************************************************");
+                            console.log(JSON.parse(localStorage.getItem("produits")));
+                            console.log("********************************************************");
+                            vm.countProds = vm.arrProduits.length;
+                        }
+
+                        vm.fnClickPanier = function() {
+                            vm.arrProduits = JSON.parse(localStorage.getItem("produits"));
+                            console.clear();
+                            console.log("DATA PRODUITS" , vm.arrProduits);
+                            $("#modalPanier").modal();
+                        }
+
+                        vm.fnAlertCommentaire = function(text) {
+                            if(text != ""){
+                                bootbox.alert("<div style='text-align: center'>"+text+"</div>");
+                            }
+                        }
+
+                        vm.fnImgClient = function(produit) {
+                            console.log(produit);
+                            bootbox.alert("<img style='width: 100%;height: 100%' src='"+produit.base64_image+"'>");
+                        }
+
+                        vm.fnEditClient = function(produit) {
+                            $("#modalPanier").modal('hide');
+                            yourDesigner.loadProduct(produit.data);
+                        }
+
+                        vm.fnDelClient = function(produit){
+
+                        }
                     }, 0);
                 }, function errorCallback(error) {
                     console.log(error);

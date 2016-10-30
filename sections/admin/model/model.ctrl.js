@@ -185,7 +185,7 @@ console.log(response.data, "baakallk");
                         },
                         actions:  {
                             'top': ['download','print', 'snap', 'preview-lightbox'],
-                            'right': ['magnify-glass', 'zoom', 'reset-product', 'qr-code', 'ruler'],
+                            'right': ['zoom', 'reset-product', 'ruler'],
                             'bottom': ['undo','redo'],
                             'left': ['manage-layers','info','save','load']
                         }

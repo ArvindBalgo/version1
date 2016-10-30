@@ -439,6 +439,40 @@ angular
                 vm.currentImg = "assets/img/contenants.png";
                 $('#modalModel').modal();
             }
+            else if (opt == 3){
+                //delete
+                console.log(vm.selectedObj);
+                bootbox.dialog({
+                    message: "Confirmez-vous la suppresion de ce metier <b>"+vm.selectedObj.libelle+"</b>?",
+                    title: "Suppresion",
+                    buttons: {
+                        annuler: {
+                            label: "Non",
+                            className: "btn-secondary",
+                            callback: function() {
+                                console.log("Annulation de cette suppression");
+                            }
+                        },
+                        valider: {
+                            label: "Oui",
+                            className: "btn-success",
+                            callback: function() {
+                                console.log("confirmation to delete");
+                                $http({
+                                 method: 'GET',
+                                 params: {mode:2, id:vm.selectedObj.id},
+                                 url: 'api/v1/metierCRUD.php'
+                                 }).then(function successCallback(response) {
+                                 console.log(response.data);
+                                 vm.fnModelMetier();
+                                 }, function errorCallback(error) {
+                                 console.log(error);
+                                 });
+                            }
+                        }
+                    }
+                });
+            }
         }
 
         vm.fnFilterGrid = function() {
