@@ -542,7 +542,7 @@ console.log(response.data, "baakallk");
                                     if(value1.parameters.curveRadius == "false"){
                                         value1.parameters.curveRadius = false;
                                     }
-                                    else{
+                                    else if(value1.parameters.curveRadius == "true"){
                                         value1.parameters.curveRadius = true;
                                     }
 
@@ -618,7 +618,7 @@ console.log(response.data, "baakallk");
                                             "cornerSize":value1.parameters.cornerSize,
                                             "curvable":value1.parameters.curvable,
                                             "colors":value1.parameters.colors,
-                                            "curveRadius":80,
+                                            "curveRadius":value1.parameters.curveRadius,
                                             "curveReverse":value1.parameters.curveReverse,
                                             "curveSpacing":parseInt(value1.parameters.curveSpacing),
                                             "curved":value1.parameters.curved,
@@ -839,15 +839,17 @@ console.log(response.data, "baakallk");
                                     if(value1.parameters.curveRadius == "false"){
                                         value1.parameters.curveRadius = false;
                                     }
-                                    else{
+                                    else if(value1.parameters.curveRadius == "true"){
                                         value1.parameters.curveRadius = true;
                                     }
+
                                     if(value1.parameters.curveReverse == "false"){
                                         value1.parameters.curveReverse = false;
                                     }
-                                    else{
+                                    else if(value1.parameters.curveReverse == "true"){
                                         value1.parameters.curveReverse = true;
                                     }
+
                                     if(value1.parameters.editable == "false"){
                                         value1.parameters.editable = false;
                                     }
@@ -919,7 +921,7 @@ console.log(response.data, "baakallk");
                                             "cornerSize":value1.parameters.cornerSize,
                                             "curvable":value1.parameters.curvable,
                                             "colors":value1.parameters.colors,
-                                            "curveRadius":80,
+                                            "curveRadius":value1.parameters.curveRadius,
                                             "curveReverse":value1.parameters.curveReverse,
                                             "curveSpacing":parseInt(value1.parameters.curveSpacing),
                                             "curved":value1.parameters.curved,
@@ -1216,14 +1218,14 @@ console.log(response.data, "baakallk");
                                     if(value1.parameters.curveReverse == "false"){
                                         value1.parameters.curveReverse = false;
                                     }
-                                    else{
+                                    else if(value1.parameters.curveReverse == "true"){
                                         value1.parameters.curveReverse = true;
                                     }
 
                                     if(value1.parameters.curveRadius == "false"){
                                         value1.parameters.curveRadius = false;
                                     }
-                                    else{
+                                    else if(value1.parameters.curveRadius == "true"){
                                         value1.parameters.curveRadius = true;
                                     }
 
@@ -1241,6 +1243,20 @@ console.log(response.data, "baakallk");
                                         value1.parameters.colors = true;
                                     }
 
+                                    if(value1.parameters.numberPlaceholder == "false"){
+                                        value1.parameters.numberPlaceholder = false;
+                                    }
+                                    else if(value1.parameters.numberPlaceholder == "true"){
+                                        value1.parameters.numberPlaceholder = true;
+                                    }
+
+                                    if(value1.parameters.textBox == "false"){
+                                        value1.parameters.textBox = false;
+                                    }
+                                    else if(value1.parameters.textBox == "true"){
+                                        value1.parameters.textBox = true;
+                                    }
+
                                     if(value1.type == 'image'){
                                         arrFront.push({source:value1.source, title:value1.title, type:value1.type,parameters:{
                                             "left"  :   parseFloat(value1.parameters.left),
@@ -1254,9 +1270,14 @@ console.log(response.data, "baakallk");
                                             "colorLinkGroup":value1.parameters.colorLinkGroup,
                                             "cornerSize":value1.parameters.cornerSize,
                                             "copyable":value1.parameters.copyable,
+                                            "curvable":value1.parameters.curvable,
+                                            "curveRadius":value1.parameters.curveRadius,
+                                            "curveReverse":value1.parameters.curveReverse,
+                                            "curved":value1.parameters.curved,
                                             "colors":value1.parameters.colors,
                                             "availableFilters":new Array("grayscale", "sepia", "sepia2"),
                                             "draggable":value1.parameters.draggable,
+                                            "editable":value1.parameters.editable,
                                             "evented":value1.parameters.evented,
                                             "filter":value1.parameters.filter,
                                             "flipX":value1.parameters.flipX,
@@ -1299,7 +1320,7 @@ console.log(response.data, "baakallk");
                                             "cornerSize":value1.parameters.cornerSize,
                                             "curvable":value1.parameters.curvable,
                                             "colors":value1.parameters.colors,
-                                            "curveRadius":80,
+                                            "curveRadius":value1.parameters.curveRadius,
                                             "curveReverse":value1.parameters.curveReverse,
                                             "curveSpacing":parseInt(value1.parameters.curveSpacing),
                                             "curved":value1.parameters.curved,
@@ -1320,6 +1341,7 @@ console.log(response.data, "baakallk");
                                             "lockUniScaling":value1.parameters.lockUniScaling,
                                             "maxLength":parseInt(value1.parameters.maxLength),
                                             "maxLines":parseInt(value1.parameters.maxLines),
+                                            "numberPlaceholder":value1.parameters.numberPlaceholder,
                                             "opacity":parseInt(value1.parameters.opacity),
                                             "originX":value1.parameters.originX,
                                             "originY":value1.parameters.originY,
@@ -1335,17 +1357,18 @@ console.log(response.data, "baakallk");
                                             "strokeWidth":parseInt(value1.parameters.strokeWidth),
                                             "text":value1.parameters.text,
                                             "textAlign":value1.parameters.textAlign,
-                                            "textBox":parseInt(value1.parameters.textBox),
+                                            "textBox":(value1.parameters.textBox),
                                             "textDecoration":value1.parameters.textDecoration,
                                             "toppped":value1.parameters.topped,
+                                            "uniScalingUnlockable" : value1.parameters.uniScalingUnlockable,
+                                            "uploadZone": value1.parameters.uploadZone,
                                             "width":parseFloat(value1.parameters.width),
                                             "z":parseInt(value1.parameters.z),
                                             "zChangeable":value1.parameters.zChangeable
                                         }})
                                     }
+                                });
 
-
-                                })
                                 angular.forEach(value.elemback.params, function(value1){
                                     var flag = false;
                                     if(value1.parameters.fill != "false"){
@@ -1520,7 +1543,7 @@ console.log(response.data, "baakallk");
                                     if(value1.parameters.curveRadius == "false"){
                                         value1.parameters.curveRadius = false;
                                     }
-                                    else{
+                                    else if(value1.parameters.curveRadius == "true"){
                                         value1.parameters.curveRadius = true;
                                     }
                                     if(value1.parameters.curveReverse == "false"){
@@ -1600,7 +1623,7 @@ console.log(response.data, "baakallk");
                                             "cornerSize":value1.parameters.cornerSize,
                                             "curvable":value1.parameters.curvable,
                                             "colors":value1.parameters.colors,
-                                            "curveRadius":80,
+                                            "curveRadius":value1.parameters.curveRadius,
                                             "curveReverse":value1.parameters.curveReverse,
                                             "curveSpacing":parseInt(value1.parameters.curveSpacing),
                                             "curved":value1.parameters.curved,

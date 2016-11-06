@@ -14,3 +14,18 @@
     line-height: 1.428571429;
     border-radius: 15px;
 }
+#tab1.active > a{
+    background-color: purple;
+    color: white;
+}
+#tab2.active > a{
+    background-color: purple;
+    color: white;
+}
+#tab1 > a{
+
+}
+#tab2 > a{
+
+}
+

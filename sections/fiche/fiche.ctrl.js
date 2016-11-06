@@ -216,7 +216,7 @@ angular
                                     'bottom': ['undo','redo'],
                                     'left': ['manage-layers','info','save','load']*/
                                     'top':[],
-                                     'right': ['zoom', 'reset-product','ruler','undo','redo']
+                                     'right': ['zoom', 'reset-product','undo','redo']
                                 }
                             },
                             yourDesigner = new FancyProductDesigner($yourDesigner, pluginOpts);
@@ -228,7 +228,6 @@ angular
 
                             angular.forEach(value.elemfront.params, function(value1){
                                 var flag = false;
-                                console.log(value1.type, "   ::TYPE");
 
                                 if(value1.parameters.fill != "false"){
                                     flag = value1.parameters.fill;
@@ -400,14 +399,14 @@ angular
                                 if(value1.parameters.curveReverse == "false"){
                                     value1.parameters.curveReverse = false;
                                 }
-                                else{
+                                else if(value1.parameters.curveReverse == "true"){
                                     value1.parameters.curveReverse = true;
                                 }
 
                                 if(value1.parameters.curveRadius == "false"){
                                     value1.parameters.curveRadius = false;
                                 }
-                                else{
+                                else if(value1.parameters.curveRadius == "true"){
                                     value1.parameters.curveRadius = true;
                                 }
 
@@ -418,10 +417,31 @@ angular
                                     value1.parameters.editable = true;
                                 }
 
+                                if(value1.parameters.colors == "false"){
+                                    value1.parameters.colors = false;
+                                }
+                                else if(value1.parameters.colors == "true"){
+                                    value1.parameters.colors = true;
+                                }
+
+                                if(value1.parameters.numberPlaceholder == "false"){
+                                    value1.parameters.numberPlaceholder = false;
+                                }
+                                else if(value1.parameters.numberPlaceholder == "true"){
+                                    value1.parameters.numberPlaceholder = true;
+                                }
+
+                                if(value1.parameters.textBox == "false"){
+                                    value1.parameters.textBox = false;
+                                }
+                                else if(value1.parameters.textBox == "true"){
+                                    value1.parameters.textBox = true;
+                                }
+
                                 if(value1.type == 'image'){
                                     arrFront.push({source:value1.source, title:value1.title, type:value1.type,parameters:{
-                                        "left"  :   value1.parameters.left,
-                                        "top"   :   value1.parameters.top,
+                                        "left"  :   parseFloat(value1.parameters.left),
+                                        "top"   :   parseFloat(value1.parameters.top),
                                         "fill"  :   flag,
                                         "angle" :   parseInt(value1.parameters.angle),
                                         "autoCenter":value1.parameters.autoCenter,
@@ -431,8 +451,14 @@ angular
                                         "colorLinkGroup":value1.parameters.colorLinkGroup,
                                         "cornerSize":value1.parameters.cornerSize,
                                         "copyable":value1.parameters.copyable,
+                                        "curvable":value1.parameters.curvable,
+                                        "curveRadius":value1.parameters.curveRadius,
+                                        "curveReverse":value1.parameters.curveReverse,
+                                        "curved":value1.parameters.curved,
+                                        "colors":value1.parameters.colors,
                                         "availableFilters":new Array("grayscale", "sepia", "sepia2"),
                                         "draggable":value1.parameters.draggable,
+                                        "editable":value1.parameters.editable,
                                         "evented":value1.parameters.evented,
                                         "filter":value1.parameters.filter,
                                         "flipX":value1.parameters.flipX,
@@ -441,21 +467,21 @@ angular
                                         "isCustom":value1.parameters.isCustom,
                                         "isEditable":value1.parameters.isEditable,
                                         "lockUniScaling":value1.parameters.lockUniScaling,
-                                        "opacity":value1.parameters.opacity,
+                                        "opacity":parseInt(value1.parameters.opacity),
                                         "originX":value1.parameters.originX,
                                         "originY":value1.parameters.originY,
-                                        "padding":value1.parameters.padding,
+                                        "padding":parseInt(value1.parameters.padding),
                                         "removable":value1.parameters.removable,
                                         "replace":value1.parameters.replace,
                                         "replaceInAllViews":value1.parameters.replaceInAllViews,
                                         "resizable":value1.parameters.resizable,
                                         "rotatable":value1.parameters.rotatable,
-                                        "scaleX":value1.parameters.scaleX,
-                                        "scaleY":value1.parameters.scaleY,
+                                        "scaleX":parseFloat(value1.parameters.scaleX),
+                                        "scaleY":parseFloat(value1.parameters.scaleY),
                                         "toppped":value1.parameters.topped,
                                         "uniScalingUnlockable":value1.parameters.uniScalingUnlockable,
                                         "uploadZone":value1.parameters.uploadZone,
-                                        "width":parseInt(value1.parameters.width),
+                                        "width":parseFloat(value1.parameters.width),
                                         "uploadZoneScaleMode":value1.parameters.uploadZoneScaleMode,
                                         "z":value1.parameters.z,
                                         "zChangeable":value1.parameters.zChangeable
@@ -474,8 +500,8 @@ angular
                                         "colorLinkGroup":value1.parameters.colorLinkGroup,
                                         "cornerSize":value1.parameters.cornerSize,
                                         "curvable":value1.parameters.curvable,
-                                        "colors":true,
-                                        "curveRadius":80,
+                                        "colors":value1.parameters.colors,
+                                        "curveRadius":value1.parameters.curveRadius,
                                         "curveReverse":value1.parameters.curveReverse,
                                         "curveSpacing":parseInt(value1.parameters.curveSpacing),
                                         "curved":value1.parameters.curved,
@@ -496,6 +522,7 @@ angular
                                         "lockUniScaling":value1.parameters.lockUniScaling,
                                         "maxLength":parseInt(value1.parameters.maxLength),
                                         "maxLines":parseInt(value1.parameters.maxLines),
+                                        "numberPlaceholder":value1.parameters.numberPlaceholder,
                                         "opacity":parseInt(value1.parameters.opacity),
                                         "originX":value1.parameters.originX,
                                         "originY":value1.parameters.originY,
@@ -505,23 +532,24 @@ angular
                                         "replaceInAllViews":value1.parameters.replaceInAllViews,
                                         "resizable":value1.parameters.resizable,
                                         "rotatable":value1.parameters.rotatable,
-                                        "scaleX":parseInt(value1.parameters.scaleX),
-                                        "scaleY":parseInt(value1.parameters.scaleY),
+                                        "scaleX":parseFloat(value1.parameters.scaleX),
+                                        "scaleY":parseFloat(value1.parameters.scaleY),
                                         "stroke":value1.parameters.stroke,
                                         "strokeWidth":parseInt(value1.parameters.strokeWidth),
                                         "text":value1.parameters.text,
                                         "textAlign":value1.parameters.textAlign,
-                                        "textBox":parseInt(value1.parameters.textBox),
+                                        "textBox":(value1.parameters.textBox),
                                         "textDecoration":value1.parameters.textDecoration,
                                         "toppped":value1.parameters.topped,
+                                        "uniScalingUnlockable" : value1.parameters.uniScalingUnlockable,
+                                        "uploadZone": value1.parameters.uploadZone,
                                         "width":parseFloat(value1.parameters.width),
                                         "z":parseInt(value1.parameters.z),
                                         "zChangeable":value1.parameters.zChangeable
                                     }})
                                 }
+                            });
 
-
-                            })
                             angular.forEach(value.elemback.params, function(value1){
                                 var flag = false;
                                 if(value1.parameters.fill != "false"){
@@ -696,7 +724,7 @@ angular
                                 if(value1.parameters.curveRadius == "false"){
                                     value1.parameters.curveRadius = false;
                                 }
-                                else{
+                                else if(value1.parameters.curveRadius == "true"){
                                     value1.parameters.curveRadius = true;
                                 }
                                 if(value1.parameters.curveReverse == "false"){
@@ -711,14 +739,19 @@ angular
                                 else{
                                     value1.parameters.editable = true;
                                 }
-
+                                if(value1.parameters.colors == "false"){
+                                    value1.parameters.colors = false;
+                                }
+                                else if(value1.parameters.colors == "true"){
+                                    value1.parameters.colors = true;
+                                }
 
                                 if(value1.type == 'image'){
                                     arrBack.push({source:value1.source, title:value1.title, type:value1.type,parameters:{
-                                        "left"  :   value1.parameters.left,
-                                        "top"   :   value1.parameters.top,
+                                        "left"  :   parseFloat(value1.parameters.left),
+                                        "top"   :   parseFloat(value1.parameters.top),
                                         "fill"  :   flag,
-                                        "angle" :   value1.parameters.angle,
+                                        "angle" :   parseInt(value1.parameters.angle),
                                         "autoCenter":value1.parameters.autoCenter,
                                         "autoSelect":value1.parameters.autoSelect,
                                         "boundingBox":value1.parameters.boundingBox,
@@ -726,6 +759,7 @@ angular
                                         "colorLinkGroup":value1.parameters.colorLinkGroup,
                                         "cornerSize":value1.parameters.cornerSize,
                                         "copyable":value1.parameters.copyable,
+                                        "colors":value1.parameters.colors,
                                         "availableFilters":new Array("grayscale", "sepia", "sepia2"),
                                         "draggable":value1.parameters.draggable,
                                         "evented":value1.parameters.evented,
@@ -736,21 +770,21 @@ angular
                                         "isCustom":value1.parameters.isCustom,
                                         "isEditable":value1.parameters.isEditable,
                                         "lockUniScaling":value1.parameters.lockUniScaling,
-                                        "opacity":value1.parameters.opacity,
+                                        "opacity":parseInt(value1.parameters.opacity),
                                         "originX":value1.parameters.originX,
                                         "originY":value1.parameters.originY,
-                                        "padding":value1.parameters.padding,
+                                        "padding":parseInt(value1.parameters.padding),
                                         "removable":value1.parameters.removable,
                                         "replace":value1.parameters.replace,
                                         "replaceInAllViews":value1.parameters.replaceInAllViews,
                                         "resizable":value1.parameters.resizable,
                                         "rotatable":value1.parameters.rotatable,
-                                        "scaleX":value1.parameters.scaleX,
-                                        "scaleY":value1.parameters.scaleY,
+                                        "scaleX":parseFloat(value1.parameters.scaleX),
+                                        "scaleY":parseFloat(value1.parameters.scaleY),
                                         "toppped":value1.parameters.topped,
                                         "uniScalingUnlockable":value1.parameters.uniScalingUnlockable,
                                         "uploadZone":value1.parameters.uploadZone,
-                                        "width":parseInt(value1.parameters.width),
+                                        "width":parseFloat(value1.parameters.width),
                                         "uploadZoneScaleMode":value1.parameters.uploadZoneScaleMode,
                                         "z":value1.parameters.z,
                                         "zChangeable":value1.parameters.zChangeable
@@ -769,12 +803,11 @@ angular
                                         "colorLinkGroup":value1.parameters.colorLinkGroup,
                                         "cornerSize":value1.parameters.cornerSize,
                                         "curvable":value1.parameters.curvable,
-                                        "colors":true,
-                                        "curveRadius":80,
+                                        "colors":value1.parameters.colors,
+                                        "curveRadius":value1.parameters.curveRadius,
                                         "curveReverse":value1.parameters.curveReverse,
                                         "curveSpacing":parseInt(value1.parameters.curveSpacing),
                                         "curved":value1.parameters.curved,
-                                        "price":0,
                                         "copyable":value1.parameters.copyable,
                                         "draggable":value1.parameters.draggable,
                                         "editable":value1.parameters.editable,
@@ -785,7 +818,7 @@ angular
                                         "fontSize":parseInt(value1.parameters.fontSize),
                                         "fontStyle":value1.parameters.fontStyle,
                                         "fontWeight":value1.parameters.fontWeight,
-                                        "height":parseInt(value1.parameters.height),
+                                        "height":parseFloat(value1.parameters.height),
                                         "isCustom":value1.parameters.isCustom,
                                         "isEditable":value1.parameters.isEditable,
                                         "lineHeight":parseInt(value1.parameters.lineHeight),
@@ -801,8 +834,8 @@ angular
                                         "replaceInAllViews":value1.parameters.replaceInAllViews,
                                         "resizable":value1.parameters.resizable,
                                         "rotatable":value1.parameters.rotatable,
-                                        "scaleX":parseInt(value1.parameters.scaleX),
-                                        "scaleY":parseInt(value1.parameters.scaleY),
+                                        "scaleX":parseFloat(value1.parameters.scaleX),
+                                        "scaleY":parseFloat(value1.parameters.scaleY),
                                         "stroke":value1.parameters.stroke,
                                         "strokeWidth":parseInt(value1.parameters.strokeWidth),
                                         "text":value1.parameters.text,
@@ -810,7 +843,7 @@ angular
                                         "textBox":parseInt(value1.parameters.textBox),
                                         "textDecoration":value1.parameters.textDecoration,
                                         "toppped":value1.parameters.topped,
-                                        "width":parseInt(value1.parameters.width),
+                                        "width":parseFloat(value1.parameters.width),
                                         "z":parseInt(value1.parameters.z),
                                         "zChangeable":value1.parameters.zChangeable
                                     }})
@@ -818,8 +851,8 @@ angular
                             })
                             //arrProducts.push({title:value.title, thumbnail:value.thumbnail_src, elements:arrFront});
                             //arrProducts.push({title:value.title, thumbnail:value.thumbnail_src, elements:arrBack});
-                            arrProducts.push({title:'Recto', thumbnail:'images/gallery/simple.png', elements:arrFront});
-                            arrProducts.push({title:'Recto Verso', thumbnail:'images/gallery/recto.jpg', elements:arrBack});
+                            arrProducts.push({title:'Recto', thumbnail:'images/gallery/simple1.jpg', elements:arrFront});
+                            arrProducts.push({title:'Recto Verso', thumbnail:'images/gallery/simple2.jpg', elements:arrBack});
                             yourDesigner.addProduct(arrProducts);
                         });
 
@@ -1169,14 +1202,14 @@ angular
                                             if(value1.parameters.curveReverse == "false"){
                                                 value1.parameters.curveReverse = false;
                                             }
-                                            else{
+                                            else if(value1.parameters.curveReverse == "true"){
                                                 value1.parameters.curveReverse = true;
                                             }
 
                                             if(value1.parameters.curveRadius == "false"){
                                                 value1.parameters.curveRadius = false;
                                             }
-                                            else{
+                                            else if(value1.parameters.curveRadius == "true"){
                                                 value1.parameters.curveRadius = true;
                                             }
 
@@ -1194,6 +1227,20 @@ angular
                                                 value1.parameters.colors = true;
                                             }
 
+                                            if(value1.parameters.numberPlaceholder == "false"){
+                                                value1.parameters.numberPlaceholder = false;
+                                            }
+                                            else if(value1.parameters.numberPlaceholder == "true"){
+                                                value1.parameters.numberPlaceholder = true;
+                                            }
+
+                                            if(value1.parameters.textBox == "false"){
+                                                value1.parameters.textBox = false;
+                                            }
+                                            else if(value1.parameters.textBox == "true"){
+                                                value1.parameters.textBox = true;
+                                            }
+
                                             if(value1.type == 'image'){
                                                 arrFront.push({source:value1.source, title:value1.title, type:value1.type,parameters:{
                                                     "left"  :   parseFloat(value1.parameters.left),
@@ -1207,9 +1254,14 @@ angular
                                                     "colorLinkGroup":value1.parameters.colorLinkGroup,
                                                     "cornerSize":value1.parameters.cornerSize,
                                                     "copyable":value1.parameters.copyable,
+                                                    "curvable":value1.parameters.curvable,
+                                                    "curveRadius":value1.parameters.curveRadius,
+                                                    "curveReverse":value1.parameters.curveReverse,
+                                                    "curved":value1.parameters.curved,
                                                     "colors":value1.parameters.colors,
                                                     "availableFilters":new Array("grayscale", "sepia", "sepia2"),
                                                     "draggable":value1.parameters.draggable,
+                                                    "editable":value1.parameters.editable,
                                                     "evented":value1.parameters.evented,
                                                     "filter":value1.parameters.filter,
                                                     "flipX":value1.parameters.flipX,
@@ -1252,7 +1304,7 @@ angular
                                                     "cornerSize":value1.parameters.cornerSize,
                                                     "curvable":value1.parameters.curvable,
                                                     "colors":value1.parameters.colors,
-                                                    "curveRadius":80,
+                                                    "curveRadius":value1.parameters.curveRadius,
                                                     "curveReverse":value1.parameters.curveReverse,
                                                     "curveSpacing":parseInt(value1.parameters.curveSpacing),
                                                     "curved":value1.parameters.curved,
@@ -1273,6 +1325,7 @@ angular
                                                     "lockUniScaling":value1.parameters.lockUniScaling,
                                                     "maxLength":parseInt(value1.parameters.maxLength),
                                                     "maxLines":parseInt(value1.parameters.maxLines),
+                                                    "numberPlaceholder":value1.parameters.numberPlaceholder,
                                                     "opacity":parseInt(value1.parameters.opacity),
                                                     "originX":value1.parameters.originX,
                                                     "originY":value1.parameters.originY,
@@ -1288,17 +1341,18 @@ angular
                                                     "strokeWidth":parseInt(value1.parameters.strokeWidth),
                                                     "text":value1.parameters.text,
                                                     "textAlign":value1.parameters.textAlign,
-                                                    "textBox":parseInt(value1.parameters.textBox),
+                                                    "textBox":(value1.parameters.textBox),
                                                     "textDecoration":value1.parameters.textDecoration,
                                                     "toppped":value1.parameters.topped,
+                                                    "uniScalingUnlockable" : value1.parameters.uniScalingUnlockable,
+                                                    "uploadZone": value1.parameters.uploadZone,
                                                     "width":parseFloat(value1.parameters.width),
                                                     "z":parseInt(value1.parameters.z),
                                                     "zChangeable":value1.parameters.zChangeable
                                                 }})
                                             }
-
-
                                         });
+
                                         angular.forEach(value.elemback.params, function(value1){
                                             var flag = false;
                                             if(value1.parameters.fill != "false"){
@@ -1553,7 +1607,7 @@ angular
                                                     "cornerSize":value1.parameters.cornerSize,
                                                     "curvable":value1.parameters.curvable,
                                                     "colors":value1.parameters.colors,
-                                                    "curveRadius":80,
+                                                    "curveRadius":value1.parameters.curveRadius,
                                                     "curveReverse":value1.parameters.curveReverse,
                                                     "curveSpacing":parseInt(value1.parameters.curveSpacing),
                                                     "curved":value1.parameters.curved,

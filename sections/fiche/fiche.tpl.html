@@ -4,12 +4,12 @@
         <div class="col-md-12">
             <div id="main-container">
                 <div class="row">
-                    <div class="col-md-10"><h3 id="clothing">Réalisez votre maquette, elle sera ensuite traitée par nos graphistes</h3></div>
-                    <div class="col-md-2"><button class="btn btn-warning" ng-click="fiche.fnClickPanier()">Panier <span class="glyphicon glyphicon-shopping-cart"></span> ({{fiche.countProds}})</button></div>
+                    <div class="col-md-9" style="margin-left: 50px"><h3 id="clothing">Réalisez votre maquette, elle sera ensuite traitée par nos graphistes</h3></div>
+                    <div class="col-md-2 pull-right"><button class="btn btn-warning" ng-click="fiche.fnClickPanier()">Panier <span class="glyphicon glyphicon-shopping-cart"></span> ({{fiche.countProds}})</button></div>
                 </div>
 
                 <div class="row" style="margin: 2px">
-                    <div class="well well-md">Nos graphistes prendront en charge votre maquette et nous vous enverrons un Bon à Tirer dans un délai maximum de 72hr, hors jours feriés,après la validation de votre Bon à Tirer, votre produit passera en fabrication.</div>
+                    <div class="col-md-8 well well-sm" style="margin-left: 50px">Si vous cochez l'option "AVEC BON A TIRER" IL VOUS sera envoyé dans un délai maximum de 48h.</div>
                     <div class="col-md-12 " style="margin: 5px">
                         <div class="col-md-12" style="padding-bottom: 5px">
                             <div class="col-md-3" style="font-weight: bold">
@@ -62,10 +62,10 @@
                             <div class="col-md-7">
                                 <form>
                                     <label  class="radio-inline">
-                                        <input id="cmdBonTirer" type="radio" name="optcommande" value="1">Avec Bon à tirer
+                                        <input id="cmdBonTirer" type="radio" name="optcommande" value="1">Avec bon à tirer
                                     </label>
                                     <label class="radio-inline">
-                                        <input id="cmdBonNonTirer" type="radio" name="optcommande" value="2">Sans Bon à tirer
+                                        <input id="cmdBonNonTirer" type="radio" name="optcommande" value="2">Sans bon à tirer
                                     </label>
                                 </form>
                             </div>
@@ -103,11 +103,22 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 btn-group center-block" style="margin: 5px">
-                        <button ng-click="fiche.fnMetierList();" class="btn btn-info btn-lg "><span><img src="images/icons/gallery.ico" style="height: 50px;width:50px"></span> Galerie de modèles</button>
+                    <div class="col-md-12" style="margin: 5px">
+                        <button ng-click="fiche.fnMetierList();" class="col-md-3 btn btn-lg " style="background-color: #D893E3; color: white; text-wrap: normal"><span><img src="images/icons/gallery.ico" style="height: 50px;width:50px"></span> Galerie de modèles</button>
                         <!--button type="button" class="btn btn-success pull-right" ng-click="fiche.fnSaveProduit(0)">Ajouter Au panier</button-->
                         <!--button type="button" class="btn btn-success pull-right" ng-click="fiche.fnSaveProduit(1)">PASSEZ MA COMMANDE AVEC BON À TIRER</button-->
-                        <button class="btn btn-primary btn-lg pull-right" style="height: 72px;" ng-click="fiche.fnAddBasket()">Ajouter Au panier</button>
+                        <div class=" col-md-7" style="text-align: center; color: darkgrey">
+                            <div>
+                                <b>Confiez nous la conception de votre maquettte,</b>
+                            </div>
+                            <div>
+                                <b>notez les instructions et laissez nos graphistes faire le travail.</b>
+                            </div>
+                            <div>
+                                <b>Vous avez déjà un graphiste; téléchargez le et nous l'imprimerons pour vous.</b>
+                            </div>
+                        </div>
+                        <button class="col-md-2 btn btn-primary btn-lg pull-right" style="height: 72px;background-color: #D893E3; color: white;" ng-click="fiche.fnAddBasket()">Ajouter Au panier</button>
                         <!--button ng-click="" class="btn btn-primary btn-lg" style="height: 72px;"> Confiez nous la conception de votre maquette</button-->
                     </div>
                     <div class="col-md-12">
@@ -147,8 +158,8 @@
                     </div>
                 </div>
                 <ul class="nav nav-tabs">
-                    <li ng-class="{ active: fiche.activeId == 1 }" style="cursor: pointer" ng-click="fiche.fnClickTabs(1)"><a>Créez ma maquette avec modèles</a></li>
-                    <li ng-class="{ active: fiche.activeId == 2 }" style="cursor: pointer" ng-click="fiche.fnClickTabs(2)"><a>Créez ma maquette sans modèle</a></li>
+                    <li id="tab1" ng-class="{ active: fiche.activeId == 1 }" style="cursor: pointer" ng-click="fiche.fnClickTabs(1)"><a>Créez ma maquette avec modèles</a></li>
+                    <li id="tab2" ng-class="{ active: fiche.activeId == 2 }" style="cursor: pointer" ng-click="fiche.fnClickTabs(2)"><a>Créez ma maquette sans modèle</a></li>
                 </ul>
                 <div ng-show="fiche.isShow == 1">
                     <!--div class="row" style="padding: 3px;">
@@ -334,7 +345,6 @@
             </div>
             <div class="modal-body" style="overflow: hidden">
                 <div class="row">
-                    <div>Vos produits seront traité et on vous feras un retour d'ici 72 heures</div>
                     <table border="1">
                         <th class="paddingTable">Titre</th>
                         <th class="paddingTable">Option Attache</th>

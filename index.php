@@ -28,9 +28,9 @@
 </head>
 <body data-ng-app="myApp" ng-controller="mainController">
 <section id="main">
-    <div class="container">
+    <!--div class="container"-->
         <ng-view></ng-view>
-    </div>
+    <!--/div-->
 </section>
 
 <!-- build:assets assets.min.js -->

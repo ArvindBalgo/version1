@@ -16,6 +16,7 @@ angular
         $scope.header = "Listes des metiers";
         vm.description = "";
         vm.currentImg = "";
+        vm.qteComm = "";
         vm.selectedObj = {};
         vm.libMetier = "";
         vm.modelLibelle = "";
@@ -31,7 +32,7 @@ angular
         vm.scDescription = "";
         vm.currentSCategory = {};
 
-        vm.arrValues = [
+        /*vm.arrValues = [
             {id:1, text:500},
             {id:2, text:1000},
             {id:3, text:1500},
@@ -49,7 +50,7 @@ angular
             tags: true,
             allowClear: true,
             data:vm.arrValues
-        });
+        });*/
 
         var uploader = $scope.uploader12 = new FileUploader({
             url: 'api/categoryupload.php'
@@ -72,11 +73,9 @@ angular
         });
         uploader.formData.push({
             name: vm.modelLibelle,
-            //qte: $(".selObj").select2().val(),
             active:vm.active
         });
         uploader.onBeforeUploadItem = function(item) {
-            console.log($(".selObj").select2().val(), "  javascript before upload");
             var id_model = 0;
             var img_modified = 0;
             if(typeof vm.selRowCategory.id === 'undefined' || vm.selRowCategory.id === null){
@@ -89,7 +88,7 @@ angular
                 img_modified = 1;
             }
 
-            item.formData = [{id:vm.selectedObj.id,name:vm.modelLibelle, qte:$(".selObj").select2().val(), active:vm.active, id_model:id_model, img_modified:img_modified}];
+            item.formData = [{id:vm.selectedObj.id,name:vm.modelLibelle, qte:vm.qteComm, active:vm.active, id_model:id_model, img_modified:img_modified}];
         };
         uploader.onSuccessItem = function(fileItem, response, status, headers) {
             console.info('onSuccessItem', fileItem, response, status, headers);
@@ -119,7 +118,6 @@ angular
         });
         uploadersc.formData.push({
             name: vm.modelLibelle,
-            //qte: $(".selObj").select2().val(),
             active:vm.active
         });
         uploadersc.onBeforeUploadItem = function(item) {
@@ -189,7 +187,9 @@ angular
                 })
             }
             if(opt == 2) {
+                vm.qteComm = "";
                 if(row.qte != ""){
+                    vm.qteComm = row.qte;
                     arrQte = row.qte.split(",");
                 }
                 vm.isModified = false;
@@ -207,13 +207,13 @@ angular
 
                 $("#modalModel").modal();
 
-                $(".selObj").select2({
+                /*$(".selObj").select2({
                     tags: true,
                     allowClear: true,
                     data:[]
                 });
 
-                $('.selObj').val(arrQte).trigger("change");
+                $('.selObj').val(arrQte).trigger("change");*/
 
                 vm.srcModel = row.src;
             }
@@ -544,7 +544,7 @@ angular
 
             $http({
                 method: 'GET',
-                params: {mode:6, id:vm.selRowCategory.id,name:vm.modelLibelle, qte:$(".selObj").select2().val().toString(), active:flagactive},
+                params: {mode:6, id:vm.selRowCategory.id,name:vm.modelLibelle, qte:vm.qteComm, active:flagactive},
                 url: 'api/v1/info.php'
             }).then(function successCallback(response) {
                     console.log(response.data);
