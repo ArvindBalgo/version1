@@ -99,13 +99,13 @@
                     <li id="tab2" ng-class="{ active: home.activeTabId == 2 }" style="cursor: pointer" ng-click="home.fnClickTabs(2)"><a>Créez ma maquette sans modèle</a></li>
                 </ul>
                 <div ng-show="home.activeTabId == 1" class="col-md-3" style="margin-bottom: 5px; margin-top: 5px;" ng-repeat="sample in home.arrProds">
-                    <div class="tileImg" style="" ng-click="home.fnModelClick(sample.id, sample.id_modelmetier, sample.id_cata, sample.id_metier)" >
+                    <div class="tileImg" style="height: 250px" ng-click="home.fnModelClick(sample.id, sample.id_modelmetier, sample.id_cata, sample.id_metier)" >
                         <img style="width: 200px; height: 200px" src="{{sample.src}}">
                         <span><p>{{sample.description}} </p></span>
                     </div>
                 </div>
                 <div ng-show="home.activeTabId == 2" class="col-md-3" style="margin-bottom: 5px; margin-top: 5px;" ng-repeat="sample in home.arrGabarits">
-                    <div class="tileImg" style="" ng-click="home.fnModelClick(sample.id, sample.id_modelmetier, sample.id_cata, sample.id_metier)" >
+                    <div class="tileImg" style="height:250px" ng-click="home.fnModelClick(sample.id, sample.id_modelmetier, sample.id_cata, sample.id_metier)" >
                         <img style="width: 200px; height: 200px" src="{{sample.src}}">
                         <span><p>{{sample.description}} </p></span>
                     </div>

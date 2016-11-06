@@ -170,8 +170,8 @@
                     </div-->
 
                     <div class="col-md-4" style="margin-bottom: 5px; margin-top: 5px;" ng-repeat="model in fiche.models">
-                        <div class="tileImg" ng-click="fiche.fnModelClick(model.id_cata, model.id_metier)" >
-                            <img style="width: 100%; height: 100%" src="{{model.src}}">
+                        <div class="tileImg" style="height: 250px" ng-click="fiche.fnModelClick(model.id_cata, model.id_metier)" >
+                            <img style="width: 100%; height: 200px" src="{{model.src}}">
                             <span><p>{{model.description}}</p></span>
                         </div>
                     </div>
@@ -180,8 +180,8 @@
                 <div ng-show="fiche.isShow == 2">
                     <div class="col-md-4" style="margin-bottom: 5px; margin-top: 5px;" ng-repeat="model in fiche.
                     gabarits">
-                        <div class="tileImg" ng-click="fiche.fnModelClick(model.id_cata, model.id_metier)" >
-                            <img style="width: 100%; height: 100%" src="{{model.src}}">
+                        <div class="tileImg" style="height: 250px" ng-click="fiche.fnModelClick(model.id_cata, model.id_metier)" >
+                            <img style="width: 100%; height: 200px" src="{{model.src}}">
                             <span><p>{{model.description}}</p></span>
                         </div>
                     </div>
