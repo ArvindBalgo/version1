@@ -1843,12 +1843,13 @@ angular
 
                     $(".sel_model_metier").select2().val(localStorage.idModelMetier).trigger("change");
 
-                    $(".sel_metier").on("select2:select", function (e) {
+                    /*$(".sel_metier").on("select2:select", function (e) {
                         vm.rechModels($(".sel_metier").select2().val() , $(".sel_model_metier").select2().val());
-                    });
+                    });*/
 
                     $(".sel_model_metier").on("select2:select", function (e) {
-                        vm.rechModels($(".sel_metier").select2().val() , $(".sel_model_metier").select2().val());
+                      //  vm.rechModels($(".sel_metier").select2().val() , $(".sel_model_metier").select2().val());
+                        vm.rechModels($(".sel_model_metier").select2().val());
                     });
 
                 }, function errorCallback(error) {
@@ -1856,10 +1857,10 @@ angular
                 });
         }
 
-        vm.rechModels = function(id_metier, id_model){
+        vm.rechModels = function(id_model){
             $http({
                 method: 'GET',
-                params: {mode:0, id:id_model},
+                params: {mode:14, id:id_model},
                 url: 'api/v1/sampleControl.php'
             }).then(function successCallback(response) {
                     //console.log(response.data);

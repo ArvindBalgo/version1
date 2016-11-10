@@ -609,6 +609,11 @@ padding: 2.5rem;
 #tab2 > a{
 
 }
+#fixed-div {
+    position: fixed;
+    top: 1em;
+    right: 1em;
+}
 
 /*
 

@@ -340,3 +340,12 @@ else if($mode == 13) {
     $cataMetier = $cataMetier->fnUpdateSubCat($id_produit, $id_subcategory);
     print json_encode($cataMetier);
 }
+else if($mode == 14) {
+    $id = $_GET["id"];
+    $cata = new cata();
+    $results = $cata->findAllByModelMetier($id);
+    /*$sample = new gabarits();
+    $sample = $sample->findByIdModel($id);*/
+    print json_encode($results);
+    return;
+}

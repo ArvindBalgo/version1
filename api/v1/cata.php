@@ -345,4 +345,16 @@ class cata {
         }
         return $rows;
     }
+
+    public function findAllByModelMetier($id){
+        $requete = "select * from cata c inner join cata_metier cm on c.id = cm.id_cata where cm.id_modelmetier=".$id;
+        $rs = $this->conn->query($requete);
+
+        $rows = [];
+        while($row = mysqli_fetch_array($rs))
+        {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
 }

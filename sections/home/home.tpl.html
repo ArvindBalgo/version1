@@ -22,6 +22,7 @@
         </ul>
     </div>
 </div-->
+<div id="fixed-div"><button class="btn btn-danger" >TEST</button></div>
 <div class="row">
         <div class="col-md-12">
             <div class="col-md-2 metierPadding" ng-repeat="boulot in home.btnMetier"><button  id="{{boulot.id}}" type="button" class="btn btn-default  btn3d" ng-class="{ active: boulot.id == home.activeId }"ng-click="home.fnClickBtn(boulot)"><b>{{boulot.libelle}}<br><span style="font-size: 10px">{{boulot.sub_libelle}}</span></b></button></div>
