@@ -349,7 +349,7 @@ angular
             }).then(function successCallback(response) {
                     console.log(response.data);
                    // vm.gridOptions.data = response.data;
-                    response.data.splice(0, 1);
+                   // response.data.splice(0, 1);
                     vm.myData = response.data;
                     var arrMetier = [];
 

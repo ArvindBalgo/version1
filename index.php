@@ -16,8 +16,6 @@
     <!-- Optional - only when you would like to use custom fonts - optional -->
     <link rel="stylesheet" type="text/css" href="css/jquery.fancyProductDesigner-fonts.css" />
     <link rel="stylesheet" type="text/css" href="css/toastr.min.css" />
-    <link rel="stylesheet" href="css/contact-buttons.css">
-    <link rel="stylesheet" href="font-awesome.min.css">
 
 
     <!--link rel="stylesheet" href="assets/css/font-icons.css" type='text/css'>
@@ -47,7 +45,6 @@
 <script src="js/jquery.ui.draggable.min.js"></script>
 <script src="js/jquery.ui.sortable.min.js"></script>
 <script src="assets/js/endless_scroll_min.js"></script>
-<script src="js/jquery.contact-buttons.js"></script>
 <script src="js/bootbox.min.js"></script>
 <script src="js/fabric.min.js"></script>
 <script src="js/FancyProductDesigner-all.min.js"></script>

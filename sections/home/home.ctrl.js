@@ -21,27 +21,6 @@ angular
         vm.arrProds = [];
         vm.arrGabarits = [];
         $scope.isFiche = false;
-        $.shareButtons({
-
-                effect  : 'slide-on-scroll',
-
-        buttons : {
-
-            'facebook':   { class: 'facebook', use: true, link: 'https://www.facebook.com/pages/mycompany', extras: 'target="_blank"' },
-
-            'linkedin':   { class: 'linkedin', use: true, link: 'https://www.linkedin.com/company/mycompany' },
-
-            'google':     { class: 'gplus',    use: true, link: 'https://plus.google.com/myidongoogle' },
-
-            'mybutton':   { class: 'git',      use: true, link: 'http://github.com', icon: 'github', title: 'My title for the button' },
-
-            'phone':      { class: 'phone separated',    use: true, link: '+000' },
-
-            'email':      { class: 'email',    use: true, link: 'test@web.com' }
-
-        }
-
-    });
 
 
 Data.get('session.php').then(function (results) {
@@ -133,11 +112,8 @@ Data.get('session.php').then(function (results) {
             }).then(function successCallback(response) {
                     console.log(response.data);
                     vm.btnMetier = response.data;
-                    angular.forEach(vm.btnMetier, function(value){
-                        if(value.libelle == "Tous les produits") {
-                            vm.activeId = value.id;
-                        }
-                    })
+                    vm.activeId = response.data[0].id;
+
                 }, function errorCallback(error) {
                     console.log(error);
                 });
@@ -183,7 +159,14 @@ Data.get('session.php').then(function (results) {
             }).then(function successCallback(response) {
                     console.log("MODEL METIER");
                     vm.origModels = angular.copy(response.data);
-                    vm.metier = response.data;
+                   // vm.metier = response.data;
+                var arrModels = [];
+                angular.forEach(response.data, function(value){
+                    if(value.category == vm.activeId){
+                        arrModels.push(value);
+                    }
+                });
+                vm.metier = angular.copy(arrModels);
                 }, function errorCallback(error) {
                     console.log(error);
                 });
@@ -244,5 +227,3 @@ Data.get('session.php').then(function (results) {
         vm.fnRecupMetier();
         vm.fnModelMetierAll();
     });
-
-});

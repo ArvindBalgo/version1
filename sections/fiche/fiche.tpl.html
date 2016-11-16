@@ -1,4 +1,15 @@
 <header ng-include="'sections/header.html'"></header>
+<div class="a2a_kit a2a_kit_size_52 a2a_floating_style a2a_vertical_style" style="right:0px; top:100px;background-color: transparent;">
+    <!--a class="a2a_button_facebook"></a>
+    <a class="a2a_button_twitter"></a>
+    <a-- class="a2a_button_google_plus"></a-->
+    <!--a class="">Passer la commande</a-->
+    <!--a-- class="">Ajouter au Panier</a-->
+    <a class="btn btn-warning" ng-click="fiche.fnClickPanier()" style="margin-bottom: 5px;"><div class="glyphicon glyphicon-shopping-cart"></div><div>Mon Panier</div><div>({{fiche.countProds}})</div></a>
+    <a class="btn btn-success" ng-click="fiche.fnAddBasket()"><div class="glyphicon glyphicon-plus-sign"></div><div>Ajouter au panier</div></a>
+</div>
+<script async src="https://static.addtoany.com/menu/page.js"></script>
+
 <div class="container" style="width: 100%">
     <div class="row">
         <div class="col-md-12">
@@ -115,10 +126,10 @@
                                 <b>notez les instructions et laissez nos graphistes faire le travail.</b>
                             </div>
                             <div>
-                                <b>Vous avez déjà un graphiste; téléchargez le et nous l'imprimerons pour vous.</b>
+                                <b>Vous avez déjà un graphisme, téléchargez le et nous l'imprimerons pour vous.</b>
                             </div>
                         </div>
-                        <button class="col-md-2 btn btn-primary btn-lg pull-right" style="height: 72px;background-color: #D893E3; color: white;" ng-click="fiche.fnAddBasket()">Ajouter Au panier</button>
+                        <button class="col-md-2 btn btn-primary btn-lg pull-right" style="height: 72px;background-color: #D893E3; color: white;" ng-click="fiche.fnAddBasket()">Ajouter au panier</button>
                         <!--button ng-click="" class="btn btn-primary btn-lg" style="height: 72px;"> Confiez nous la conception de votre maquette</button-->
                     </div>
                     <div class="col-md-12">
