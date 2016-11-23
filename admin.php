@@ -22,6 +22,8 @@
     <link rel="stylesheet" type="text/css" href="sections/admin/admin.css" />
     <link rel="stylesheet" type="text/css" href="sections/admin/metier/metier.css" />
     <link rel="stylesheet" type="text/css" href="sections/admin/produits/produits.css" />
+    <link rel="stylesheet" type="text/css" href="sections/admin/type_support/type_support.css" />
+    <link rel="stylesheet" type="text/css" href="sections/admin/tarif/tarif.css" />
     <!-- endbuild -->
 </head>
 <body data-ng-app="adminApp" ng-controller="mainController">
@@ -85,22 +87,7 @@
 <script src="sections/admin/model/model.ctrl.js"></script>
 <script src="sections/admin/produits/produits.ctrl.js"></script>
 <script src="sections/admin/instructions/instructions.ctrl.js"></script>
-<!--script src="sections/premieres/premieres.ctrl.js"></script>
-<script src="sections/search/search.ctrl.js"></script>
-<script src="sections/view/view.ctrl.js"></script>
-<script src="components/bar/bar.ctrl.js"></script>
-<script src="sections/popular/popular.ctrl.js"></script>
-<!-- / -->
-<!-- SERVICES -->
-<!--script src="services/show.fct.js"></script>
-<script src="services/page.val.js"></script>
-<!-- / -->
-<!-- DIRECTIVES -->
-<!--script src="components/show/show.drct.js"></script>
-<script src="directives/ngEnter.drct.js"></script-->
-<!-- / -->
-<!-- inject:js -->
-<!-- endinject -->
-<!-- endbuild -->
+<script src="sections/admin/tarif/tarif.ctrl.js"></script>
+<script src="sections/admin/type_support/type_support.ctrl.js"></script>
 </body>
 </html>

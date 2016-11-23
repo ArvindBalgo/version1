@@ -21,3 +21,6 @@ include_once 'instructions.php';
 include_once 'commande.php';
 include_once 'commande_ligne.php';
 include_once 'commande_ligne_params.php';
+include_once 'cata_papier.php';
+include_once 'cata_dimension.php';
+include_once 'cata_support.php';

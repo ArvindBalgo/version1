@@ -108,9 +108,6 @@ class cata_metier {
     public function findByPrimaryKey($key) { // Recherche d'une adresse par id
         $requete = self::$SELECT . " WHERE id_cata=" . $key;
         $rs = $this->conn->query($requete);
-        if ($rs->EOF) {
-            return null;
-        }
         return $this->mapSqlToObject(mysqli_fetch_array($rs));
     }
 

@@ -122,4 +122,50 @@ else if($mode == 12) {
     $instruction->setInstruction($_GET["instruction"]);
     $instruction->save();
 }
+else if($mode == 13){
+    $id_metier = $_GET["id"];
+    $arrInfo = array();
+    $modelmetier = new modelmetier();
+    $modelmetier = $modelmetier->findByPrimaryKey($id_metier);
+    $cataDimension = new cata();
+    $cataDimension = $cataDimension->findDimsByModelMetier($id_metier);
 
+    $arrInfo = array("qte" => $modelmetier->getQte());
+    print json_encode($arrInfo);
+}
+else if($mode == 14) {
+    $cataPapier = new cata_papier();
+    $cataPapier->setDescription($_GET["description"]);
+    $cataPapier->save();
+
+    $cataPapier1 = new cata_papier();
+    $cataPapier1 = $cataPapier1->rechercher();
+
+    print json_encode($cataPapier1);
+}
+else if($mode == 15){
+    //recup tous les type de support
+    $cataPapier = new cata_papier();
+    $cataPapier = $cataPapier->rechercher();
+    print json_encode($cataPapier);
+}
+else if ($mode == 16) {
+    $cataPapier = new cata_papier();
+    $cataPapier = $cataPapier->findByPrimaryKey($_GET["id"]);
+    $cataPapier->setDescription($_GET["description"]);
+    $cataPapier->save();
+
+    $cataPapier1 = new cata_papier();
+    $cataPapier1 = $cataPapier1->rechercher();
+
+    print json_encode($cataPapier1);
+}
+else if($mode == 17) {
+    $cataPapier = new cata_papier();
+    $cataPapier->delete($_GET["id"]);
+
+    $cataPapier1 = new cata_papier();
+    $cataPapier1 = $cataPapier1->rechercher();
+
+    print json_encode($cataPapier1);
+}

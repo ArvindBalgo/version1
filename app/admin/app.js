@@ -79,6 +79,16 @@ app.config(['$routeProvider',
             templateUrl:'sections/admin/instructions/instructions.tpl.html',
             controller: 'instructionsController as instructions'
         })
+        .when('/tarif', {
+            title:      'Tarif',
+            templateUrl:'sections/admin/tarif/tarif.tpl.html',
+            controller: 'tarifController as tarif'
+        })
+        .when('/support', {
+            title:      'Type de Support',
+            templateUrl:'sections/admin/type_support/type_support.tpl.html',
+            controller: 'typeSupportController as support'
+        })
         .when('/', {
             title: 'Login',
             templateUrl: 'sections/login/login.tpl.html',

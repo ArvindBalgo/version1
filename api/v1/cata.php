@@ -357,4 +357,28 @@ class cata {
         }
         return $rows;
     }
+
+    public function findDimsByModelMetier($id) {
+        $requete =  "select dimensions from cata c inner join cata_metier cm on c.id = cm.id_cata where dimensions != '' and cm.id_metier=".$id;
+        $rs = $this->conn->query($requete);
+
+        $rows = [];
+        while($row = mysqli_fetch_array($rs))
+        {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
+    public function findDimsByModel($id) {
+        $requete =  "select dimensions from cata c inner join cata_metier cm on c.id = cm.id_cata where dimensions != '' and cm.id_modelmetier=".$id;
+        $rs = $this->conn->query($requete);
+
+        $rows = "";
+        while($row = mysqli_fetch_array($rs))
+        {
+            $rows .= $row["dimensions"] .",";
+        }
+        return $rows;
+    }
 }

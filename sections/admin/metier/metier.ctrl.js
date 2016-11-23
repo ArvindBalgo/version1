@@ -31,26 +31,8 @@ angular
         vm.currentSCImg = "";
         vm.scDescription = "";
         vm.currentSCategory = {};
-
-        /*vm.arrValues = [
-            {id:1, text:500},
-            {id:2, text:1000},
-            {id:3, text:1500},
-            {id:4, text:2000},
-            {id:5, text:3000},
-            {id:6, text:5000},
-            {id:7, text:10000},
-            {id:8, text:11000},
-            {id:9, text: 12000},
-            {id:10, text: 13000},
-            {id:11, text: 15000}
-        ];
-
-        $(".selObj").select2({
-            tags: true,
-            allowClear: true,
-            data:vm.arrValues
-        });*/
+        vm.arrDataDim = [];
+        vm.arrQteSupport = [];
 
         var uploader = $scope.uploader12 = new FileUploader({
             url: 'api/categoryupload.php'
@@ -270,7 +252,7 @@ angular
 
         vm.fnEditSubCategory = function(obj , opt){
             console.log("****************************");
-            console.log(obj);
+           // console.log(obj);
             console.log("****************************");
             if(opt ==1) {
                 vm.currentSCImg = obj.src;
@@ -312,13 +294,46 @@ angular
                     }
                 })
             }
+            else if(opt ==4) {
+                vm.scDescription = obj.description;
+                $http({
+                    method: 'GET',
+                    params: {mode:0, id:obj.id , id_metier:obj.id_modelmetier},
+                    url: 'api/v1/tarif.php'
+                }).then(function successCallback(response) {
+                    console.log(response.data , " datadvgvdghv");
+                    var objQte = [];
+                    /*angular.forEach(response.data.qte, function(value, key) {
+                        objQte[value] = 0;
+                    });/*
+console.log(objQte , " object quantites");
+                    /*angular.forEach(response.data.papier, function(value) {
+                        value["qte"] = response.data.qte;
+                        //console.log(value);
+                    });*/
+                    vm.arrDataDim = angular.copy(response.data);
+
+                    $('#modalSCPrix').on('show.bs.modal', function () {
+                        $('.modal-body').css('height',$( window ).height()*0.7);
+                    });
+                    $('#modalSCPrix').modal();
+
+                    $('#objDim58').value = 58;
+
+                }, function errorCallback(error) {
+                    console.log(error);
+                });
+
+
+
+            }
         }
 
         vm.columns = [  { name:'Libelle',field: 'description',enableHiding:false ,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
                 return 'cssLibelle';
                         }},
                         { name:'Quantité', field: 'qte',enableFiltering:false,enableHiding:false},
-                        { name:'Actif', field: 'active',enableFiltering:false,cellTemplate: vm.formatCell() ,enableHiding:false}
+                        { name:'Action', field: 'active',enableFiltering:false,cellTemplate: vm.formatCell() ,enableHiding:false}
 
         ];
 
@@ -473,7 +488,7 @@ angular
                     }
                 });
             }
-        }
+        };
 
         vm.fnFilterGrid = function() {
             var arrData = angular.copy(vm.originalData);
@@ -589,7 +604,22 @@ angular
                 }, function errorCallback(error) {
                     console.log(error);
                 });
-        }
+        };
+
+        vm.fnValidPrix = function(){
+            console.clear();
+            console.log(vm.arrDataDim , "data");
+        };
+
+        vm.fnAddCoeff = function($objSupport) {
+            console.clear();
+          console.log("TESTING modification" ,vm.arrDataDim.papier.filter(function(e){
+              return e.chkval == true;
+          }));
+            vm.arrQteSupport = vm.arrDataDim.papier.filter(function(e){
+                return e.chkval == true;
+            });
+        };
 
         vm.fnModelMetier();
 
