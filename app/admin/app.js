@@ -89,6 +89,26 @@ app.config(['$routeProvider',
             templateUrl:'sections/admin/type_support/type_support.tpl.html',
             controller: 'typeSupportController as support'
         })
+        .when('/apropos', {
+            title:      'Qui sommes nous?',
+            templateUrl:'sections/admin/apropos/apropos.tpl.html',
+            controller: 'aproposController as apropos'
+        })
+        .when('/conditionvente', {
+            title:      'Condition de vente',
+            templateUrl:'sections/admin/conditionvente/conditionvente.tpl.html',
+            controller: 'conditionventeController as conditionvente'
+        })
+        .when('/utilisation', {
+            title:      "Mentions d'utilisation",
+            templateUrl:'sections/admin/utilisation/utilisation.tpl.html',
+            controller: 'utilisationController as utilisation'
+        })
+        .when('/legale', {
+            title:      'Mentions légales',
+            templateUrl:'sections/admin/legale/legale.tpl.html',
+            controller: 'legaleController as legale'
+        })
         .when('/', {
             title: 'Login',
             templateUrl: 'sections/login/login.tpl.html',

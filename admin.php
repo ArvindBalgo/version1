@@ -24,6 +24,10 @@
     <link rel="stylesheet" type="text/css" href="sections/admin/produits/produits.css" />
     <link rel="stylesheet" type="text/css" href="sections/admin/type_support/type_support.css" />
     <link rel="stylesheet" type="text/css" href="sections/admin/tarif/tarif.css" />
+    <link rel="stylesheet" type="text/css" href="sections/admin/apropos/apropos.css" />
+    <link rel="stylesheet" type="text/css" href="sections/admin/conditionvente/conditionvente.css" />
+    <link rel="stylesheet" type="text/css" href="sections/admin/utilisation/utilisation.css" />
+    <link rel="stylesheet" type="text/css" href="sections/admin/legale/legale.css" />
     <!-- endbuild -->
 </head>
 <body data-ng-app="adminApp" ng-controller="mainController">
@@ -89,5 +93,9 @@
 <script src="sections/admin/instructions/instructions.ctrl.js"></script>
 <script src="sections/admin/tarif/tarif.ctrl.js"></script>
 <script src="sections/admin/type_support/type_support.ctrl.js"></script>
+<script src="sections/admin/apropos/apropos.ctrl.js"></script>
+<script src="sections/admin/conditionvente/conditionvente.ctrl.js"></script>
+<script src="sections/admin/utilisation/utilisation.ctrl.js"></script>
+<script src="sections/admin/legale/legale.ctrl.js"></script>
 </body>
 </html>

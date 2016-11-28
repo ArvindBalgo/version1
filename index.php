@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="sections/home/home.css"/>
     <link href="css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="sections/fiche/fiche.css"/>
+    <link rel="stylesheet" href="sections/apropos/apropos.css"/>
     <!-- The CSS for the plugin itself - required -->
     <link rel="stylesheet" type="text/css" href="css/FancyProductDesigner-all.min.css" />
     <!-- Optional - only when you would like to use custom fonts - optional -->
@@ -30,7 +31,7 @@
 </head>
 <body data-ng-app="myApp" ng-controller="mainController">
 <section id="main">
-    <div class="container">
+    <div>
         <ng-view></ng-view>
     </div>
 </section>
@@ -75,6 +76,10 @@
 <script src="sections/home/home.ctrl.js"></script>
 <script src="sections/fiche/fiche.ctrl.js"></script>
 <script src="sections/admin/admin.ctrl.js"></script>
+<script src="sections/apropos/apropos.ctrl.js"></script>
+<script src="sections/conditionvente/conditionvente.ctrl.js"></script>
+<script src="sections/legale/legale.ctrl.js"></script>
+<script src="sections/utilisation/utilisation.ctrl.js"></script>
 <!--script src="sections/premieres/premieres.ctrl.js"></script>
 <script src="sections/search/search.ctrl.js"></script>
 <script src="sections/view/view.ctrl.js"></script>

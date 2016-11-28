@@ -6,7 +6,7 @@ define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
 define('DB_HOST', 'localhost');
 //define('DB_NAME', 'exsa');
-define('DB_NAME', 'exakomFinal');
+define('DB_NAME', 'exakom');
 
 /*
  * define('DB_USERNAME', 'exakom');

@@ -39,6 +39,26 @@ app.config(['$routeProvider',
                 templateUrl:'sections/admin/admin.tpl.html',
                 controller:'adminController as admin'
             })
+        .when('/apropos', {
+            title:'Qui sommes nous?',
+            templateUrl:'sections/apropos/apropos.tpl.html',
+            controller:'aproposController as apropos'
+        })
+        .when('/conditionvente', {
+            title:'Condition de vente',
+            templateUrl:'sections/conditionvente/conditionvente.tpl.html',
+            controller:'conditionventeController as vente'
+        })
+        .when('/utilisation', {
+            title:"Mentions d'utilisation",
+            templateUrl:'sections/utilisation/utilisation.tpl.html',
+            controller:'utilisationController as utilisation'
+        })
+        .when('/legale', {
+            title:'Mentions légales',
+            templateUrl:'sections/legale/legale.tpl.html',
+            controller:'legaleController as legale'
+        })
         .otherwise({
                 redirectTo: '/home'
             });

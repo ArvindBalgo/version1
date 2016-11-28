@@ -24,3 +24,8 @@ include_once 'commande_ligne_params.php';
 include_once 'cata_papier.php';
 include_once 'cata_dimension.php';
 include_once 'cata_support.php';
+include_once 'docs.php';
+include_once 'apropos.php';
+include_once 'conditionvente.php';
+include_once 'legale.php';
+include_once 'utilisation.php';
