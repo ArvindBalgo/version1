@@ -29,3 +29,5 @@ include_once 'apropos.php';
 include_once 'conditionvente.php';
 include_once 'legale.php';
 include_once 'utilisation.php';
+include_once 'coeff_prix.php';
+include_once 'souscategory_prix.php';

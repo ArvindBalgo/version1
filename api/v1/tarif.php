@@ -46,7 +46,6 @@ if($mode == 0) {
     $test = array();
     foreach ($arrQte as $qte) {
         $test[$qte] = array('qte'=>0 , 'prix'=>0);
-
     }
     //type de support
     $cata_papier = new cata_papier();
@@ -62,6 +61,17 @@ if($mode == 0) {
     $cata_support = new cata_support();
     $cata_support  = $cata_support->findBySousCategory($_GET["id"]);
     $arrData["tarif"] = $cata_support;
+
+    //prix sauvegarder
+    $cprix = new coeff_prix();
+    $cprix = $cprix->findBySousCategory(intval($_GET["id"]));
+    $arrData["tarifactuel"] = $cprix;
+
+    $cprix = new coeff_prix();
+    $cprix = $cprix->getListIdPapierSupport(intval($_GET["id"]));
+    $arrData["selsupport"] = $cprix["ligne"];
+
+
     print json_encode($arrData);
 
 }

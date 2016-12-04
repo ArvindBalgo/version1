@@ -33,6 +33,7 @@ angular
         vm.currentSCategory = {};
         vm.arrDataDim = [];
         vm.arrQteSupport = [];
+        vm.arrCoeff = [];
 
         var uploader = $scope.uploader12 = new FileUploader({
             url: 'api/categoryupload.php'
@@ -295,6 +296,7 @@ angular
                 })
             }
             else if(opt ==4) {
+                vm.currentSCategory = obj;
                 vm.scDescription = obj.description;
                 $http({
                     method: 'GET',
@@ -303,22 +305,37 @@ angular
                 }).then(function successCallback(response) {
                     console.log(response.data , " datadvgvdghv");
                     var objQte = [];
-                    /*angular.forEach(response.data.qte, function(value, key) {
-                        objQte[value] = 0;
-                    });/*
-console.log(objQte , " object quantites");
-                    /*angular.forEach(response.data.papier, function(value) {
-                        value["qte"] = response.data.qte;
-                        //console.log(value);
-                    });*/
                     vm.arrDataDim = angular.copy(response.data);
+
+
+                    if(vm.arrDataDim.selsupport == null) {
+                        vm.arrDataDim.selsupport = '';
+                    }
+
+                    var arrSelSupport = vm.arrDataDim.selsupport.split(',');
+                    angular.forEach(vm.arrDataDim.papier, function(value){
+                        if(arrSelSupport.indexOf(value.id) >=0){
+                            console.log(value);
+                            value.chkval = true;
+                        }
+                    });
+                    vm.fnAddCoeff();
+
+                    angular.forEach(vm.arrQteSupport, function(value){
+                        angular.forEach(value.qte, function(val, key){
+                            angular.forEach(vm.arrDataDim.tarifactuel, function(valeur){
+                                if(valeur.id_support == value.id && valeur.qte == key){
+                                    val.qte = valeur.coeff_qte;
+                                    val.prix = valeur.coeff_prix;
+                                }
+                            });
+                        });
+                    });
 
                     $('#modalSCPrix').on('show.bs.modal', function () {
                         $('.modal-body').css('height',$( window ).height()*0.7);
                     });
                     $('#modalSCPrix').modal();
-
-                    $('#objDim58').value = 58;
 
                 }, function errorCallback(error) {
                     console.log(error);
@@ -504,14 +521,14 @@ console.log(objQte , " object quantites");
             $timeout(function(){
                 $scope.gridOptions.data = arrFiltered
             }, 0);
-        }
+        };
 
         vm.fnQuitter = function(){
             $('#imgModal').modal('hide');
             $('#modalMetier').modal('hide');
             $('#modalModel').modal('hide');
             $("#modalSousCategory").modal('hide');
-        }
+        };
 
         vm.fnValid = function() {
             var flagMode = -1;
@@ -568,7 +585,7 @@ console.log(objQte , " object quantites");
                 }, function errorCallback(error) {
                     console.log(error);
                 });
-        }
+        };
 
         vm.fnAddNewCate = function() {
             bootbox.prompt({
@@ -579,7 +596,7 @@ console.log(objQte , " object quantites");
                     vm.saveModelCategory(result);
                 }
             });
-        }
+        };
 
         vm.saveModelCategory = function(libelle){
             $http({
@@ -608,18 +625,63 @@ console.log(objQte , " object quantites");
 
         vm.fnValidPrix = function(){
             console.clear();
-            console.log(vm.arrDataDim , "data");
+            var arrCategory = [];
+            angular.forEach(vm.arrQteSupport, function(value){
+               arrCategory.push(value.id);
+            });
+
+            $http({
+                method: 'GET',
+                params: {   mode:0,
+                            id_souscategory: vm.currentSCategory.id ,
+                            data: JSON.stringify(vm.arrQteSupport) ,
+                            listsouscate:JSON.stringify(arrCategory),
+                            dim : JSON.stringify(vm.arrDataDim.dimension)},
+                url: 'api/v1/calc_prix.php'
+            }).then(function successCallback(response) {
+                console.log(response.data);
+                $('#modalSCPrix').modal('hide');
+            }, function errorCallback(error) {
+                console.log(error);
+            });
         };
 
         vm.fnAddCoeff = function($objSupport) {
-            console.clear();
-          console.log("TESTING modification" ,vm.arrDataDim.papier.filter(function(e){
-              return e.chkval == true;
-          }));
             vm.arrQteSupport = vm.arrDataDim.papier.filter(function(e){
                 return e.chkval == true;
             });
         };
+
+        vm.fnCalcPrix = function() {
+            //calc coeff
+            vm.arrCoeff = [];
+            var counter = 0;
+            angular.forEach(vm.arrDataDim.qte, function(value , key) {
+                vm.arrCoeff.push({libelle: 'Coeff - ' + value , code:'coeff', qte:value});
+                vm.arrCoeff.push({libelle: 'Prix achat - ' + value , code:'pa', qte:value});
+                vm.arrCoeff.push({libelle: 'Prix unité - ' + value , code:'pu', qte:value});
+                vm.arrCoeff.push({libelle: 'Prix totale - ' + value + ' unité' , code:'prix', qte:value});
+            });
+            console.log(vm.arrCoeff , "   arr coeff");
+            $("#modalAffichePrix").modal();
+        };
+
+        vm.fnSetCoeff = function(code, qte, objSupport, dimension) {
+            console.log(code, qte, objSupport, dimension);
+            if(code == 'coeff') {
+                return Number(objSupport.qte[qte].qte).toFixed(2);
+            }
+            else if(code == 'pa') {
+                return Number(dimension.coeff * objSupport.qte[qte].qte).toFixed(2);
+            }
+            else if(code == 'pu') {
+                return Number((dimension.coeff * objSupport.qte[qte].qte * objSupport.qte[qte].prix)/qte).toFixed(2);
+            }
+            else if(code == 'prix') {
+                return Number(dimension.coeff * objSupport.qte[qte].qte * objSupport.qte[qte].prix).toFixed(2);
+            }
+        };
+
 
         vm.fnModelMetier();
 

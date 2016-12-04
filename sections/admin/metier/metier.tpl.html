@@ -268,11 +268,11 @@
                         </div>
                     </div>
                 <div class="row" style="margin-top: 20px">
-                    <div class="col-md-11" style="height: 175px">
+                    <div class="col-md-11 scrollit" style="height: 175px">
                         <table>
                             <th></th>
                             <th ng-repeat="QTE in metier.arrDataDim.qte">Prix - {{QTE}}</th>
-                            <th ng-repeat="QTE in metier.arrDataDim.qte">{{QTE}}</th>
+                            <th ng-repeat="QTE in metier.arrDataDim.qte">Coeff - {{QTE}}</th>
                             <tr ng-repeat="ligne in metier.arrQteSupport">
 
                                 <td style="">{{ ligne.description }}</td>
@@ -289,7 +289,68 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-danger pull-left" data-dismiss="modal">Annuler</button>
+                <button class="btn btn-danger pull-right" ng-click="metier.fnCalcPrix()">Grille de prix</button>
                 <button class="btn btn-danger pull-right" ng-click="metier.fnValidPrix()">Valider</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalCalcPrix" class="modal fade" data-backdrop="static">
+    <div class="modal-dialog"  style="width: 100%;height:500px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"> Calcul des prix</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-11 scrollit" style="height: 175px">
+                        <table ng-repeat="ligne in metier.arrDataDim.dimension">
+                            <th>{{ligne.dimension}}</th>
+                            <th ng-repeat="lignePapier in metier.arrQteSupport">{{lignePapier.description}}</th>
+                            <tr ng-repeat="(key, ligne) in metier.arrQteSupport.qte">
+
+                                <td style="">{{ key }}</td>
+                                <td ng-repeat="lig in ligne.qte">
+                                    <input type="text" class="form-control" style="width: 100%" ng-model="lig.prix" placeholder="" aria-describedby="basic-addon1">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger pull-right" data-dismiss="modal">Quitter</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalAffichePrix" class="modal fade" data-backdrop="static">
+    <div class="modal-dialog" style="width: 100%;height:500px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"> {{metier.scDescription}} - Grille de prix</h4>
+            </div>
+            <div class="modal-body" style="overflow:auto">
+                <div class="row" style="margin-top: 20px" ng-repeat="dim in metier.arrDataDim.dimension">
+                    <div class="col-md-11" style="">
+                        <table>
+                            <th>Dimension: {{dim.dimension}} - ({{dim.coeff}})</th>
+                            <th ng-repeat="ligne in metier.arrQteSupport">{{ligne.description}}</th>
+
+                            <tr ng-repeat="ligne in metier.arrCoeff">
+                                <td><b>{{ligne.libelle}}</b></td>
+                                <td style="" ng-bind="metier.fnSetCoeff(ligne.code, ligne.qte, lig, dim)" ng-repeat="lig in metier.arrQteSupport"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default pull-left" data-dismiss="modal">Annuler</button>
             </div>
         </div>
     </div>
