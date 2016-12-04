@@ -303,7 +303,6 @@ angular
                     params: {mode:0, id:obj.id , id_metier:obj.id_modelmetier},
                     url: 'api/v1/tarif.php'
                 }).then(function successCallback(response) {
-                    console.log(response.data , " datadvgvdghv");
                     var objQte = [];
                     vm.arrDataDim = angular.copy(response.data);
 
@@ -315,16 +314,15 @@ angular
                     var arrSelSupport = vm.arrDataDim.selsupport.split(',');
                     angular.forEach(vm.arrDataDim.papier, function(value){
                         if(arrSelSupport.indexOf(value.id) >=0){
-                            console.log(value);
                             value.chkval = true;
                         }
                     });
                     vm.fnAddCoeff();
-
                     angular.forEach(vm.arrQteSupport, function(value){
                         angular.forEach(value.qte, function(val, key){
                             angular.forEach(vm.arrDataDim.tarifactuel, function(valeur){
-                                if(valeur.id_support == value.id && valeur.qte == key){
+
+                                if(valeur.id_support == value.id && (valeur.qte).trim() == key.trim()){
                                     val.qte = valeur.coeff_qte;
                                     val.prix = valeur.coeff_prix;
                                 }
