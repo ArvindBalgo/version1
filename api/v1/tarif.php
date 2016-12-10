@@ -98,3 +98,17 @@ else if($mode == 3) {
     $souscategory_coeffprix->delete(intval($_GET["id"]));
     print 'done';
 }
+else if($mode == 4) {
+    $id_souscategory = intval($_GET["souscategory"]);
+    $souscategory_coeffprix = new souscategory_coeffprix();
+    $souscategory_coeffprix = $souscategory_coeffprix->rechBySousCate1($id_souscategory);
+
+    print json_encode($souscategory_coeffprix);
+}
+else if($mode == 5) {
+    $cata = new cata();
+    $cata = $cata->findByPrimaryKey(intval($_GET["id_cata"]));
+    $cata->setIdSousCategoryCoeffPRix(intval($_GET["id_tarif"]));
+    $cata->save();
+    print 'done';
+}

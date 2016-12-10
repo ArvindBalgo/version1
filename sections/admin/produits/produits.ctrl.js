@@ -56,7 +56,8 @@ angular
             var trash = "<button type='button' class='btn btn-default btn-circle' style='margin-left: 5px;margin-top: 5px;' ng-click='grid.appScope.edit(grid, row.entity, 1)'><i class='glyphicon glyphicon-trash'></i></button>";
             var edit  = "<button type='button' class='btn btn-info btn-circle' style='margin-left: 5px;margin-top: 5px;' ng-click='grid.appScope.edit(grid, row.entity, 2)'><i class='glyphicon glyphicon-upload'></i></button>";
             var image = "<button type='button' class='btn btn-success btn-circle' style='margin-left: 5px;margin-top: 5px;' ng-click='grid.appScope.edit(grid, row.entity, 3)'><i class='glyphicon glyphicon-picture'></i></button>";
-            return image+edit+trash;
+            var tarif = "<button type='button' class='btn btn-primary btn-circle' style='margin-left: 5px;margin-top: 5px;' ng-click='grid.appScope.edit(grid, row.entity, 4)'><i class='glyphicon glyphicon-euro'></i></button>";
+            return image+edit+tarif+trash;
         }
 
         vm.columns = [  { name:'Libelle',field: 'description',enableHiding:false},
@@ -96,6 +97,37 @@ angular
             else if(opt == 3) {
                 //display image
                 $('#imgModal').modal();
+            }
+            else if(opt == 4) {
+                $http({
+                    method: 'GET',
+                    params: {mode:4, souscategory: vm.currentProduit.id_modelmetier},
+                    url: 'api/v1/tarif.php'
+                }).then(function successCallback(response) {
+                    var arrList = angular.copy(response.data);
+                    arrList.unshift({id:0, text:''});
+
+                    $(".sel_tarif_prod").select2({
+                        theme:"classic",
+                        data: arrList
+                    });
+
+                    $(".sel_tarif_prod").val(vm.currentProduit.id_souscategory_coeffprix).trigger("change");
+
+
+                    $(".sel_tarif_prod").on("select2:select", function (e) {
+                        console.log($(".sel_tarif_prod").select2().val() , "  :::");
+
+                    });
+
+                    $('#modalTarif').on('show.bs.modal', function () {
+                        $('.modal-body').css('height',$( window ).height()*0.7);
+                    });
+                    $('#modalTarif').modal();
+                }, function errorCallback(error) {
+                    console.log(error);
+                });
+
             }
         };
 
@@ -140,6 +172,20 @@ angular
                 }, function errorCallback(error) {
                     console.log(error);
                 });
+        };
+
+        vm.fnValidTarif = function() {
+            $http({
+                method: 'GET',
+                params: {mode:5, id_cata: vm.currentProduit.id_cata, id_tarif:$(".sel_tarif_prod").select2().val()},
+                url: 'api/v1/tarif.php'
+            }).then(function successCallback(response) {
+                vm.currentProduit.id_souscategory_coeffprix = Number($(".sel_tarif_prod").select2().val());
+                bootbox.alert("<div>La sauvegarde de la tarif terminé</div>");
+            }, function errorCallback(error) {
+                console.log(error);
+            });
+
         };
 
         $(document).ready(function(){

@@ -25,6 +25,7 @@ class cata {
     private $_date_modified = null;
     private $_created_by = null;
     private $_modified_by = null;
+    private $_id_souscategory_coeffprix = 0;
 
    private static $SELECT="SELECT * FROM cata";
     //**** Constructeur ****
@@ -88,6 +89,10 @@ class cata {
     }
     public function setModifiedBy($user) {
         $this->_modified_by= $user;
+    }
+
+    public function setIdSousCategoryCoeffPRix($id) {
+        $this->_id_souscategory_coeffprix= $id;
     }
 
     //**** Getters *****
@@ -162,6 +167,10 @@ class cata {
         return $this->_modified_by;
     }
 
+    public function getIdSousCategoryCoeffPrix() {
+        return $this->_id_souscategory_coeffprix;
+    }
+
     public function delete($id) {
         $requete = "DELETE FROM cata WHERE id=" . $id ;
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
@@ -195,6 +204,7 @@ class cata {
             $requete .= ',date_modified="' . $this->_date_modified . '"';
             $requete .= ',created_by="' . $this->_created_by . '"';
             $requete .= ',modified_by="' . $this->_modified_by . '"';
+            $requete .= ',id_souscategory_coeffprix="' . $this->_id_souscategory_coeffprix . '"';
             $requete .= ' WHERE id=' . $this->_id_cata;
 
         } else {
@@ -214,7 +224,8 @@ class cata {
             $requete .= "date_created,";
             $requete .= "date_modified,";
             $requete .= "created_by,";
-            $requete .= "modified_by";
+            $requete .= "modified_by,";
+            $requete .= "id_souscategory_coeffprix";
             $requete .= ") VALUES (";
             $requete .= '"' . $this->_libelle . '",';
             $requete .= '"' . $this->_description . '",';
@@ -231,7 +242,8 @@ class cata {
             $requete .= '"' . $this->_date_created . '",';
             $requete .= '"' . $this->_date_modified . '",';
             $requete .= '"' . $this->_created_by . '",';
-            $requete .= '"' . $this->_modified_by . '")';
+            $requete .= '"' . $this->_modified_by . '",';
+            $requete .= '"' . $this->_id_souscategory_coeffprix . '")';
         }
 
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
@@ -243,23 +255,24 @@ class cata {
     //***** Fonction de passege sql->objet *****
     private function mapSqlToObject($rs) {
         $cata = new cata();
-        $cata->_id_cata = $rs["id"];
-        $cata->_libelle = $rs["libelle"];
-        $cata->_description = $rs["description"];
-        $cata->_src = $rs["src"];
-        $cata->_id_front = $rs["id_front"];
-        $cata->_id_back = $rs["id_back"];
-        $cata->_reference = $rs["reference"];
-        $cata->_dimensions  = $rs["dimensions"];
-        $cata->_escargot    = $rs["escargot"];
-        $cata->_contours    = $rs["contours"];
-        $cata->_liserai     = $rs["liserai"];
-        $cata->_coucher     = $rs["coucher"];
-        $cata->_gabarit     = $rs["gabarit"];
-        $cata->_date_created = $rs["date_created"];
-        $cata->_date_modified = $rs["date_modified"];
-        $cata->_created_by  = $rs["created_by"];
-        $cata->_modified_by = $rs["modified_by"];
+        $cata->_id_cata             = $rs["id"];
+        $cata->_libelle             = $rs["libelle"];
+        $cata->_description         = $rs["description"];
+        $cata->_src                 = $rs["src"];
+        $cata->_id_front            = $rs["id_front"];
+        $cata->_id_back             = $rs["id_back"];
+        $cata->_reference           = $rs["reference"];
+        $cata->_dimensions          = $rs["dimensions"];
+        $cata->_escargot            = $rs["escargot"];
+        $cata->_contours            = $rs["contours"];
+        $cata->_liserai             = $rs["liserai"];
+        $cata->_coucher             = $rs["coucher"];
+        $cata->_gabarit             = $rs["gabarit"];
+        $cata->_date_created        = $rs["date_created"];
+        $cata->_date_modified       = $rs["date_modified"];
+        $cata->_created_by          = $rs["created_by"];
+        $cata->_modified_by         = $rs["modified_by"];
+        $cata->_id_souscategory_coeffprix = $rs["id_souscategory_coeffprix"];
         return $cata;
     }
 

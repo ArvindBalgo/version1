@@ -114,4 +114,13 @@ class souscategory_coeffprix {
         }
         return $rows;
     }
+
+    public function rechBySousCate1($id) {
+        $listMetier  = array();
+        $rs = $this->conn->query("SELECT id, nom as text FROM souscategory_coeffprix where souscategory=".intval($id));
+        while($row = mysqli_fetch_array($rs)){
+            $rows[] = $row;
+        }
+        return $rows;
+    }
 } 
