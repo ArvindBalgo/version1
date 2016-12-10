@@ -28,6 +28,11 @@
     font-size:large ;
     font-weight: bold;
 }
+.prix{
+    background: #1b6d85 !important;
+    font-size: 20px;
+    color:#000000;
+}
 table, th , td  {
     border: 1px solid grey;
     border-collapse: collapse;

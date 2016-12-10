@@ -34,6 +34,8 @@ angular
         vm.arrDataDim = [];
         vm.arrQteSupport = [];
         vm.arrCoeff = [];
+        vm.arrTarif = [];
+        vm.currentTarifID = {};
 
         var uploader = $scope.uploader12 = new FileUploader({
             url: 'api/categoryupload.php'
@@ -338,6 +340,20 @@ angular
                 }, function errorCallback(error) {
                     console.log(error);
                 });
+            }
+            else if(opt == 5) {
+                vm.currentSCategory = obj;
+                $http({
+                    method: 'GET',
+                    params: {mode:1, id:obj.id , id_metier:obj.id_modelmetier},
+                    url: 'api/v1/tarif.php'
+                }).then(function successCallback(response) {
+                    vm.arrTarif = response.data;
+                    $('#modalTarif').modal();
+
+                }, function errorCallback(error) {
+                    console.log(error);
+                });
 
 
 
@@ -631,6 +647,7 @@ angular
             $http({
                 method: 'GET',
                 params: {   mode:0,
+                            tarifid: vm.currentTarifID.id,
                             id_souscategory: vm.currentSCategory.id ,
                             data: JSON.stringify(vm.arrQteSupport) ,
                             listsouscate:JSON.stringify(arrCategory),
@@ -660,12 +677,11 @@ angular
                 vm.arrCoeff.push({libelle: 'Prix unité - ' + value , code:'pu', qte:value});
                 vm.arrCoeff.push({libelle: 'Prix totale - ' + value + ' unité' , code:'prix', qte:value});
             });
-            console.log(vm.arrCoeff , "   arr coeff");
             $("#modalAffichePrix").modal();
         };
 
         vm.fnSetCoeff = function(code, qte, objSupport, dimension) {
-            console.log(code, qte, objSupport, dimension);
+            console.log(vm.arrCoeff);
             if(code == 'coeff') {
                 return Number(objSupport.qte[qte].qte).toFixed(2);
             }
@@ -673,12 +689,146 @@ angular
                 return Number(dimension.coeff * objSupport.qte[qte].qte).toFixed(2);
             }
             else if(code == 'pu') {
-                return Number((dimension.coeff * objSupport.qte[qte].qte * objSupport.qte[qte].prix)/qte).toFixed(2);
+                return Number((dimension.coeff * objSupport.qte[qte].qte * objSupport.qte[qte].prix)/qte).toFixed(3);
             }
             else if(code == 'prix') {
                 return Number(dimension.coeff * objSupport.qte[qte].qte * objSupport.qte[qte].prix).toFixed(2);
             }
         };
+
+        vm.fnSetClass = function(code) {
+            return code;
+        };
+
+        vm.fnAddNewTarif = function() {
+            bootbox.prompt({
+                title: "Nom",
+                inputType: 'email',
+                callback: function (result) {
+                    console.log(result);
+                    vm.saveTarif(result);
+                }
+            });
+        };
+
+        vm.saveTarif = function(nom){
+            $http({
+                method: 'GET',
+                params: {mode:2, id: 0, souscategory:vm.currentSCategory.id, nom : nom},
+                url: 'api/v1/tarif.php'
+            }).then(function successCallback(response) {
+                console.log(response);
+                vm.fnGetAllTarifs(vm.currentSCategory.id);
+            }, function errorCallback(error) {
+                console.log(error);
+            });
+        };
+
+        vm.editTarif = function(objTarif, nom) {
+            $http({
+                method: 'GET',
+                params: {mode:2, id: objTarif.id, souscategory:objTarif.souscategory, nom : nom},
+                url: 'api/v1/tarif.php'
+            }).then(function successCallback(response) {
+                console.log(response);
+                vm.fnGetAllTarifs(vm.currentSCategory.id);
+            }, function errorCallback(error) {
+                console.log(error);
+            });
+        }
+
+
+        vm.fnGetAllTarifs = function(id) {
+            $http({
+                method: 'GET',
+                params: {mode:1, id: id},
+                url: 'api/v1/tarif.php'
+            }).then(function successCallback(response) {
+                console.log(response);
+                vm.arrTarif = response.data;
+            }, function errorCallback(error) {
+                console.log(error);
+            });
+        };
+
+        vm.fnEditTarif = function(objTarif, opt) {
+            console.log(objTarif, opt);
+            if(opt == 1) {
+                bootbox.prompt({
+                    title: "Nom",
+                    inputType: 'email',
+                    value:objTarif.nom,
+                    callback: function (result) {
+                        if(result) {
+                            vm.editTarif(objTarif, result);
+                        }
+                    }
+                });
+            }
+            else if(opt == 2) {
+                bootbox.confirm("Confirmez-vous la suppresion de cette ligne <b>" + objTarif.nom + "</b>?", function(result) {
+                    if(result){
+                        $http({
+                            method: 'GET',
+                            params: {mode:3, id:objTarif.id},
+                            url: 'api/v1/tarif.php'
+                        }).then(function successCallback(response) {
+                            console.log(response.data);
+                            vm.fnGetAllTarifs(objTarif.souscategory);
+                        }, function errorCallback(error) {
+                            console.log(error);
+                        });
+                    }
+                })
+            }
+            else if(opt ==3) {
+                vm.scDescription = vm.currentSCategory.description;
+                vm.currentTarifID = objTarif;
+                $http({
+                    method: 'GET',
+                    params: {mode: 0, id: vm.currentSCategory.id , id_metier: vm.currentSCategory.id_modelmetier, tarifid:objTarif.id},
+                    url: 'api/v1/tarif.php'
+                }).then(function successCallback(response) {
+
+                    console.log(response.data);
+                    $('#modalTarif').modal('hide');
+                    var objQte = [];
+                    vm.arrDataDim = angular.copy(response.data);
+
+
+                    if(vm.arrDataDim.selsupport == null) {
+                        vm.arrDataDim.selsupport = '';
+                    }
+
+                    var arrSelSupport = vm.arrDataDim.selsupport.split(',');
+                    angular.forEach(vm.arrDataDim.papier, function(value){
+                        if(arrSelSupport.indexOf(value.id) >=0){
+                            value.chkval = true;
+                        }
+                    });
+                    vm.fnAddCoeff();
+                    angular.forEach(vm.arrQteSupport, function(value){
+                        angular.forEach(value.qte, function(val, key){
+                            angular.forEach(vm.arrDataDim.tarifactuel, function(valeur){
+
+                                if(valeur.id_support == value.id && (valeur.qte).trim() == key.trim()){
+                                    val.qte = valeur.coeff_qte;
+                                    val.prix = valeur.coeff_prix;
+                                }
+                            });
+                        });
+                    });
+
+                    $('#modalSCPrix').on('show.bs.modal', function () {
+                        $('.modal-body').css('height',$( window ).height()*0.7);
+                    });
+                    $('#modalSCPrix').modal();
+
+                }, function errorCallback(error) {
+                    console.log(error);
+                });
+            }
+        }
 
 
         vm.fnModelMetier();

@@ -9,7 +9,7 @@ if($mode == 0) {
     foreach ($data as $key=>$val){
         foreach ($val->qte  as $skey=>$sval) {
             $cprix = new coeff_prix();
-            $cprix = $cprix->findByQteSupportSCategory($skey , $val->id , intval($_GET["id_souscategory"]));
+            $cprix = $cprix->findByQteSupportSCategory($skey , $val->id , intval($_GET["id_souscategory"]),  intval($_GET["tarifid"]));
             if($cprix == 'false') {
                 $cprix = new coeff_prix();
             }
@@ -18,20 +18,21 @@ if($mode == 0) {
             $cprix->setCoeffQte($sval->qte);
             $cprix->setIdSousCategory(intval($_GET["id_souscategory"]));
             $cprix->setIdSupport($val->id);
+            $cprix->setIdSouscategoryPrix( intval($_GET["tarifid"]));
             $cprix->save();
         }
     }
 
     //suppression des lignes non existant
     $coeffprix = new coeff_prix();
-    $coeffprix = $coeffprix->getListIdPapierSupport(intval($_GET["id_souscategory"]));
+    $coeffprix = $coeffprix->getListIdPapierSupport(intval($_GET["id_souscategory"]), intval($_GET["tarifid"]));
     $coeffprix = explode("," ,$coeffprix["ligne"]);
     foreach ($coeffprix as $ligneKey=>$ligneVal) {
         if(in_array($ligneVal, $arrSousCategory)){
         }
         else {
             $coeffprix = new coeff_prix();
-            $coeffprix->delBySousCategoryPapier(intval($_GET["id_souscategory"]) , $ligneVal);
+            $coeffprix->delBySousCategoryPapier(intval($_GET["id_souscategory"]) , $ligneVal, intval($_GET["tarifid"]));
         }
     }
 

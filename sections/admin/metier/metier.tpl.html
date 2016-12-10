@@ -153,8 +153,8 @@
                                 <button type='button'
                                         class='btn btn-danger btn-circle'
                                         style='margin-left: 5px;margin-top: 5px;'
-                                        ng-click='metier.fnEditSubCategory(subCategory , 4)'>
-                                    <i class='glyphicon glyphicon-euro'></i>
+                                        ng-click='metier.fnEditSubCategory(subCategory , 5)'>
+                                    <i class='glyphicon glyphicon-list'></i>
                                 </button>
                                 <button type='button'
                                         class='btn btn-default btn-circle'
@@ -341,9 +341,9 @@
                             <th>Dimension: {{dim.dimension}} - ({{dim.coeff}})</th>
                             <th ng-repeat="ligne in metier.arrQteSupport">{{ligne.description}}</th>
 
-                            <tr ng-repeat="ligne in metier.arrCoeff">
+                            <tr ng-repeat="ligne in metier.arrCoeff" class="{{ligne.code}}">
                                 <td><b>{{ligne.libelle}}</b></td>
-                                <td style="" ng-bind="metier.fnSetCoeff(ligne.code, ligne.qte, lig, dim)" ng-repeat="lig in metier.arrQteSupport"></td>
+                                <td ng-bind="metier.fnSetCoeff(ligne.code, ligne.qte, lig, dim)" ng-repeat="lig in metier.arrQteSupport"></td>
                             </tr>
                         </table>
                     </div>
@@ -351,6 +351,55 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default pull-left" data-dismiss="modal">Annuler</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalTarif" class="modal fade" data-backdrop="static">
+    <div class="modal-dialog" style="width: 75%;height: 500px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"> Liste des tarifs</h4>
+            </div>
+            <div class="modal-body" style="height: 400px">
+                <div class="col-md-12"><h2>{{metier.currentSCate.description}}</h2></div>
+                <div>
+                    <table>
+                        <th>Nom</th>
+                        <th>Actions</th>
+                        <tr ng-repeat="tarif in metier.arrTarif">
+
+                            <td style="width: 500px">{{ tarif.nom }}</td>
+                            <td>
+                                <button type='button'
+                                        class='btn btn-default btn-circle'
+                                        style='margin-left: 5px;margin-top: 5px;'
+                                        ng-click='metier.fnEditTarif(tarif , 3)'>
+                                    <i class='glyphicon glyphicon-euro'></i>
+                                </button>
+                                <button type='button'
+                                        class='btn btn-info btn-circle'
+                                        style='margin-left: 5px;margin-top: 5px;'
+                                        ng-click='metier.fnEditTarif(tarif , 1)'>
+                                    <i class='glyphicon glyphicon-pencil'></i>
+                                </button>
+                                <button type='button'
+                                        class='btn btn-danger btn-circle'
+                                        style='margin-left: 5px;margin-top: 5px;'
+                                        ng-click='metier.fnEditTarif(tarif , 2)'>
+                                    <i class='glyphicon glyphicon-trash'></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!--div  ui-grid="gridOptionsCategory" ui-grid-auto-resize class="myGridColumns"></div-->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger pull-left" data-dismiss="modal">Annuler</button>
+                <button class="btn btn-success pull-right" ng-click="metier.fnAddNewTarif()">Nouvelle Tarif</button>
             </div>
         </div>
     </div>

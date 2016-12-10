@@ -8,6 +8,7 @@ class coeff_prix {
     private $_qte = 0;
     private $_coeff_prix = 0;
     private $_coeff_qte = 0;
+    private $_id_souscategory_coeffprix = 0;
 
    private static $SELECT="SELECT * FROM coeff_prix";
     //**** Constructeur ****
@@ -43,6 +44,10 @@ class coeff_prix {
         $this->_coeff_qte= $cq;
     }
 
+    public function setIdSouscategoryPrix($id) {
+        $this->_id_souscategory_coeffprix= $id;
+    }
+
     //**** Getters *****
 
     public function getId() {
@@ -69,6 +74,10 @@ class coeff_prix {
         return $this->_coeff_qte;
     }
 
+    public function getIdSousCategoryPrix() {
+        return $this->_id_souscategory_coeffprix;
+    }
+
     public function delete($id) {
         $requete = "DELETE FROM coeff_prix WHERE id=" . $id ;
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
@@ -83,6 +92,7 @@ class coeff_prix {
             $requete .= " , id_support=" . $this->_id_support;
             $requete .= " , coeff_prix=" . $this->_coeff_prix;
             $requete .= " , coeff_qte=" . $this->_coeff_qte;
+            $requete .= " , id_souscategory_coeffprix=" . $this->_id_souscategory_coeffprix;
             $requete .= " WHERE id=" . $this->_id;
 
         } else {
@@ -92,12 +102,14 @@ class coeff_prix {
             $requete .= ",qte";
             $requete .= ",coeff_prix";
             $requete .= ",coeff_qte";
+            $requete .= ",id_souscategory_coeffprix";
             $requete .= ") VALUES (";
             $requete .= "'" . $this->_id_souscategory . "',";
             $requete .= "'" . $this->_id_support . "',";
             $requete .= "'" . $this->_qte . "',";
             $requete .= "'" . $this->_coeff_prix . "',";
-            $requete .= "'" . $this->_coeff_qte . "')";
+            $requete .= "'" . $this->_coeff_qte . "',";
+            $requete .= "'" . $this->_id_souscategory_coeffprix . "')";
         }
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
         return $r;
@@ -117,6 +129,7 @@ class coeff_prix {
         $coeff_p->_qte = $rs["qte"];
         $coeff_p->_coeff_prix = $rs["coeff_prix"];
         $coeff_p->_coeff_qte = $rs["coeff_qte"];
+        $coeff_p->_id_souscategory_coeffprix = $rs["id_souscategory_coeffprix"];
         return $coeff_p;
     }
 
@@ -139,15 +152,15 @@ class coeff_prix {
         return $this->mapSqlToObject(mysqli_fetch_array($rs));
     }
 
-    public function findByQteSupportSCategory($qte, $idSupport, $sousCategory) {
-        $requete = self::$SELECT . " WHERE qte=" . $qte . " and id_support=".$idSupport ." and id_souscategory=".$sousCategory;
+    public function findByQteSupportSCategory($qte, $idSupport, $sousCategory, $tarifid) {
+        $requete = self::$SELECT . " WHERE qte=" . $qte . " and id_support=".$idSupport ." and id_souscategory=".$sousCategory." and id_souscategory_coeffprix=".$tarifid;
         $rs = $this->conn->query($requete);
 
         return $this->mapSqlToObject(mysqli_fetch_array($rs));
     }
 
-    public function findBySousCategory($id) {
-        $requete = self::$SELECT ." where id_souscategory=".$id;
+    public function findBySousCategory($id, $tarifid) {
+        $requete = self::$SELECT ." where id_souscategory=".$id." and id_souscategory_coeffprix=".$tarifid;
         $rs = $this->conn->query($requete) or die($this->conn->error.__LINE__);
         $rows = [];
         while($row = mysqli_fetch_array($rs))
@@ -157,8 +170,8 @@ class coeff_prix {
         return $rows;
     }
 
-    public function getListIdPapierSupport($idSousCategory){
-        $requete = "SELECT GROUP_CONCAT(DISTINCT(id_support)) as ligne FROM coeff_prix  where id_souscategory=".$idSousCategory;
+    public function getListIdPapierSupport($idSousCategory, $tarifid){
+        $requete = "SELECT GROUP_CONCAT(DISTINCT(id_support)) as ligne FROM coeff_prix  where id_souscategory=".$idSousCategory." and id_souscategory_coeffprix=".$tarifid;
         $rs = $this->conn->query($requete) or die($this->conn->error.__LINE__);
         $row  = mysqli_fetch_array($rs);
         if(!$row) {
@@ -167,8 +180,14 @@ class coeff_prix {
         return $row;
     }
 
-    public function delBySousCategoryPapier($idcategory , $support) {
-        $requete = "delete from coeff_prix where id_souscategory=".$idcategory."  and id_support=".$support;
+    public function delBySousCategoryPapier($idcategory , $support, $tarifid) {
+        $requete = "delete from coeff_prix where id_souscategory=".$idcategory."  and id_support=".$support." and id_souscategory_coeffprix=".$tarifid;
+        $rs = $this->conn->query($requete) or die($this->conn->error.__LINE__);
+        return 'done';
+    }
+
+    public function delByIdSousCategoryCoeffPrix($id) {
+        $requete = "delete from coeff_prix where id_souscategory_coeffprix=".$id;
         $rs = $this->conn->query($requete) or die($this->conn->error.__LINE__);
         return 'done';
     }
