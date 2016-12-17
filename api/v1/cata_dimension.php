@@ -141,4 +141,11 @@ class cata_dimension {
         }
         return $rows;
     }
+
+    public function findByDimension($tarifid, $dimension) {
+        $requete = self::$SELECT . " WHERE id_souscategory_coeffprix=" . $tarifid . " and dimension='".$dimension."'";
+        $rs = $this->conn->query($requete);
+
+        return $this->mapSqlToObject(mysqli_fetch_array($rs));
+    }
 } 
