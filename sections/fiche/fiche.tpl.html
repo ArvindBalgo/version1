@@ -8,7 +8,8 @@
     <a class="btn btn-warning" ng-click="fiche.fnClickPanier()" style="margin-bottom: 5px;"><div class="glyphicon glyphicon-shopping-cart"></div><div>Mon Panier</div><div>({{fiche.countProds}})</div></a>
     <a class="btn btn-success" ng-click="fiche.fnAddBasket()"><div class="glyphicon glyphicon-plus-sign"></div><div>Ajouter au panier</div></a>
 </div>
-<script async src="https://static.addtoany.com/menu/page.js"></script>
+<!--script-- async src="https://static.addtoany.com/menu/page.js"></script-->
+<script src="js/page.js" type="application/javascript"></script>
 
 <div class="container" style="width: 100%">
     <div class="row">
@@ -111,6 +112,22 @@
                             </div>
                             <div class="col-md-7">
                                 <textarea class="form-control" rows="5" id="comment" ng-model="fiche.produit.commentaire"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-3" style="font-weight: bold">
+                                Prix unité
+                            </div>
+                            <div class="col-md-7">
+                                <span><p>{{fiche.unitprix}} Euro</p></span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-3" style="font-weight: bold">
+                                Prix de vente
+                            </div>
+                            <div class="col-md-7">
+                                <div>{{fiche.prixvente}} Euro</div>
                             </div>
                         </div>
                     </div>
@@ -385,7 +402,7 @@
                             <td class="paddingTable">{{ligne.qte}}</td>
                             <!--td class="paddingTable">{{ligne.commentaire}}</td-->
                             <td class="paddingTable" style="text-align: center"><button type="button" class="btn btn-primary btn-circle1" ng-click="fiche.fnAlertCommentaire(ligne.commentaire)"><b>i</b></button></td>
-                            <td class="paddingTable">€ 120</td>
+                            <td class="paddingTable">{{ligne.prix}}</td>
                             <td>
                                 <button type='button'
                                         class='btn btn-success btn-circle'

@@ -15,6 +15,8 @@ angular
         vm.activeId = 1;
         vm.isShow = 1;
         vm.produit = [{titre:"", commentaire:''}];
+        vm.unitprix = 0;
+        vm.prixvente = 0;
 
         $scope.alertMsg = "";
         $scope.isFiche = true;
@@ -141,6 +143,11 @@ angular
                     var arrQte = vm.productList[0].qte.split(',');
                     var arrDataDims = [];
                     var arrDataQte = [];
+                    var arrPapier = [];
+
+                    angular.forEach(vm.productList[0].type_support, function(value){
+                       arrPapier.push({id:value.id, text:value.description});
+                    });
                     angular.forEach(arrDimensions, function(value, key){
                         arrDataDims.push({id:key , text:value});
                     });
@@ -148,17 +155,54 @@ angular
                         arrDataQte.push({id:key , text:value});
                     });
 
+                // clear all option
+                    $('.sel_papier').html('').select2({data: [{id: '', text: ''}]});
+
+                // clear and add new option
+                    $(".sel_papier").html('').select2({data: arrPapier});
+
                     // clear all option
                     $('.sel_dimensions').html('').select2({data: [{id: '', text: ''}]});
 
                     // clear and add new option
                     $(".sel_dimensions").html('').select2({data: arrDataDims});
-                    console.log(arrDimensions , "  array of dimensions");
 
                     $('.sel_qte').html('').select2({data: [{id: '', text: ''}]});
 
                     // clear and add new option
                     $(".sel_qte").html('').select2({data: arrDataQte});
+
+                    $(".sel_papier").on("select2:select", function (e) {
+                        vm.fnCalcPrixVente();
+                    });
+                    $(".sel_dimensions").on("select2:select", function (e) {
+                        vm.fnCalcPrixVente();
+                    });
+
+                    $(".sel_qte").on("select2:select", function (e) {
+                        vm.fnCalcPrixVente();
+                    });
+                //******************************************************
+
+                var idSupport = $('.sel_papier').select2('data')[0].id;
+                var qte_commander = Number($('.sel_qte').select2('data')[0].text);
+                var coeff_dimension = 0;
+                var coeff_support = 0;
+                var coeff_qte = 0;
+                angular.forEach(vm.productList[0].coeff_dims, function(value) {
+                   if(value.dimension.trim() == $('.sel_dimensions').select2('data')[0].text.trim()){
+                       coeff_dimension=Number(value.coeff);
+                   }
+                });
+                angular.forEach(vm.productList[0].info_prix, function(value) {
+                    if(value.id_support == idSupport && Number(value.qte) == qte_commander) {
+                        coeff_support = Number(value.coeff_prix);
+                        coeff_qte  = Number(value.coeff_qte);
+                    }
+                });
+                vm.unitprix = ((coeff_dimension*coeff_qte*coeff_support) / qte_commander).toFixed(3);
+                vm.prixvente = (coeff_dimension*coeff_qte*coeff_support).toFixed(2);
+                //******************************************************
                     //selection produit
                     $('#aucun').prop('checked', true);
                     $('#aucunEscargot').prop('checked', true);
@@ -1744,6 +1788,7 @@ angular
                                 obj.qte = $('.sel_qte').select2('data')[0].text;
                                 obj.bonrepli = $('input[name="optcommande"]:checked').val();
                                 obj.data = yourDesigner.getProduct();
+                                obj.prix = vm.prixvente;
 
                                 vm.arrProduits = JSON.parse(localStorage.getItem("produits"));
                                 if (vm.arrProduits == null) {
@@ -1784,6 +1829,30 @@ angular
 
                         vm.fnDelClient = function(produit){
 
+                        }
+
+                        vm.fnCalcPrixVente = function() {
+                            var idSupport = $('.sel_papier').select2('data')[0].id;
+                            var qte_commander = Number($('.sel_qte').select2('data')[0].text);
+                            var coeff_dimension = 0;
+                            var coeff_support = 0;
+                            var coeff_qte = 0;
+
+                            angular.forEach(vm.productList[0].coeff_dims, function(value) {
+                                if(value.dimension.trim() == $('.sel_dimensions').select2('data')[0].text.trim()){
+                                    coeff_dimension=Number(value.coeff);
+                                }
+                            });
+                            angular.forEach(vm.productList[0].info_prix, function(value) {
+                                if(value.id_support == idSupport && Number(value.qte) == qte_commander) {
+                                    coeff_support = Number(value.coeff_prix);
+                                    coeff_qte  = Number(value.coeff_qte);
+                                }
+                            });
+
+                            vm.unitprix = ((coeff_dimension*coeff_qte*coeff_support) / qte_commander).toFixed(3);
+                            vm.prixvente = (coeff_dimension*coeff_qte*coeff_support).toFixed(2);
+                            $scope.$apply();
                         }
                     }, 0);
                 }, function errorCallback(error) {

@@ -177,4 +177,21 @@ class cata_support {
         }
 
     }
+
+    public function findByList(){
+        $requete =  "SELECT cs.id, cs.id_dimension, cs.id_support,cp.description cs.id_subcategory, cs.prix_achat, cs.qte, cs.coeff_support, cs.coeff_qte FROM cata_support cs inner join cata_papier cp on (cs.id_support = cp.id) WHERE cs.id_subcategory=" . $id;
+        $rs = $this->conn->query($requete);
+
+        if($rs){
+            $rows = array();
+            while($row = mysqli_fetch_array($rs))
+            {
+                $rows[] = $row;
+            }
+            return $rows;
+        }
+        else{
+            return [];
+        }
+    }
 } 

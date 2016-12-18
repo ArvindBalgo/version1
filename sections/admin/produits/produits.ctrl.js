@@ -15,6 +15,7 @@ angular
         var vm = this;
         vm.currentProduit = {};
         $scope.header = "Produits";
+        vm.tarifInfo = [];
 
         //uploader img
         var uploader = $scope.uploader = new FileUploader({
@@ -107,6 +108,8 @@ angular
                     var arrList = angular.copy(response.data);
                     arrList.unshift({id:0, text:''});
 
+                    $("#selTarifProd").empty();
+                    $( "#selTarifProd" ).append( "<select class='sel_tarif_prod' style='width: 100%;'></select>" );
                     $(".sel_tarif_prod").select2({
                         theme:"classic",
                         data: arrList
@@ -116,13 +119,13 @@ angular
 
 
                     $(".sel_tarif_prod").on("select2:select", function (e) {
-                        console.log($(".sel_tarif_prod").select2().val() , "  :::");
-
+                        vm.fnCalcPA();
                     });
 
                     $('#modalTarif').on('show.bs.modal', function () {
                         $('.modal-body').css('height',$( window ).height()*0.7);
                     });
+                    vm.fnCalcPA();
                     $('#modalTarif').modal();
                 }, function errorCallback(error) {
                     console.log(error);
@@ -156,6 +159,25 @@ angular
                 });
         };
 
+        vm.fnCalcPA = function() {
+            $http({
+                method: 'GET',
+                params: {   mode:6,
+                            id_cata:vm.currentProduit.id_cata,
+                            id_metier:vm.currentProduit.id_metier,
+                            id_tarif:Number($(".sel_tarif_prod").select2().val()),
+                            id_souscategory:vm.currentProduit.id_modelmetier
+                            },
+                url: 'api/v1/tarif.php'
+            }).then(function successCallback(response) {
+                vm.tarifInfo = [];
+                vm.tarifInfo = response.data;
+
+            }, function errorCallback(error) {
+                console.log(error);
+            });
+        };
+
         vm.fnGetProduits = function() {
             var id_category = $(".sel_model_metier").select2().val();
             $http({
@@ -186,6 +208,16 @@ angular
                 console.log(error);
             });
 
+        };
+
+        vm.fnSetCoeff = function(dimension, support, qte) {
+            var prix  =0;
+            angular.forEach(vm.tarifInfo.coeff, function(value) {
+                if(value.id_support == support.id && Number(value.qte) == Number(qte)) {
+                    prix =  Number(dimension.coeff * value.coeff_prix * value.coeff_qte).toFixed(2);
+                }
+            });
+            return prix;
         };
 
         $(document).ready(function(){

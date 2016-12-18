@@ -68,11 +68,22 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title"> Tarif {{produits.currentProduit.description}}</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="overflow: auto">
                 <div class="container">
                     <div class="col-md-2 label label-info" style="font-size: large">Tarif: </div>
                     <div id="selTarifProd" class="col-md-10" >
                         <select class="sel_tarif_prod" style="width: 75%;"></select>
+                    </div>
+                    <div class="col-md-10">
+                        <table ng-repeat="dim in produits.tarifInfo.dimensions_coeff">
+                            <th>Dimension: {{dim.dimension}} - ({{dim.coeff}})</th>
+                            <th ng-repeat="ligne in produits.tarifInfo.papier">{{ligne.description}}</th>
+
+                            <tr ng-repeat="qte in produits.tarifInfo.qte">
+                                <td><b>{{qte}}</b></td>
+                                <td ng-bind="produits.fnSetCoeff(dim, lig, qte)" ng-repeat="lig in produits.tarifInfo.papier"></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>

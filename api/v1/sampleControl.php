@@ -252,6 +252,21 @@ else if($mode == 9) {
         print "null";
         return;
     }
+    $id_souscategory_coeffprix = $cata->getIdSousCategoryCoeffPrix();
+
+    $coeffprix = new coeff_prix();
+    $coeffprix = $coeffprix->findByProduit($id_souscategory_coeffprix);
+
+    $cata_metier = new cata_metier();
+    $cata_metier = $cata_metier->findByIdCata($_GET["id_model"]);
+
+    $coeffprix1 = new coeff_prix();
+    $coeffprix1 = $coeffprix1->getListIdPapierSupport($cata_metier->getIdModelMetier() , $id_souscategory_coeffprix);
+    $cata_papier = new cata_papier();
+    $cata_papier = $cata_papier->findByList($coeffprix1['ligne']);
+    $cata_dim = new cata_dimension();
+    $cata_dim = $cata_dim->findByIDSCategory($cata_metier->getIdModelMetier() , $id_souscategory_coeffprix);
+
 
     $cataMetier = new cata_metier();
     $cataMetier = $cataMetier->findByIdCata($_GET["id_model"]);
@@ -303,8 +318,12 @@ else if($mode == 9) {
                             'dimensions'=>$cata->getDimensions(),
                             'qte'=>$modelMetier->getQte(),
                             'elemfront'=>$arrFront,
-                            'elemback'=>$arrBack);
+                            'elemback'=>$arrBack,
+                            'type_support'=>$cata_papier,
+                            'info_prix'=>$coeffprix,
+                            'coeff_dims'=>$cata_dim);
     //}
+
     print json_encode($arrData);
     //print json_encode($sample);
     return;

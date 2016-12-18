@@ -90,4 +90,26 @@ class cata_papier {
 
         return $this->mapSqlToObject(mysqli_fetch_array($rs));
     }
+
+    public function findByList($strList){
+        $requete =  "select * from cata_papier where id in($strList)";
+        $rs = $this->conn->query($requete) or die($this->conn->error.__LINE__);
+        $rows = [];
+        while($row = mysqli_fetch_array($rs))
+        {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
+    public function findByProduit($tarif) {
+        $requete = "select c.* from cata_papier c inner join coeff_prix cp on (c.id = cp.id_support) where cp.id_souscategory_coeffprix=".$tarif;
+        $rs = $this->conn->query($requete) or die($this->conn->error.__LINE__);
+        $rows = [];
+        while($row = mysqli_fetch_array($rs))
+        {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
 } 

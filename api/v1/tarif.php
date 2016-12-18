@@ -112,3 +112,32 @@ else if($mode == 5) {
     $cata->save();
     print 'done';
 }
+else if( $mode == 6) {
+    $cata = new cata();
+    $cata = $cata->findByPrimaryKey(intval($_GET["id_cata"]));
+    $arrDimensions = explode(',', $cata->getDimensions());
+
+    $arrDims = array();
+    $cata_dimension = new cata_dimension();
+    foreach ($arrDimensions as $ligne) {
+        $cata_dimension = $cata_dimension->findByDimension(intval($_GET["id_tarif"]), $ligne);
+        $arrDims[] = array('id'=>$cata_dimension->getId(),'dimension'=>$cata_dimension->getDimension(), 'coeff'=>$cata_dimension->getCoeff());
+    }
+
+    $metier = new modelmetier();
+    $metier = $metier->findByPrimaryKey(intval($_GET["id_metier"]));
+    $arrQtes = explode(',', $metier->getQte());
+
+    $coeff_prix = new coeff_prix();
+    $coeff_prix = $coeff_prix->findBySousCategory(intval($_GET["id_souscategory"]), intval($_GET["id_tarif"]));
+
+
+    $coeff_prix1 = new coeff_prix();
+    $coeff_prix1 = $coeff_prix1->getListIdPapierSupport(intval($_GET["id_souscategory"]), intval($_GET["id_tarif"]));
+    $cata_papier = new cata_papier();
+    $cata_papier = $cata_papier->findByList($coeff_prix1["ligne"]);
+
+    $arrData = array('dimensions'=>$arrDimensions, 'qte'=>$arrQtes, 'coeff' =>$coeff_prix, 'dimensions_coeff'=>$arrDims, 'papier'=>$cata_papier);
+    print json_encode($arrData);
+}
+

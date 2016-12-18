@@ -191,4 +191,18 @@ class coeff_prix {
         $rs = $this->conn->query($requete) or die($this->conn->error.__LINE__);
         return 'done';
     }
+
+
+
+    public function findByProduit($tarif) {
+        $requete = "select c.id, c.id_souscategory, c.id_souscategory_coeffprix, c.id_support, c.qte, c.coeff_prix, c.coeff_qte, cp.description from coeff_prix c inner join cata_papier cp on c.id_support = cp.id where c.id_souscategory_coeffprix=".$tarif;
+        $rs = $this->conn->query($requete) or die($this->conn->error.__LINE__);
+        $rows = [];
+        while($row = mysqli_fetch_array($rs))
+        {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
 }
