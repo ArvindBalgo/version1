@@ -46,6 +46,7 @@
 <script src="js/jquery.ui.draggable.min.js"></script>
 <script src="js/jquery.ui.sortable.min.js"></script>
 <script src="assets/js/endless_scroll_min.js"></script>
+<script src="js/page.js"></script>
 <script src="js/bootbox.min.js"></script>
 <script src="js/fabric.min.js"></script>
 <script src="js/FancyProductDesigner-all.min.js"></script>
