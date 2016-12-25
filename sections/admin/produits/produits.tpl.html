@@ -70,18 +70,23 @@
             </div>
             <div class="modal-body" style="overflow: auto">
                 <div class="container">
-                    <div class="col-md-2 label label-info" style="font-size: large">Tarif: </div>
-                    <div id="selTarifProd" class="col-md-10" >
+                    <div class="col-md-2 label label-info" style="font-size: large; margin-bottom: 5px">Tarif: </div>
+                    <div id="selTarifProd" class="col-md-10" style="margin-bottom: 5px">
                         <select class="sel_tarif_prod" style="width: 75%;"></select>
                     </div>
+                    <div class="col-md-2 col-sm-2 label label-info"  style="font-size: large; margin-bottom: 5px" >Manuelle</div>
+                    <div class="col-md-1 col-sm-1" style="margin-bottom: 5px">
+                        <input type="checkbox" class="form-control"  ng-model="produits.chkCustom" placeholder="" aria-describedby="basic-addon1">
+                    </div>
                     <div class="col-md-10">
-                        <table ng-repeat="dim in produits.tarifInfo.dimensions_coeff">
-                            <th>Dimension: {{dim.dimension}} - ({{dim.coeff}})</th>
-                            <th ng-repeat="ligne in produits.tarifInfo.papier">{{ligne.description}}</th>
-
-                            <tr ng-repeat="qte in produits.tarifInfo.qte">
-                                <td><b>{{qte}}</b></td>
-                                <td ng-bind="produits.fnSetCoeff(dim, lig, qte)" ng-repeat="lig in produits.tarifInfo.papier"></td>
+                        <table ng-repeat="ligne in produits.tarifNew" style="margin-bottom: 5px">
+                            <th>Dimension: {{ligne.dimension}} - ({{ligne.coeff}})</th>
+                            <th ng-repeat="support in ligne.support">{{support.description}}</th>
+                            <tr ng-repeat="prix in ligne.prix">
+                                <td><b>{{prix[0].qte}}</b></td>
+                                <td ng-repeat="lig in prix">
+                                    <input type="text" class="form-control"  ng-model="lig.prix" placeholder="" aria-describedby="basic-addon1">
+                                </td>
                             </tr>
                         </table>
                     </div>

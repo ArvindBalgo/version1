@@ -16,6 +16,8 @@ angular
         vm.currentProduit = {};
         $scope.header = "Produits";
         vm.tarifInfo = [];
+        vm.tarifNew = [];
+        vm.chkCustom = false;
 
         //uploader img
         var uploader = $scope.uploader = new FileUploader({
@@ -107,6 +109,10 @@ angular
                 }).then(function successCallback(response) {
                     var arrList = angular.copy(response.data);
                     arrList.unshift({id:0, text:''});
+                    if(vm.currentProduit.id_souscategory_coeffprix == -1) {
+                        arrList.unshift({id:-1, text:'Tarif manuel'});
+                        vm.chkCustom = true;
+                    }
 
                     $("#selTarifProd").empty();
                     $( "#selTarifProd" ).append( "<select class='sel_tarif_prod' style='width: 100%;'></select>" );
@@ -172,6 +178,40 @@ angular
             }).then(function successCallback(response) {
                 vm.tarifInfo = [];
                 vm.tarifInfo = response.data;
+                //console.clear();
+                //var arrayTarif = [];
+                vm.tarifNew = vm.tarifInfo.dimensions_coeff;
+                angular.forEach(vm.tarifNew, function(value){
+                    var objDim = angular.copy(value);
+                    value.support = vm.tarifInfo.papier;
+                    var arrayQte = [];
+                    var arrQte = [];
+                    /*angular.forEach(vm.tarifInfo.papier, function(val) {
+                        angular.forEach(vm.tarifInfo.qte, function(value){
+                            arrayQte.push({qte:value.trim(), id_support:val.id, support:val.description, prix:vm.fnSetCoeff(objDim, val, value.trim())});
+                        });
+                    });*/
+                    if(Number($(".sel_tarif_prod").select2().val()) == -1) {
+                        angular.forEach(vm.tarifInfo.qte, function(valeur) {
+                            arrQte = [];
+                            angular.forEach(vm.tarifInfo.papier, function(val1) {
+                                arrQte.push({qte:valeur.trim(), id_support:val1.id, support:val1.description, prix:vm.fnSetCoeff1(objDim, val1, valeur.trim())});
+                            });
+                            arrayQte.push(arrQte);
+                        });
+                    }
+                    else {
+                        angular.forEach(vm.tarifInfo.qte, function(valeur) {
+                            arrQte = [];
+                            angular.forEach(vm.tarifInfo.papier, function(val1) {
+                                arrQte.push({qte:valeur.trim(), id_support:val1.id, support:val1.description, prix:vm.fnSetCoeff(objDim, val1, valeur.trim())});
+                            });
+                            arrayQte.push(arrQte);
+                        });
+                    }
+
+                    value.prix = arrayQte;
+                });
 
             }, function errorCallback(error) {
                 console.log(error);
@@ -197,17 +237,33 @@ angular
         };
 
         vm.fnValidTarif = function() {
-            $http({
-                method: 'GET',
-                params: {mode:5, id_cata: vm.currentProduit.id_cata, id_tarif:$(".sel_tarif_prod").select2().val()},
-                url: 'api/v1/tarif.php'
-            }).then(function successCallback(response) {
-                vm.currentProduit.id_souscategory_coeffprix = Number($(".sel_tarif_prod").select2().val());
-                bootbox.alert("<div>La sauvegarde de la tarif terminé</div>");
-            }, function errorCallback(error) {
-                console.log(error);
-            });
-
+            if(vm.chkCustom) {
+                $.ajax({
+                    url: 'api/v1/tarif1.php',
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#target').html(data.msg);
+                    },
+                    data: {mode:1,
+                        id_cata: vm.currentProduit.id_cata,
+                        id_tarif:$(".sel_tarif_prod").select2().val(),
+                        custom:vm.chkCustom,
+                        tarif:vm.tarifNew }
+                });
+            }
+            else{
+                $http({
+                    method: 'GET',
+                    params: {mode:5, id_cata: vm.currentProduit.id_cata, id_tarif:$(".sel_tarif_prod").select2().val()},
+                    url: 'api/v1/tarif.php'
+                }).then(function successCallback(response) {
+                    vm.currentProduit.id_souscategory_coeffprix = Number($(".sel_tarif_prod").select2().val());
+                    bootbox.alert("<div>La sauvegarde de la tarif terminé</div>");
+                }, function errorCallback(error) {
+                    console.log(error);
+                });
+            }
         };
 
         vm.fnSetCoeff = function(dimension, support, qte) {
@@ -215,6 +271,18 @@ angular
             angular.forEach(vm.tarifInfo.coeff, function(value) {
                 if(value.id_support == support.id && Number(value.qte) == Number(qte)) {
                     prix =  Number(dimension.coeff * value.coeff_prix * value.coeff_qte).toFixed(2);
+                }
+            });
+            return prix;
+        };
+
+        vm.fnSetCoeff1 = function(dimension, support, qte) {
+            var prix  =0;
+            angular.forEach(vm.tarifInfo.coeff, function(value) {
+
+                if(value.id_support == support.id && Number(value.qte) == Number(qte) && Number(value.id_dim) == Number(dimension.id)) {
+                    console.log(dimension, value);
+                    prix =  Number(value.prix_vente).toFixed(2);
                 }
             });
             return prix;

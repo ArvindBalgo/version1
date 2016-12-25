@@ -119,25 +119,51 @@ else if( $mode == 6) {
 
     $arrDims = array();
     $cata_dimension = new cata_dimension();
-    foreach ($arrDimensions as $ligne) {
-        $cata_dimension = $cata_dimension->findByDimension(intval($_GET["id_tarif"]), $ligne);
-        $arrDims[] = array('id'=>$cata_dimension->getId(),'dimension'=>$cata_dimension->getDimension(), 'coeff'=>$cata_dimension->getCoeff());
+    if(intval($_GET["id_tarif"]) == -1) {
+        $tarif_man = new tarif_manuel();
+        $tarif_man = $tarif_man->getDimsByCata(intval($_GET["id_cata"]));
+        foreach ($tarif_man as $item) {
+            $dim = new cata_dimension();
+            $dim = $dim->findByPrimaryKey($item['id_dim']);
+
+            $arrDims[] = array('id'=>$dim->getId(),'dimension'=>$dim->getDimension(), 'coeff'=>$dim->getCoeff());
+        }
     }
+    else{
+        foreach ($arrDimensions as $ligne) {
+            $cata_dimension = $cata_dimension->findByDimension(intval($_GET["id_tarif"]), $ligne);
+            $arrDims[] = array('id'=>$cata_dimension->getId(),'dimension'=>$cata_dimension->getDimension(), 'coeff'=>$cata_dimension->getCoeff());
+        }
+    }
+
 
     $metier = new modelmetier();
     $metier = $metier->findByPrimaryKey(intval($_GET["id_metier"]));
     $arrQtes = explode(',', $metier->getQte());
+    
+    if(intval($_GET["id_tarif"]) == -1) {
+        $tarifmanuel = new tarif_manuel();
+        $tarifmanuel = $tarifmanuel->findByIDCata(intval($_GET["id_cata"]));
 
-    $coeff_prix = new coeff_prix();
-    $coeff_prix = $coeff_prix->findBySousCategory(intval($_GET["id_souscategory"]), intval($_GET["id_tarif"]));
+        $tarifmanuel1 = new tarif_manuel();
+        $tarifmanuel1 = $tarifmanuel1->getListIdPapierSupport(intval($_GET["id_cata"]));
+
+        $cata_papier = new cata_papier();
+        $cata_papier = $cata_papier->findByList($tarifmanuel1["ligne"]);
+
+        $arrData = array('dimensions'=>$arrDimensions, 'qte'=>$arrQtes, 'coeff' =>$tarifmanuel, 'dimensions_coeff'=>$arrDims, 'papier'=>$cata_papier);
+    }
+    else{
+        $coeff_prix = new coeff_prix();
+        $coeff_prix = $coeff_prix->findBySousCategory(intval($_GET["id_souscategory"]), intval($_GET["id_tarif"]));
 
 
-    $coeff_prix1 = new coeff_prix();
-    $coeff_prix1 = $coeff_prix1->getListIdPapierSupport(intval($_GET["id_souscategory"]), intval($_GET["id_tarif"]));
-    $cata_papier = new cata_papier();
-    $cata_papier = $cata_papier->findByList($coeff_prix1["ligne"]);
+        $coeff_prix1 = new coeff_prix();
+        $coeff_prix1 = $coeff_prix1->getListIdPapierSupport(intval($_GET["id_souscategory"]), intval($_GET["id_tarif"]));
+        $cata_papier = new cata_papier();
+        $cata_papier = $cata_papier->findByList($coeff_prix1["ligne"]);
 
-    $arrData = array('dimensions'=>$arrDimensions, 'qte'=>$arrQtes, 'coeff' =>$coeff_prix, 'dimensions_coeff'=>$arrDims, 'papier'=>$cata_papier);
+        $arrData = array('dimensions'=>$arrDimensions, 'qte'=>$arrQtes, 'coeff' =>$coeff_prix, 'dimensions_coeff'=>$arrDims, 'papier'=>$cata_papier);
+    }
     print json_encode($arrData);
 }
-

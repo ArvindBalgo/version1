@@ -31,7 +31,7 @@ Data.get('session.php').then(function (results) {
             }
             $scope.sessionInfo = results;
             console.log(results, 'results from admin');
-
+            document.getElementById("myNav").style.width = "100%";
             //$location();
         });
         vm.instructions = [

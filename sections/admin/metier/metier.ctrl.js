@@ -644,7 +644,7 @@ angular
                arrCategory.push(value.id);
             });
 
-            $http({
+           /* $http({
                 method: 'GET',
                 params: {   mode:0,
                             tarifid: vm.currentTarifID.id,
@@ -658,6 +658,21 @@ angular
                 $('#modalSCPrix').modal('hide');
             }, function errorCallback(error) {
                 console.log(error);
+            });*/
+
+            $.ajax({
+                url: 'api/v1/calc_prix1.php',
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    $('#modalSCPrix').modal('hide');
+                },
+                data: {   mode:0,
+                    tarifid: vm.currentTarifID.id,
+                    id_souscategory: vm.currentSCategory.id ,
+                    data: JSON.stringify(vm.arrQteSupport) ,
+                    listsouscate:JSON.stringify(arrCategory),
+                    dim : JSON.stringify(vm.arrDataDim.dimension)}
             });
         };
 
