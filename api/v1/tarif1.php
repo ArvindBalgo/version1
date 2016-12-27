@@ -7,7 +7,7 @@
  */
 
 include_once 'include_all.php';
-
+include_once '../chromePHP.php';
 $mode = intval($_POST["mode"]);
 
 
@@ -79,7 +79,7 @@ if($mode == 0) {
 }
 else if($mode == 1) {
     $flagCustom = $_POST["custom"];
-    $arrTarif = $_POST["tarif"];
+    $arrTarif = json_decode($_POST["tarif"]);
     $id_cata = intval($_POST["id_cata"]);
     $cata = new cata();
     $cata = $cata->findByPrimaryKey($id_cata);
@@ -89,20 +89,20 @@ else if($mode == 1) {
     $tarifmanuel->deleteByCata($id_cata);
 
     foreach ($arrTarif as $item) {
-        foreach ($item['prix'] as $ligne) {
+        foreach ($item->prix as $ligne) {
             foreach ($ligne as $lig) {
                 $tarifmanuel = new tarif_manuel();
-                $tarifmanuel = $tarifmanuel->findByIDCataSupportQte($id_cata ,$lig["id_support"] , $lig["qte"], $item["id"]);
+                $tarifmanuel = $tarifmanuel->findByIDCataSupportQte($id_cata ,$lig->id_support , $lig->qte, $item->id);
                 if($tarifmanuel == 'false') {
                     $tarifmanuel = new tarif_manuel();
                 }
 
                 $tarifmanuel->setIdCata(intval($id_cata));
-                $tarifmanuel->setSupport(intval($lig["id_support"]));
-                $tarifmanuel->setQte(intval($lig["qte"]));
-                $tarifmanuel->setPrixVente($lig["prix"]);
-                $tarifmanuel->setIdDim($item['id']);
-                $tarifmanuel->setLibDim($item['dimension']);
+                $tarifmanuel->setSupport(intval($lig->id_support));
+                $tarifmanuel->setQte(intval($lig->qte));
+                $tarifmanuel->setPrixVente($lig->prix);
+                $tarifmanuel->setIdDim($item->id);
+                $tarifmanuel->setLibDim($item->dimension);
                 $tarifmanuel->save();
             }
         }

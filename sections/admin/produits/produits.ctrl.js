@@ -70,14 +70,11 @@ angular
         ];
 
         $scope.edit  = function (grid, row, opt){
-            console.log("TEST", row, opt);
             vm.currentProduit = angular.copy(row);
             if(opt == 1){
                 //delete
                 bootbox.confirm("Confirmez-vous la suppresion de cette ligne <b>" + vm.currentProduit.description + "|| Ref: " + vm.currentProduit.reference + "</b>?", function(result) {
                     if(result){
-                        console.log(row.id);
-                        console.log("confirmation to delete");
 
                         $http({
                             method: 'GET',
@@ -155,7 +152,6 @@ angular
                     });
 
                     $(".sel_model_metier").on("select2:select", function (e) {
-                        //console.log($(".sel_model_metier").select2().val() , "  :::");
                         vm.fnGetProduits();
                     });
 
@@ -178,7 +174,6 @@ angular
             }).then(function successCallback(response) {
                 vm.tarifInfo = [];
                 vm.tarifInfo = response.data;
-                //console.clear();
                 //var arrayTarif = [];
                 vm.tarifNew = vm.tarifInfo.dimensions_coeff;
                 angular.forEach(vm.tarifNew, function(value){
@@ -243,13 +238,14 @@ angular
                     type: 'post',
                     dataType: 'json',
                     success: function (data) {
-                        $('#target').html(data.msg);
+                        vm.currentProduit.id_souscategory_coeffprix = Number($(".sel_tarif_prod").select2().val());
+                        bootbox.alert("<div>La sauvegarde de la tarif terminé</div>");
                     },
                     data: {mode:1,
                         id_cata: vm.currentProduit.id_cata,
                         id_tarif:$(".sel_tarif_prod").select2().val(),
                         custom:vm.chkCustom,
-                        tarif:vm.tarifNew }
+                        tarif:JSON.stringify(vm.tarifNew)}
                 });
             }
             else{
@@ -281,7 +277,6 @@ angular
             angular.forEach(vm.tarifInfo.coeff, function(value) {
 
                 if(value.id_support == support.id && Number(value.qte) == Number(qte) && Number(value.id_dim) == Number(dimension.id)) {
-                    console.log(dimension, value);
                     prix =  Number(value.prix_vente).toFixed(2);
                 }
             });
