@@ -5,8 +5,8 @@
         </div>
         <div class="col-md-6 col-sm-6">
             <div class='block-tel'>
-                <div class="col-md-12">Nous contacter par email</div>
-                <div class="col-md-12">Tél : 00 00 00 00 00</div>
+                <div class="col-md-12">{{langue.contact}}</div>
+                <div class="col-md-12">{{langue.telephone}} : 00 00 00 00 00</div>
                 <div class="col-md-12"><img  src="assets/img/numero_verte.png"></div>
             </div>
         </div>
@@ -18,7 +18,7 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
+                    <span class="sr-only">{{langue.toggle_nav}}</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -27,22 +27,10 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a style="color: white" href="#/home">ACCUEIL <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#" style="color: white">CONTACT</a></li>
+                    <li><a style="color: white" href="#/home">{{langue.accueil}} <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#" style="color: white">{{langue.contact_menu}}</a></li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle" style="color: white" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ESPACE CLIENT <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" style="color: white" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ESPACE REVENDEUR <span class="caret"></span></a>
+                        <a class="dropdown-toggle" style="color: white" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{langue.espace_client}} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Action</a></li>
                             <li><a href="#">Another action</a></li>
@@ -61,7 +49,7 @@
                         </a>
                     </li>
                     <li ng-show="{{isLogged}}" style="margin-top: 20px">
-                        <span>Bonjour {{utilisateur}}</span> <button class="btn btn-danger" ng-click="logout()"><span class="glyphicon glyphicon-off"></span></button>
+                        <span>{{langue.bonjour}} {{utilisateur}}</span> <button class="btn btn-danger" ng-click="logout()"><span class="glyphicon glyphicon-off"></span></button>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -77,7 +65,7 @@
         <div class="col-md-4 col-sm-4">
             <div class="btn1">
                 <span class="icon"><span class="glyphicon glyphicon-time"></span></span>
-                <span class="txt">Lundi au Vendredi <br>7h30 à 17h00 Non-Stop</span>
+                <span class="txt">{{langue.jour_semaine}} <br>{{langue.heure_semaine}}</span>
             </div>
         </div>
 
@@ -85,13 +73,13 @@
 
             <div class="btn2">
                 <span class="icon"><span class="glyphicon glyphicon-phone"></span></span>
-                <span class="txt">Besoin d'aide? <br>Vous voulez être rappelé ?</span>
+                <span class="txt">{{langue.besoin_aide}} <br>{{langue.etre_rapeler}}</span>
             </div>
         </div>
         <div class="col-md-4 col-sm-4">
             <div class="btn3">
                 <span class="icon"><span class="glyphicon glyphicon-gift"></span></span>
-                <span class="txt">Recevoir des <br>promotions et cadeaux</span>
+                <span class="txt">{{langue.recevoir}} <br>{{langue.promo_cadeau}}</span>
             </div>
         </div>
     </div>
@@ -101,7 +89,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Connexion</h4>
+                <h4 class="modal-title">{{langue.connexion}}</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -109,7 +97,7 @@
                 </div>
                 <form name="loginForm" class="form-horizontal" role="form">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right" for="email"> Email / Phone </label>
+                        <label class="col-sm-3 control-label no-padding-right" for="email"> {{langue.email_phone}} </label>
                         <div class="col-sm-7">
                            <span class="block input-icon input-icon-right">
                                 <input type="text" class="form-control" placeholder="Email / Phone" name="email" ng-model="login.email" required focus/>
@@ -118,7 +106,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label no-padding-right" for="password"> Password </label>
+                        <label class="col-sm-3 control-label no-padding-right" for="password"> {{langue.password}} </label>
                         <div class="col-sm-7">
                            <span class="block input-icon input-icon-right">
                                 <input type="password" class="form-control" placeholder="Password" ng-model="login.password" required/>
@@ -136,13 +124,13 @@
                         </div>
                     </div>
                     <div class="space-4"></div>
-                    <span class="lbl col-sm-3"> </span><div class="col-sm-7">Pas de compte? <a href="" ng-click="fnSignUp()">S'enregistrer</a></div>
+                    <span class="lbl col-sm-3"> </span><div class="col-sm-7">Pas de compte? <a href="" ng-click="fnSignUp()">{{langue.register}}</a></div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="width-35 pull-right btn btn-md btn-primary" data-dismiss="modal" ng-click="doLogin(login)" data-ng-disabled="loginForm.$invalid">
                     <i class="ace-icon fa fa-key"></i>
-                    Se Connecter
+                    {{langue.connect}}
                 </button>
                 <!--button type="button" class="btn btn-danger pull-left" ng-click="logout()">LOGOUT</button-->
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Annuler</button>
@@ -157,7 +145,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Enregistrement</h4>
+                <h4 class="modal-title">{{langue.registration}}</h4>
             </div>
             <div class="modal-body">
                 <div class="page-content">
@@ -168,37 +156,37 @@
                                     <div >
                                         <form name="signupForm" class="form-horizontal" role="form">
                                             <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="email">Adresse Mail</label>
+                                                <label class="col-sm-5 control-label no-padding-right" for="email">{{langue.mail}}</label>
                                                 <div class="col-sm-7">
                                     <span class="block input-icon input-icon-right">
                                         <input type="text" class="form-control" placeholder="Email" name="email" ng-model="signup.email" focus/>
-                                        <span ng-show="signupForm.email.$error.email" class="help-inline">L'adresse mail n'est pas valide</span>
+                                        <span ng-show="signupForm.email.$error.email" class="help-inline">{{langue.mail_msg}}</span>
                                     </span>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="password">Mot de Passe</label>
+                                                <label class="col-sm-5 control-label no-padding-right" for="password">{{langue.password}}</label>
                                                 <div class="col-sm-7">
                                     <span class="block input-icon input-icon-right">
                                 <input type="password" class="form-control" name = "password" placeholder="Mot de Passe" ng-model="signup.password" required/>
-                                <small class="errorMessage" data-ng-show="signupForm.password.$dirty && signupForm.password.$invalid"> Entrer le mot de passe.</small>
+                                <small class="errorMessage" data-ng-show="signupForm.password.$dirty && signupForm.password.$invalid"> {{langue.enter_password}}</small>
                             </span>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="password2">Confirmer Mot de passe</label>
+                                                <label class="col-sm-5 control-label no-padding-right" for="password2">{{langue.confirm_password}]</label>
                                                 <div class="col-sm-7">
                                     <span class="block input-icon input-icon-right">
                                 <input type="password" class="form-control" name="password2" placeholder="Mot de Passe" ng-model="signup.password2" password-match="signup.password" required/>
-                                <small class="errorMessage" data-ng-show="signupForm.password2.$dirty && signupForm.password2.$error.required"> Entrer le Mot de Passe.</small>
+                                <small class="errorMessage" data-ng-show="signupForm.password2.$dirty && signupForm.password2.$error.required"> {{langue.enter_password}}</small>
 
-                               <small class="errorMessage" data-ng-show="signupForm.password2.$dirty && signupForm.password2.$error.passwordNoMatch && !signupForm.password2.$error.required"> Les mots de passe ne correspond pas</small>
+                               <small class="errorMessage" data-ng-show="signupForm.password2.$dirty && signupForm.password2.$error.passwordNoMatch && !signupForm.password2.$error.required"> {{password_msg}}</small>
 
                             </span>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="name">Nom</label>
+                                                <label class="col-sm-5 control-label no-padding-right" for="name">{{langue.name}}</label>
                                                 <div class="col-sm-7">
                                                     <span class="block input-icon input-icon-right">
                                                         <input type="text" class="form-control" placeholder="Nom" ng-model="signup.name" />
@@ -206,7 +194,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="phone">No Téléphone</label>
+                                                <label class="col-sm-5 control-label no-padding-right" for="phone">{{langue.no_tel}}</label>
                                                 <div class="col-sm-7">
                                                     <span class="block input-icon input-icon-right">
                                                         <input type="text" class="form-control" placeholder="Phone" name="phone" ng-model="signup.phone"/>
@@ -214,7 +202,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="address">Adresse</label>
+                                                <label class="col-sm-5 control-label no-padding-right" for="address">{{langue.adresse}}</label>
                                                 <div class="col-sm-7">
                                                     <span class="block input-icon input-icon-right">
                                                         <input type="text" class="form-control" placeholder="Adresse" ng-model="signup.address" />
@@ -222,7 +210,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="ville">Ville</label>
+                                                <label class="col-sm-5 control-label no-padding-right" for="ville">{{langue.ville}}</label>
                                                 <div class="col-sm-7">
                                                     <span class="block input-icon input-icon-right">
                                                         <input type="text" class="form-control" placeholder="Ville" ng-model="signup.ville" />
@@ -230,7 +218,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="codepostal">Code Postal</label>
+                                                <label class="col-sm-5 control-label no-padding-right" for="codepostal">{{langue.code_postal}}</label>
                                                 <div class="col-sm-7">
                                                      <span class="block input-icon input-icon-right">
                                                         <input type="text" class="form-control" placeholder="Code Postal" ng-model="signup.codepostal" />
@@ -238,7 +226,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="nosiret">No Siret</label>
+                                                <label class="col-sm-5 control-label no-padding-right" for="nosiret">{{langue.no_siret}}</label>
                                                 <div class="col-sm-7">
                                                     <span class="block input-icon input-icon-right">
                                                         <input type="text" class="form-control" placeholder="No Siret" ng-model="signup.nosiret" />
@@ -249,7 +237,7 @@
                                                 <span class="lbl col-sm-5"> </span>
                                                 <div class="col-sm-7">
                                                     <button type="submit" class="width-35 pull-right btn btn-sm btn-primary" ng-click="signUp(signup)" data-ng-disabled="signupForm.$invalid">
-                                                        Enregistrement
+                                                        {{langue.registration}}
                                                     </button>
                                                 </div>
                                             </div>

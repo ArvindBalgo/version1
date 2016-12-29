@@ -5,8 +5,8 @@
     <a-- class="a2a_button_google_plus"></a-->
     <!--a class="">Passer la commande</a-->
     <!--a-- class="">Ajouter au Panier</a-->
-    <a class="btn btn-warning" ng-click="fiche.fnClickPanier()" style="margin-bottom: 5px;"><div class="glyphicon glyphicon-shopping-cart"></div><div>Mon Panier</div><div>({{fiche.countProds}})</div></a>
-    <a class="btn btn-success" ng-click="fiche.fnAddBasket()"><div class="glyphicon glyphicon-plus-sign"></div><div>Ajouter au panier</div></a>
+    <a class="btn btn-warning" ng-click="fiche.fnClickPanier()" style="margin-bottom: 5px;"><div class="glyphicon glyphicon-shopping-cart"></div><div>{{langue.panier}}</div><div>({{fiche.countProds}})</div></a>
+    <a class="btn btn-success" ng-click="fiche.fnAddBasket()"><div class="glyphicon glyphicon-plus-sign"></div><div>{{langue.ajout_panier}}</div></a>
 </div>
 <!--script-- async src="https://static.addtoany.com/menu/page.js"></script-->
 <script src="js/page.js" type="application/javascript"></script>
@@ -16,16 +16,16 @@
         <div class="col-md-12">
             <div id="main-container">
                 <div class="row">
-                    <div class="col-md-9" style="margin-left: 50px"><h3 id="clothing">Réalisez votre maquette, elle sera ensuite traitée par nos graphistes</h3></div>
-                    <div class="col-md-2 pull-right"><button class="btn btn-warning" ng-click="fiche.fnClickPanier()">Panier <span class="glyphicon glyphicon-shopping-cart"></span> ({{fiche.countProds}})</button></div>
+                    <div class="col-md-9" style="margin-left: 50px"><h3 id="clothing">{{langue.create_maquette}}</h3></div>
+                    <div class="col-md-2 pull-right"><button class="btn btn-warning" ng-click="fiche.fnClickPanier()">{{langue.panier_unite}} <span class="glyphicon glyphicon-shopping-cart"></span> ({{fiche.countProds}})</button></div>
                 </div>
 
                 <div class="row" style="margin: 2px">
-                    <div class="col-md-8 well well-sm" style="margin-left: 50px">Si vous cochez l'option "AVEC BON A TIRER" IL VOUS sera envoyé dans un délai maximum de 48h.</div>
+                    <div class="col-md-8 well well-sm" style="margin-left: 50px">{{langue.bonatirer_msg}}</div>
                     <div class="col-md-12 " style="margin: 5px">
                         <div class="col-md-12" style="padding-bottom: 5px">
                             <div class="col-md-3" style="font-weight: bold">
-                                Titre
+                                {{langue.titre}}
                             </div>
                             <div class="col-md-7">
                                 <input type="text" class="form-control" ng-model="fiche.produit.titre" placeholder="Titre" aria-describedby="basic-addon1">
@@ -33,58 +33,58 @@
                         </div>
                         <div class="col-md-12" style="padding-bottom: 5px" ng-show="fiche.productList[0].escargot == 1">
                             <div class="col-md-3" style="font-weight: bold">
-                                Option Attache
+                                {{langue.opt_attache}}
                             </div>
                             <div class="col-md-7">
                                 <form>
                                     <label class="radio-inline">
-                                        <input id="aucunEscargot" type="radio" name="optescargot" value="0">Aucun
+                                        <input id="aucunEscargot" type="radio" name="optescargot" value="0">{{langue.aucun}}
                                     </label>
                                     <label class="radio-inline">
-                                        <input id="avecTrou" type="radio" name="optescargot" value="1">Attache Escargot
+                                        <input id="avecTrou" type="radio" name="optescargot" value="1">{{langue.attache_escargot}}
                                     </label>
                                     <label class="radio-inline">
-                                        <input id="sansTrou" type="radio" name="optescargot" value="2">Avec Trou
+                                        <input id="sansTrou" type="radio" name="optescargot" value="2">{{langue.avec_trou}}
                                     </label>
                                 </form>
                             </div>
                         </div>
                         <div class="col-md-12" style="padding-bottom: 5px" ng-show="fiche.productList[0].contours == 1 || fiche.productList[0].liserai == 1">
                             <div class="col-md-3" style="font-weight: bold">
-                                Caractéristique Additionel
+                                {{langue.carac_add}}
                             </div>
                             <div class="col-md-7">
                                 <form>
                                     <label class="radio-inline">
-                                        <input id="aucun" type="radio" name="optradio" value="0">Aucun
+                                        <input id="aucun" type="radio" name="optradio" value="0">{{langue.aucun}}
                                     </label>
                                     <label ng-show="fiche.productList[0].contours == 1" class="radio-inline">
-                                        <input id="trait" type="radio" name="optradio" value="1">Cadre
+                                        <input id="trait" type="radio" name="optradio" value="1">{{langue.cadre}}
                                     </label>
                                     <label class="radio-inline" ng-show="fiche.productList[0].liserai == 1">
-                                        <input id="liserai" type="radio" name="optradio" value="2">Liseré
+                                        <input id="liserai" type="radio" name="optradio" value="2">{{langue.lisere}}
                                     </label>
                                 </form>
                             </div>
                         </div>
                         <div class="col-md-12" style="padding-bottom: 5px">
                             <div class="col-md-3" style="font-weight: bold">
-                                Commande
+                                {{langue.commande}}
                             </div>
                             <div class="col-md-7">
                                 <form>
                                     <label  class="radio-inline">
-                                        <input id="cmdBonTirer" type="radio" name="optcommande" value="1">Avec bon à tirer
+                                        <input id="cmdBonTirer" type="radio" name="optcommande" value="1">{{langue.bonatirer_avec}}
                                     </label>
                                     <label class="radio-inline">
-                                        <input id="cmdBonNonTirer" type="radio" name="optcommande" value="2">Sans bon à tirer
+                                        <input id="cmdBonNonTirer" type="radio" name="optcommande" value="2">{{langue.bonatirer_sans}}
                                     </label>
                                 </form>
                             </div>
                         </div>
                         <div class="col-md-12" style="padding-bottom: 5px">
                             <div class="col-md-3" style="font-weight: bold">
-                                Finition papier Couché
+                                {{langue.finition_ppr}}
                             </div>
                             <div class="col-md-7" style="padding-bottom: 5px">
                                 <select class="sel_papier" style="width: 100%;"></select>
@@ -92,7 +92,7 @@
                         </div>
                         <div class="col-md-12" style="padding-bottom: 5px">
                             <div class="col-md-3" style="font-weight: bold">
-                                Dimensions
+                                {{langue.dimensions}}
                             </div>
                             <div class="col-md-7" style="padding-bottom: 5px">
                                 <select class="sel_dimensions" style="width: 100%;"></select>
@@ -100,7 +100,7 @@
                         </div>
                         <div class="col-md-12" style="padding-bottom: 5px">
                             <div class="col-md-3" style="font-weight: bold">
-                                Quantité
+                                {{langue.qte}}
                             </div>
                             <div class="col-md-7">
                                 <select class="sel_qte" style="width: 100%;"></select>
@@ -108,7 +108,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="col-md-3" style="font-weight: bold">
-                                Vos instructions
+                                {{langue.vos_instructions}}
                             </div>
                             <div class="col-md-7">
                                 <textarea class="form-control" rows="5" id="comment" ng-model="fiche.produit.commentaire"></textarea>
@@ -116,44 +116,44 @@
                         </div>
                         <div class="col-md-12">
                             <div class="col-md-3" style="font-weight: bold">
-                                Prix unité
+                                {{langue.prix_unite}}
                             </div>
                             <div class="col-md-7">
-                                <span><p>{{fiche.unitprix}} Euro</p></span>
+                                <span><p>{{fiche.unitprix}} {{langue.euro}}</p></span>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="col-md-3" style="font-weight: bold">
-                                Prix de vente
+                                {{langue.prix_vente}}
                             </div>
                             <div class="col-md-7">
-                                <div>{{fiche.prixvente}} Euro</div>
+                                <div>{{fiche.prixvente}} {{langue.euro}}</div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-12" style="margin: 5px">
-                        <button ng-click="fiche.fnMetierList();" class="col-md-3 btn btn-lg " style="background-color: #D893E3; color: white; text-wrap: normal"><span><img src="images/icons/gallery.ico" style="height: 50px;width:50px"></span> Galerie de modèles</button>
+                        <button ng-click="fiche.fnMetierList();" class="col-md-3 btn btn-lg " style="background-color: #D893E3; color: white; text-wrap: normal"><span><img src="images/icons/gallery.ico" style="height: 50px;width:50px"></span> {{langue.galerie_models}}</button>
                         <!--button type="button" class="btn btn-success pull-right" ng-click="fiche.fnSaveProduit(0)">Ajouter Au panier</button-->
                         <!--button type="button" class="btn btn-success pull-right" ng-click="fiche.fnSaveProduit(1)">PASSEZ MA COMMANDE AVEC BON À TIRER</button-->
                         <div class=" col-md-7" style="text-align: center; color: darkgrey">
                             <div>
-                                <b>Confiez nous la conception de votre maquettte,</b>
+                                <b>{{langue.conception_msg}}</b>
                             </div>
                             <div>
-                                <b>notez les instructions et laissez nos graphistes faire le travail.</b>
+                                <b>{{langue.conception_msg1}}</b>
                             </div>
                             <div>
-                                <b>Vous avez déjà un graphisme, téléchargez le et nous l'imprimerons pour vous.</b>
+                                <b>{{langue.conception_msg2}}</b>
                             </div>
                         </div>
-                        <button class="col-md-2 btn btn-primary btn-lg pull-right" style="height: 72px;background-color: #D893E3; color: white;" ng-click="fiche.fnAddBasket()">Ajouter au panier</button>
+                        <button class="col-md-2 btn btn-primary btn-lg pull-right" style="height: 72px;background-color: #D893E3; color: white;" ng-click="fiche.fnAddBasket()">{{langue.ajout_panier}}</button>
                         <!--button ng-click="" class="btn btn-primary btn-lg" style="height: 72px;"> Confiez nous la conception de votre maquette</button-->
                     </div>
                     <div class="col-md-12">
                         <div id="model" class="fpd-container fpd-shadow-2 fpd-topbar fpd-tabs fpd-tabs-side fpd-top-actions-centered fpd-bottom-actions-centered fpd-views-inside-left">
                             <div class="fpd-design">
                                 <div ng-repeat="design in fiche.productsDesign" class="fpd-category" title="{{design.libelle}}">
-                                    <img ng-repeat="image in design.data" src="{{image.src}}"  title="{{image.libelle}}" data-parameters='{"zChangeable": true, "left": 215, "top": 200, "colors": "#000000", "removable": true, "draggable": true, "rotatable": true, "resizable": true, "price": 10, "boundingBox": "Base", "autoCenter": true}' />
+                                    <img ng-repeat="image in design.data" src="{{image.src}}"  title="{{image.libelle}}" data-parameters='{"zChangeable": true, "left": 215, "top": 200, "colors": "#000000", "removable": true, "draggable": true, "rotatable": true, "resizable": true, "price": 0, "boundingBox": "Base", "autoCenter": true}' />
                                 </div>
                             </div>
                         </div>
@@ -176,18 +176,18 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title"><span><img src="images/icons/gallery.ico" style="height: 50px;width:50px">Galerie de modèles</span></h4>
+                <h4 class="modal-title"><span><img src="images/icons/gallery.ico" style="height: 50px;width:50px">{{langue.galerie_models}}</span></h4>
             </div>
             <div class="modal-body" style="height: 550px;overflow: scroll">
                 <div class="row" style="padding: 3px;">
-                    <div class="col-md-2">Type de model: </div>
+                    <div class="col-md-2">{{langue.type_model}} </div>
                     <div id="selModelMetier" class="col-md-10" >
                         <select class="sel_model_metier" style="width: 75%;"></select>
                     </div>
                 </div>
                 <ul class="nav nav-tabs">
-                    <li id="tab1" ng-class="{ active: fiche.activeId == 1 }" style="cursor: pointer" ng-click="fiche.fnClickTabs(1)"><a>Créez ma maquette avec modèles</a></li>
-                    <li id="tab2" ng-class="{ active: fiche.activeId == 2 }" style="cursor: pointer" ng-click="fiche.fnClickTabs(2)"><a>Créez ma maquette sans modèle</a></li>
+                    <li id="tab1" ng-class="{ active: fiche.activeId == 1 }" style="cursor: pointer" ng-click="fiche.fnClickTabs(1)"><a>{{langue.maquette_avec}}</a></li>
+                    <li id="tab2" ng-class="{ active: fiche.activeId == 2 }" style="cursor: pointer" ng-click="fiche.fnClickTabs(2)"><a>{{langue.maquette_sans}}</a></li>
                 </ul>
                 <div ng-show="fiche.isShow == 1">
                     <!--div class="row" style="padding: 3px;">
@@ -225,22 +225,21 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title"><span>Validation Schema</span></h4>
+                <h4 class="modal-title"><span>{{langue.valid_schema}}</span></h4>
             </div>
             <div class="modal-body" style="overflow: hidden">
                <div class="row">
                    <div class="well well-lg">
                        <p>
-                           Nos graphistes prendront en charge votre maquette et nous vous enverrons un Bon à Tirer dans un délai maximum de 72hr, hors jours feriés,après la validation de votre Bon à Tirer, votre produit passera en fabrication.
-
+                           {{langue.msg_commande}}
                        </p>
                    </div>
                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger pull-left" ng-click="" data-dismiss="modal">Annuler</button>
-                <button type="button" class="btn btn-success pull-right" ng-click="fiche.fnSaveProduit(0)">PASSEZ MA COMMANDE SANS BON À TIRER</button>
-                <button type="button" class="btn btn-success pull-right" ng-click="fiche.fnSaveProduit(1)">PASSEZ MA COMMANDE AVEC BON À TIRER</button>
+                <button type="button" class="btn btn-danger pull-left" ng-click="" data-dismiss="modal">{{langue.cancel}}</button>
+                <button type="button" class="btn btn-success pull-right" ng-click="fiche.fnSaveProduit(0)">{{langue.commande_sans_bat}}</button>
+                <button type="button" class="btn btn-success pull-right" ng-click="fiche.fnSaveProduit(1)">{{langue.commande_avec_bat}}</button>
             </div>
         </div>
     </div>
@@ -252,7 +251,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">SignUp</h4>
+                <h4 class="modal-title">{{langue.registration}}</h4>
             </div>
             <div class="modal-body">
                 <div class="page-content">
@@ -263,37 +262,37 @@
                                     <div >
                                         <form name="signupForm" class="form-horizontal" role="form">
                                             <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="email">Adresse Mail</label>
+                                                <label class="col-sm-5 control-label no-padding-right" for="email">{{langue.mail}}</label>
                                                 <div class="col-sm-7">
                                     <span class="block input-icon input-icon-right">
                                         <input type="text" class="form-control" placeholder="Email" name="email" ng-model="signup.email" focus/>
-                                        <span ng-show="signupForm.email.$error.email" class="help-inline">L'adresse mail n'est pas valide</span>
+                                        <span ng-show="signupForm.email.$error.email" class="help-inline">{{langue.mail_msg}}</span>
                                     </span>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="password">Mot de Passe</label>
+                                                <label class="col-sm-5 control-label no-padding-right" for="password">{{langue.password}}</label>
                                                 <div class="col-sm-7">
                                     <span class="block input-icon input-icon-right">
                                 <input type="password" class="form-control" name = "password" placeholder="Mot de Passe" ng-model="signup.password" required/>
-                                <small class="errorMessage" data-ng-show="signupForm.password.$dirty && signupForm.password.$invalid"> Entrer le mot de passe.</small>
+                                <small class="errorMessage" data-ng-show="signupForm.password.$dirty && signupForm.password.$invalid"> {{langue.enter_password}}</small>
                             </span>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="password2">Confirmer Mot de passe</label>
+                                                <label class="col-sm-5 control-label no-padding-right" for="password2">{{langue.confirm_password}}</label>
                                                 <div class="col-sm-7">
                                     <span class="block input-icon input-icon-right">
                                 <input type="password" class="form-control" name="password2" placeholder="Mot de Passe" ng-model="signup.password2" password-match="signup.password" required/>
-                                <small class="errorMessage" data-ng-show="signupForm.password2.$dirty && signupForm.password2.$error.required"> Entrer le Mot de Passe.</small>
+                                <small class="errorMessage" data-ng-show="signupForm.password2.$dirty && signupForm.password2.$error.required"> {{langue.enter_password}}</small>
 
-                               <small class="errorMessage" data-ng-show="signupForm.password2.$dirty && signupForm.password2.$error.passwordNoMatch && !signupForm.password2.$error.required"> Les mots de passe ne correspond pas</small>
+                               <small class="errorMessage" data-ng-show="signupForm.password2.$dirty && signupForm.password2.$error.passwordNoMatch && !signupForm.password2.$error.required"> {{langue.password_msg}}</small>
 
                             </span>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="name">Nom</label>
+                                                <label class="col-sm-5 control-label no-padding-right" for="name">{{langue.name}}</label>
                                                 <div class="col-sm-7">
                                                     <span class="block input-icon input-icon-right">
                                                         <input type="text" class="form-control" placeholder="Nom" ng-model="signup.name" />
@@ -301,7 +300,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="phone">No Téléphone</label>
+                                                <label class="col-sm-5 control-label no-padding-right" for="phone">{{langue.no_tel}}</label>
                                                 <div class="col-sm-7">
                                                     <span class="block input-icon input-icon-right">
                                                         <input type="text" class="form-control" placeholder="Phone" name="phone" ng-model="signup.phone"/>
@@ -309,7 +308,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="address">Adresse</label>
+                                                <label class="col-sm-5 control-label no-padding-right" for="address">{{langue.adresse}}</label>
                                                 <div class="col-sm-7">
                                                     <span class="block input-icon input-icon-right">
                                                         <input type="text" class="form-control" placeholder="Adresse" ng-model="signup.address" />
@@ -317,7 +316,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="ville">Ville</label>
+                                                <label class="col-sm-5 control-label no-padding-right" for="ville">{{langue.ville}}</label>
                                                 <div class="col-sm-7">
                                                     <span class="block input-icon input-icon-right">
                                                         <input type="text" class="form-control" placeholder="Ville" ng-model="signup.ville" />
@@ -325,7 +324,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="codepostal">Code Postal</label>
+                                                <label class="col-sm-5 control-label no-padding-right" for="codepostal">{{langue.code_postal}}</label>
                                                 <div class="col-sm-7">
                                                      <span class="block input-icon input-icon-right">
                                                         <input type="text" class="form-control" placeholder="Code Postal" ng-model="signup.codepostal" />
@@ -333,7 +332,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-5 control-label no-padding-right" for="nosiret">No Siret</label>
+                                                <label class="col-sm-5 control-label no-padding-right" for="nosiret">{{langue.no_siret}}</label>
                                                 <div class="col-sm-7">
                                                     <span class="block input-icon input-icon-right">
                                                         <input type="text" class="form-control" placeholder="No Siret" ng-model="signup.nosiret" />
@@ -344,7 +343,7 @@
                                                 <span class="lbl col-sm-5"> </span>
                                                 <div class="col-sm-7">
                                                     <button type="submit" class="width-35 pull-right btn btn-sm btn-primary" ng-click="fiche.fnRegister(signup)" data-ng-disabled="signupForm.$invalid">
-                                                        Enregistrement
+                                                        {{langue.registration}}
                                                     </button>
                                                 </div>
                                             </div>
@@ -369,34 +368,34 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title"><span class="glyphicon glyphicon-shopping-cart"></span><span> Panier - Produits</span></h4>
+                <h4 class="modal-title"><span class="glyphicon glyphicon-shopping-cart"></span><span> {{langue.panier_produit}}</span></h4>
             </div>
             <div class="modal-body" style="overflow: hidden">
                 <div class="row">
                     <table border="1">
-                        <th class="paddingTable">Titre</th>
-                        <th class="paddingTable">Option Attache</th>
-                        <th class="paddingTable">Additionel</th>
-                        <th class="paddingTable">Commande</th>
-                        <th class="paddingTable">Finition Papier</th>
-                        <th class="paddingTable">Dimension</th>
-                        <th class="paddingTable">Quantité</th>
-                        <th class="paddingTable">Instructions</th>
-                        <th class="paddingTable">Prix</th>
-                        <th class="paddingTable">Actions</th>
+                        <th class="paddingTable">{{langue.titre}}</th>
+                        <th class="paddingTable">{{langue.opt_attache}}</th>
+                        <th class="paddingTable">{{langue.additionel}}</th>
+                        <th class="paddingTable">{{langue.commande}}</th>
+                        <th class="paddingTable">{{langue.finition_ppr}}</th>
+                        <th class="paddingTable">{{langue.finition_ppr}}</th>
+                        <th class="paddingTable">{{langue.qte}}</th>
+                        <th class="paddingTable">{{langue.instructions}}</th>
+                        <th class="paddingTable">{{langue.prix}}</th>
+                        <th class="paddingTable">{{langue.actions}}</th>
                         <tr ng-repeat="(key, ligne) in fiche.arrProduits">
                             <td class="paddingTable">{{ligne.title}} - {{key}}</td>
                             <!--Escargot-->
-                            <td class="paddingTable" ng-show="ligne.escargot == 0">Aucun</td>
-                            <td class="paddingTable" ng-show="ligne.escargot == 1">Attach Escargot</td>
-                            <td class="paddingTable" ng-show="ligne.escargot == 2">Avec Trou</td>
+                            <td class="paddingTable" ng-show="ligne.escargot == 0">{{langue.aucun}}</td>
+                            <td class="paddingTable" ng-show="ligne.escargot == 1">{{langue.attache_escargot}}</td>
+                            <td class="paddingTable" ng-show="ligne.escargot == 2">{{langue.avec_trou}}</td>
                             <!--Caractéristiques Optionnel-->
-                            <td class="paddingTable" ng-show="ligne.option==0">Aucun</td>
-                            <td class="paddingTable" ng-show="ligne.option==1">Avec Cadre</td>
-                            <td class="paddingTable" ng-show="ligne.option==2">Avec Liseré</td>
+                            <td class="paddingTable" ng-show="ligne.option==0">{{langue.aucun}}</td>
+                            <td class="paddingTable" ng-show="ligne.option==1">{{langue.avec_cadre}}</td>
+                            <td class="paddingTable" ng-show="ligne.option==2">{{langue.avec_lisere}}</td>
                             <!--Bon de commande-->
-                            <td class="paddingTable" ng-show="ligne.bonrepli==1">Avec Bon à tirer</td>
-                            <td class="paddingTable" ng-show="ligne.bonrepli==2">Sans Bon à tirer</td>
+                            <td class="paddingTable" ng-show="ligne.bonrepli==1">{{langue.avec_bat}}</td>
+                            <td class="paddingTable" ng-show="ligne.bonrepli==2">{{langue.sans_bat}}</td>
                             <td class="paddingTable"> - </td>
                             <td class="paddingTable">{{ligne.dimension}}</td>
                             <td class="paddingTable">{{ligne.qte}}</td>
@@ -429,8 +428,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" ng-click="" data-dismiss="modal">Quitter</button>
-                <button type="button" class="btn btn-success pull-right">Valider</button>
+                <button type="button" class="btn btn-default pull-left" ng-click="" data-dismiss="modal">{{langue.quit}}</button>
+                <button type="button" class="btn btn-success pull-right">{{langue.valider}}</button>
             </div>
         </div>
     </div>

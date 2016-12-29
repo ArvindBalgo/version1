@@ -1,4 +1,4 @@
-var app = angular.module('adminApp', ['ngRoute', 'ngAnimate', 'toaster','angularFileUpload', 'ui.grid','ui.grid.edit', 'ui.grid.selection']);
+var app = angular.module('adminApp', ['ngRoute', 'ngAnimate', 'toaster','angularFileUpload', 'ui.grid','ui.grid.edit', 'ui.grid.selection', 'ngSanitize']);
 
 app.config(['$routeProvider',
   function ($routeProvider) {
@@ -108,6 +108,11 @@ app.config(['$routeProvider',
             title:      'Mentions légales',
             templateUrl:'sections/admin/legale/legale.tpl.html',
             controller: 'legaleController as legale'
+        })
+        .when('/langue', {
+            title:      'Language',
+            templateUrl:'sections/admin/langue/langue.tpl.html',
+            controller: 'langueController as langue'
         })
         .when('/', {
             title: 'Login',

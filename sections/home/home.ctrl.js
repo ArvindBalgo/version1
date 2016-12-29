@@ -21,6 +21,7 @@ angular
         vm.arrProds = [];
         vm.arrGabarits = [];
         $scope.isFiche = false;
+        $scope.langue = [];
 
 
 Data.get('session.php').then(function (results) {
@@ -31,7 +32,12 @@ Data.get('session.php').then(function (results) {
             }
             $scope.sessionInfo = results;
             console.log(results, 'results from admin');
-            document.getElementById("myNav").style.width = "100%";
+
+  //          if(localStorage.getItem('LANG') == "" || localStorage.getItem('LANG') == null) {
+                document.getElementById("myNav").style.width = "100%";
+                document.getElementById("panier_btn").style.display = "none";
+ //           }
+
             //$location();
         });
         vm.instructions = [
@@ -217,6 +223,25 @@ Data.get('session.php').then(function (results) {
             $('#produits').modal('hide');
             $('#myModel').modal('hide');
             document.body.style.overflow = "scroll";
+        }
+
+        vm.fnClickLang = function($lang) {
+            console.log($lang);
+            localStorage.setItem("LANG", $lang);
+            $http({
+                method: 'GET',
+                params: {mode:3, lang:$lang},
+                url: 'api/v1/langueCRUD.php'
+            }).then(function successCallback(response) {
+                console.log(response.data);
+                $scope.langue = angular.copy(response.data);
+                document.getElementById("myNav").style.width = "0%";
+                document.getElementById("panier_btn").style.display = "block";
+
+            }, function errorCallback(error) {
+                console.log(error);
+            });
+            
         }
 
         vm.fnClickTabs = function(tabVal){

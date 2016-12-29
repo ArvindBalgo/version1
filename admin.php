@@ -28,6 +28,7 @@
     <link rel="stylesheet" type="text/css" href="sections/admin/conditionvente/conditionvente.css" />
     <link rel="stylesheet" type="text/css" href="sections/admin/utilisation/utilisation.css" />
     <link rel="stylesheet" type="text/css" href="sections/admin/legale/legale.css" />
+    <link rel="stylesheet" type="text/css" href="sections/admin/langue/langue.css" />
     <!-- endbuild -->
 </head>
 <body data-ng-app="adminApp" ng-controller="mainController">
@@ -52,6 +53,8 @@
 <script src="assets/js/angular-1.5.7/angular.js"></script>
 <script src="assets/js/angular-1.5.7/angular-animate.js"></script>
 <script src="assets/js/angular-1.5.7/angular-route.js"></script>
+<script src="js/angular-sanitize.min.js"></script>
+
 <!-- Latest compiled and minified JavaScript -->
 <!--script src="js/bootstrap.min.js"></script-->
 <!-- Latest compiled and minified JavaScript -->
@@ -97,5 +100,6 @@
 <script src="sections/admin/conditionvente/conditionvente.ctrl.js"></script>
 <script src="sections/admin/utilisation/utilisation.ctrl.js"></script>
 <script src="sections/admin/legale/legale.ctrl.js"></script>
+<script src="sections/admin/langue/langue.ctrl.js"></script>
 </body>
 </html>
