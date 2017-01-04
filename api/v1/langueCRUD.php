@@ -35,6 +35,9 @@ else if($mode == 2) {
     }
     $langue->setEnglish($obj->english);
     $langue->setFrench($obj->french);
+    $langue->setSpanish($obj->spanish);
+    $langue->setGerman($obj->german);
+    $langue->setItalien($obj->italien);
     $langue->save();
 
     $lang = new langue();

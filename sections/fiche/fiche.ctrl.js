@@ -183,8 +183,9 @@ angular
                         vm.fnCalcPrixVente();
                     });
                 //******************************************************
-
-                var idSupport = $('.sel_papier').select2('data')[0].id;
+                if(arrPapier.length > 0){
+                    var idSupport = $('.sel_papier').select2('data')[0].id;
+                }
                 var qte_commander = Number($('.sel_qte').select2('data')[0].text);
                 var coeff_dimension = 0;
                 var coeff_support = 0;
@@ -1994,4 +1995,16 @@ angular
                     }
                 });
         }
+
+        $lang = localStorage.getItem("LANG");
+        $http({
+            method: 'GET',
+            params: {mode:3, lang:$lang},
+            url: 'api/v1/langueCRUD.php'
+        }).then(function successCallback(response) {
+            console.log(response.data);
+            $scope.langue = angular.copy(response.data);
+            });
+
+
     });

@@ -1,6 +1,6 @@
 angular
     .module('myApp')
-    .controller('HomeController', function($scope, $location, $http, Data, messages) {
+    .controller('HomeController', function($scope, $location, $http, Data, messages, $timeout) {
         //Setup view model object
         console.log('HOME CONTROLLER');
        // spinnerService.show('spin');
@@ -35,10 +35,36 @@ Data.get('session.php').then(function (results) {
 
   //          if(localStorage.getItem('LANG') == "" || localStorage.getItem('LANG') == null) {
                 document.getElementById("myNav").style.width = "100%";
+
+                $timeout(function(){
+                    $(document).ready(function(){
+
+                        // CSSMap;
+                        $("#map-europe").CSSMap({
+                            "size": 250,
+                            "cities": true,
+                            "tooltips": "floating-top-center",
+                            "responsive": "auto",
+                            "mapStyle": "vintage"
+                        });
+                        // END OF THE CSSMap;
+                    });
+                    $("#map-europe").removeClass("cssmap-250");
+                    $("#map-europe").addClass("cssmap-650");
+                }, 5);
+
                 document.getElementById("panier_btn").style.display = "none";
+                $('body').css({
+                    'overflow': 'hidden'
+                });
  //           }
 
             //$location();
+
+    console.log($( document ).width(), " window size");
+    $( document ).width("1382");
+
+
         });
         vm.instructions = [
             {id:1, description: "Réalisez votre maquette gratuitement et ensuite passer votre commande."},
@@ -237,6 +263,9 @@ Data.get('session.php').then(function (results) {
                 $scope.langue = angular.copy(response.data);
                 document.getElementById("myNav").style.width = "0%";
                 document.getElementById("panier_btn").style.display = "block";
+                $('body').css({
+                    'overflow': 'auto'
+                });
 
             }, function errorCallback(error) {
                 console.log(error);

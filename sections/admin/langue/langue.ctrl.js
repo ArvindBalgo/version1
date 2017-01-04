@@ -107,6 +107,9 @@ angular
                     console.log(value, objOrig);
                     value.english = objOrig.english;
                     value.french = objOrig.french;
+                    value.spanish = objOrig.spanish;
+                    value.german = objOrig.german;
+                    value.italien = objOrig.italien;
                 }
             });
         };

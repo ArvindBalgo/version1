@@ -6,6 +6,9 @@ class langue {
     private $_key_identifier = null;
     private $_english = "";
     private $_french = "";
+    private $_spanish = "";
+    private $_german = "";
+    private $_italien = "";
 
    private static $SELECT="SELECT * FROM langue";
     //**** Constructeur ****
@@ -33,6 +36,18 @@ class langue {
         $this->_french= $french;
     }
 
+    public function setSpanish($spanish) {
+        $this->_spanish= $spanish;
+    }
+
+    public function setGerman($german) {
+        $this->_german= $german;
+    }
+
+    public function setItalien($italien) {
+        $this->_italien= $italien;
+    }
+
 
     //**** Getters *****
 
@@ -53,6 +68,17 @@ class langue {
         return $this->_french;
     }
 
+    public function getSpanish() {
+        return $this->_spanish;
+    }
+
+    public function getGerman() {
+        return $this->_german;
+    }
+
+    public function getItalien() {
+        return $this->_italien;
+    }
     public function delete($id) {
         $requete = "DELETE FROM langue WHERE id=" . $id ;
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
@@ -65,17 +91,26 @@ class langue {
             $requete = "UPDATE langue SET key_identifier='" . ($this->_key_identifier) . "'";
             $requete .= ',english="' . $this->_english . '"';
             $requete .= ',french="' . $this->_french . '"';
+            $requete .= ',spanish="' . $this->_spanish . '"';
+            $requete .= ',german="' . $this->_german . '"';
+            $requete .= ',italien="' . $this->_italien . '"';
             $requete .= " WHERE id=" . $this->_id;
 
         } else {
             $requete = "INSERT INTO langue (";
             $requete .= "key_identifier,";
             $requete .= "english,";
-            $requete .= "french";
+            $requete .= "french,";
+            $requete .= "spanish,";
+            $requete .= "german,";
+            $requete .= "italien";
             $requete .= ") VALUES (";
             $requete .= "'" . $this->_key_identifier . "',";
             $requete .= '"' . $this->_english . '",';
-            $requete .= '"' . $this->_french . '")';
+            $requete .= '"' . $this->_french . '",';
+            $requete .= '"' . $this->_spanish . '",';
+            $requete .= '"' . $this->_german . '",';
+            $requete .= '"' . $this->_italien . '")';
         }
 
         $r = $this->conn->query($requete) or die($this->conn->error.__LINE__);
@@ -91,6 +126,9 @@ class langue {
         $langue->_key_identifier = $rs["key_identifier"];
         $langue->_english = $rs["english"];
         $langue->_french = $rs["french"];
+        $langue->_spanish = $rs["spanish"];
+        $langue->_german = $rs["german"];
+        $langue->_italien = $rs["italien"];
         return $langue;
     }
 
@@ -132,6 +170,15 @@ class langue {
             }
             else if($lang == 'FR') {
                 $rows[$row["key_identifier"]] = $row["french"];
+            }
+            else if($lang == 'ES') {
+                $rows[$row["key_identifier"]] = $row["spanish"];
+            }
+            else if($lang == 'AL') {
+                $rows[$row["key_identifier"]] = $row["german"];
+            }
+            else if($lang == 'IT') {
+                $rows[$row["key_identifier"]] = $row["italien"];
             }
             
         }

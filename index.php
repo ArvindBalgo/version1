@@ -17,16 +17,9 @@
     <!-- Optional - only when you would like to use custom fonts - optional -->
     <link rel="stylesheet" type="text/css" href="css/jquery.fancyProductDesigner-fonts.css" />
     <link rel="stylesheet" type="text/css" href="css/toastr.min.css" />
+    <!-- CSSMap STYLESHEET - EUROPE -->
+    <link rel="stylesheet" type="text/css" href="cssmap-europe/cssmap-europe.css" media="screen" />
 
-
-    <!--link rel="stylesheet" href="assets/css/font-icons.css" type='text/css'>
-    <link rel="stylesheet" href="assets/css/animations.css"/>
-    <link rel="stylesheet" href="assets/css/style.css"/>
-    <link rel="stylesheet" href="sections/home/home.css"/>
-    <link rel="stylesheet" href="components/show/show.css"/>
-    <link rel="stylesheet" href="sections/view/view.css"/>
-    <link rel="stylesheet" href="sections/search/search.css"/>
-    <link rel="stylesheet" href="sections/premieres/premieres.css"/-->
     <!-- endbuild -->
 </head>
 <body data-ng-app="myApp" ng-controller="mainController">
@@ -46,6 +39,12 @@
 <script src="js/jquery.ui.draggable.min.js"></script>
 <script src="js/jquery.ui.sortable.min.js"></script>
 <script src="assets/js/endless_scroll_min.js"></script>
+<!-- jQuery -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+<!-- CSSMap SCRIPT -->
+<script type="text/javascript" src="https://cssmapsplugin.com/5/jquery.cssmap.min.js"></script>
+
 <script src="js/page.js"></script>
 <script src="js/bootbox.min.js"></script>
 <script src="js/fabric.min.js"></script>

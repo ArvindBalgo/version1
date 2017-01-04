@@ -262,8 +262,15 @@ else if($mode == 9) {
 
     $coeffprix1 = new coeff_prix();
     $coeffprix1 = $coeffprix1->getListIdPapierSupport($cata_metier->getIdModelMetier() , $id_souscategory_coeffprix);
-    $cata_papier = new cata_papier();
-    $cata_papier = $cata_papier->findByList($coeffprix1['ligne']);
+
+    if($coeffprix1['ligne'] != null){
+        $cata_papier = new cata_papier();
+        $cata_papier = $cata_papier->findByList($coeffprix1['ligne']);
+    }
+    else{
+        $cata_papier = array();
+    }
+    
     $cata_dim = new cata_dimension();
     $cata_dim = $cata_dim->findByIDSCategory($cata_metier->getIdModelMetier() , $id_souscategory_coeffprix);
 
