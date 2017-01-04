@@ -40,7 +40,7 @@
 <script src="js/jquery.ui.sortable.min.js"></script>
 <script src="assets/js/endless_scroll_min.js"></script>
 <!-- jQuery -->
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<!--script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script-->
 
 <!-- CSSMap SCRIPT -->
 <script type="text/javascript" src="https://cssmapsplugin.com/5/jquery.cssmap.min.js"></script>
