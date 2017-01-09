@@ -21,7 +21,7 @@ angular
         vm.objconditionvente = [];
 
         vm.fnInit = function() {
-            $http({
+            /*$http({
                 method: 'GET',
                 params: {mode:10, type:2},
                 url: 'api/v1/metierCRUD.php'
@@ -32,6 +32,19 @@ angular
                 vm.objconditionvente = angular.copy(response.data);
             }, function errorCallback(error) {
                 console.log(error);
+            });*/
+
+            $.ajax({
+                url: 'api/v1/metierCRUDPOST.php',
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(response.data);
+                    vm.title = response.data.title;
+                    vm.dataText = response.data.data;
+                    vm.objconditionvente = angular.copy(response.data);
+                },
+                data: { mode:10, type:2}
             });
         };
 
@@ -55,13 +68,6 @@ angular
         };
 
         vm.fnValid = function() {
-            //console.log(vm.title, "title");
-            //console.log(vm.contenu , " contenu");
-            console.log(vm.objconditionvente);
-            /*if(vm.title.trim() == "" || vm.contenu.trim() == "") {
-             bootbox.alert("<div style='text-align: center'> <h4>Veuilez renseigner tous les champs svp.</h4></div>")
-             return;
-             }*/
             bootbox.dialog({
                 message: "Confirmez-vous la sauvegarde?",
                 title: "Sauvegarde",
@@ -94,17 +100,16 @@ angular
         };
 
         vm.fnValidLigne = function(objLigne){
-            console.log(objLigne , " objligne  <== ");
-            $http({
-                method: 'GET',
-                params: {mode:12, contenu:JSON.stringify(objLigne)},
-                url: 'api/v1/metierCRUD.php'
-            }).then(function successCallback(response) {
-                console.log(response.data);
-                bootbox.alert("Sauvegarde terminer");
-            }, function errorCallback(error) {
-                console.log(error);
+            $.ajax({
+                url: 'api/v1/metierCRUDPOST.php',
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    bootbox.alert("Sauvegarde terminer");
+                },
+                data: {  mode:12, contenu:JSON.stringify(objLigne)}
             });
+
         };
 
         vm.fnDelLigne  = function (objLigne) {
@@ -117,7 +122,7 @@ angular
                 bootbox.alert("Suppression terminer");
                 vm.fnInit();
             }, function errorCallback(error) {
-                console.log(error);
+                console.log(error, "blablabalba");
             });
         };
 

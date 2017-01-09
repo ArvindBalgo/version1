@@ -1,7 +1,7 @@
 
 angular
     .module('myApp')
-    .controller('conditionventeController', function($scope, $location, $timeout, messages, $http, Data) {
+    .controller('conditionventeController', function($scope, $location, $timeout, messages, $http, Data, $sanitize) {
         var vm = this;
         vm.title = "";
         vm.contenu = "";
@@ -23,5 +23,17 @@ angular
                 console.log(error);
             });
         };
-        vm.fnInit();
+
+        $lang = localStorage.getItem("LANG");
+        $http({
+            method: 'GET',
+            params: {mode:3, lang:$lang},
+            url: 'api/v1/langueCRUD.php'
+        }).then(function successCallback(response) {
+            console.log(response.data);
+            $scope.langue = angular.copy(response.data);
+            vm.fnInit();
+        });
+        
+        //vm.fnInit();
     });

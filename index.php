@@ -12,6 +12,7 @@
     <link href="css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="sections/fiche/fiche.css"/>
     <link rel="stylesheet" href="sections/apropos/apropos.css"/>
+    <link rel="stylesheet" href="sections/client/client.css"/>
     <!-- The CSS for the plugin itself - required -->
     <link rel="stylesheet" type="text/css" href="css/FancyProductDesigner-all.min.css" />
     <!-- Optional - only when you would like to use custom fonts - optional -->
@@ -65,6 +66,7 @@
 <script src="app/data.js"></script>
 <script src="app/directives.js"></script>
 <script src="app/authCtrl.js"></script>
+<script src="js/angular-sanitize.min.js"></script>
 <!-- / -->
 <!-- endbuild -->
 <!-- build:js app.min.js -->
@@ -80,6 +82,7 @@
 <script src="sections/conditionvente/conditionvente.ctrl.js"></script>
 <script src="sections/legale/legale.ctrl.js"></script>
 <script src="sections/utilisation/utilisation.ctrl.js"></script>
+<script src="sections/client/client.ctrl.js"></script>
 <!--script src="sections/premieres/premieres.ctrl.js"></script>
 <script src="sections/search/search.ctrl.js"></script>
 <script src="sections/view/view.ctrl.js"></script>

@@ -2,9 +2,10 @@
 <div class="row">
     <h2 style="text-align: center">{{vente.title}}</h2>
     <div class="col-md-offset-1 col-md-10">
-        <div style="white-space: pre-line;"  ng-repeat="ligne in vente.arrContents.data">
-            {{ligne.description}}
+        <div ng-bind-html="ligne.description" style="white-space: pre-line;"  ng-repeat="ligne in vente.arrContents.data">
         </div>
+
+        <p ng-bind-html="langue.message"></p>
     </div>
 </div>
 

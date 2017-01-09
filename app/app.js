@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster','angularFileUpload']);
+var app = angular.module('myApp', ['ngRoute', 'ngAnimate', 'toaster','angularFileUpload', 'ngSanitize']);
 
 app.config(['$routeProvider',
   function ($routeProvider) {
@@ -58,6 +58,11 @@ app.config(['$routeProvider',
             title:'Mentions légales',
             templateUrl:'sections/legale/legale.tpl.html',
             controller:'legaleController as legale'
+        })
+        .when('/client', {
+            title:'Espace client',
+            templateUrl:'sections/client/client.tpl.html',
+            controller:'clientController as client'
         })
         .otherwise({
                 redirectTo: '/home'

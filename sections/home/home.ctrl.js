@@ -5,7 +5,7 @@ angular
         console.log('HOME CONTROLLER');
        // spinnerService.show('spin');
         toastr.options.positionClass = 'toast-top-full-width';
-        toastr.success("Bienvenue chez Exakom, nous sommes à votre disposition si vous avez besoin d'aide");
+
         var vm = this;
         //document.getElementById("loader").style.display = "none";
         vm.btnMetier = [];
@@ -266,7 +266,7 @@ Data.get('session.php').then(function (results) {
                 $('body').css({
                     'overflow': 'auto'
                 });
-
+                toastr.success("Bienvenue chez Exakom, nous sommes à votre disposition si vous avez besoin d'aide");
             }, function errorCallback(error) {
                 console.log(error);
             });

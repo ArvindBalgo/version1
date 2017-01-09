@@ -1,5 +1,6 @@
 <?php
 include_once 'include_all.php';
+include_once "../chromePHP.php";
 
 $mode = $_GET['mode'];
 if($mode == 0) {
@@ -253,6 +254,8 @@ else if($mode == 9) {
         return;
     }
     $id_souscategory_coeffprix = $cata->getIdSousCategoryCoeffPrix();
+    $tarif_man = new tarif_manuel();
+    $tarif_man  = $tarif_man->findByIDCata($cata->getId_Cata());
 
     $coeffprix = new coeff_prix();
     $coeffprix = $coeffprix->findByProduit($id_souscategory_coeffprix);
@@ -328,7 +331,9 @@ else if($mode == 9) {
                             'elemback'=>$arrBack,
                             'type_support'=>$cata_papier,
                             'info_prix'=>$coeffprix,
-                            'coeff_dims'=>$cata_dim);
+                            'coeff_dims'=>$cata_dim,
+                            'type_tarif'=>$id_souscategory_coeffprix,
+                            'tarifManuel'=>$tarif_man);
     //}
 
     print json_encode($arrData);

@@ -69,7 +69,6 @@ class conditionvente {
         $listLOG =	 array();
         $requete = self::$SELECT;
         $rs = $this->conn->query($requete) or die($this->conn->error.__LINE__);
-        chromePHP::log($requete);
         $rows = [];
         while($row = mysqli_fetch_array($rs))
         {
